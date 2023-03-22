@@ -1,0 +1,20 @@
+<simulator name="Simulator" processor="trv32p3" mode="ca" lib="../lib">
+    <option id="checkers.ArgcArgv" value="on"/>
+    <option id="checkers.BreakpointType" value="all"/>
+    <option id="checkers.ColorStorageReadsWrites" value="all"/>
+    <option id="checkers.FileInputType" value="all"/>
+    <option id="checkers.FileOutputType" value="all"/>
+    <option id="checkers.HostedClib" value="on"/>
+    <option id="checkers.IssName" value="trv32p3_ca_dbg"/>
+    <option id="checkers.PipelineDepth" value="10"/>
+    <option id="checkers.Profile" value="on"/>
+    <option id="checkers.ProfileFunctions" value="on"/>
+    <option id="checkers.ProfileHazards" value="on"/>
+    <option id="checkers.ProfileOperations" value="on"/>
+    <option id="checkers.ProfileStorageType" value="all"/>
+    <option id="checkers.TestbenchInputDump" value="on"/>
+    <option id="checkers.TraceExecution" value="on"/>
+    <option id="checkers.VhdlVerilogComparison" value="on"/>
+    <option id="checkers.WatchpointType" value="all"/>
+    <option id="checkers.WorkDir" value="work/trv32p3_ca_dbg"/>
+</simulator>

@@ -1,0 +1,175 @@
+
+                The IP Designer Standard C Library.
+   
+                          Version 1.0
+                          Oct 25 2006
+
+
+Copyright (c) 2014 Synopsys, Inc. This processor model and the associated
+documentation are proprietary to Synopsys, Inc.  This model may only be
+used in accordance with the terms and conditions of a written license
+agreement with Synopsys, Inc.  All other use, reproduction, or distribution
+of this model are strictly prohibited.
+
+
+Abstract
+--------
+
+This file describes the IP Designer Standard C Library, compliant with
+the ISO/IEC C99 standard. Section 1 explains how the library must be installed.
+Section 2 lists the content of the library. Section 3 explains how the library
+must be targeted to a specific processor. Finally, section 4 explains how the
+library can be used.
+
+
+1) Installation
+---------------
+
+The C library is distributed as an archive runtime.zip, which is located in the
+<CHESSROOT>/retargetable-yyQq directory. To install the library for a specific
+processor, unzip the <CHESSROOT>/retargetable-yyQq/runtime.zip archive and move
+the "runtime" directory to the <processor>/lib directory.
+    
+
+2) Overview of the library
+--------------------------
+
+The Chess compiler is a freestanding implementation of the ISO/IEC C99
+standard. As such, the following standard header files <float.h>, <iso646.h>,
+<limits.h>, <stdarg.h>, <stdbool.h>, <stddef.h>, and <stdint.h> must be
+present.
+
+  - <float.h> 
+   
+    Limits and parameters of the standard floating-point types. This file is
+    only relevant for processors that support the float and/or double types.
+
+  - <iso646.h>
+
+    Alternative spellings for some tokens.
+
+  - <limits.h> 
+
+    Limits and parameters of the standard integer types.
+
+  - <stdarg.h> 
+
+    Macros for advancing through variable length function argument lists.
+
+  - <stdbool.h> 
+ 
+    Chess treats the type bool and the values true and false as built-in types.
+    Therefore, the stdbool.h file is empty.
+
+  - <stddef.h> 
+
+    This file defines the ptrdiff_t, size_t and wchar_t types, the NULL macro,
+    and the offsetof() macro.
+
+  - <stdint.h> 
+
+    Specific width integer types and the limits and parameters of these types.
+
+In addition to these mandatory header files, also following standard headers
+are provided.
+
+  - <ctype.h>
+
+    Functions for the classifying and mapping of characters.
+
+  - <errno.h>
+
+    Macros related to the reporting of error conditions.
+
+  - <stdio.h>
+
+    Types, macros, and functions for performing input and output. The IO
+    functions are implemented using the hosted IO functionality of Checkers.
+    The following functions are supported.
+
+      fopen(), fclose(), fflush(), fseek(), ftell(), feof(), ferror(),
+      clearerr(), vfprintf(), fprintf(), printf(), vfscanf(),  fscanf(),
+      scanf(), fputc(), fputs(), fgetc((), fgets(), fwrite(), fread() 
+
+  - <stdlib.h>
+
+    General utility functions. The following functions are supported: 
+
+      strtol(), strtoul(), atoi(), atol(), rand(), srand(), exit(), qsort()
+
+  - <string.h>
+
+    Functions for the manipulation of character arrays.
+
+
+3) Retargeting of the C library
+-------------------------------
+
+In order to target the C library to your processor, some changes to the header
+files may be required.  
+
+  - In the file runtime/include/float.h, the correct limits and parameters of
+    the floating point types that are supported on the target processor must be
+    listed.
+ 
+  - In the file runtime/include/limits.h, the correct limits and parameters of
+    the integer types that are supported on the target processor must be
+    listed.
+ 
+  - In the file runtime/include/stdarg.h, define the STDARG_STACK_SCHEME macro
+    to one of the listed values.
+
+  - In the file runtime/include/stdint.h, only those types that are supported
+    on the target processor should be listed.
+
+  - In the file runtime/include/stdlib.h, modify the definition of the exit()
+    function such that: 
+      + the 'status' argument is assigned to the register that normally holds
+        the return value of a function,
+      + the instruction set simulator can be stopped when the exit() function
+        is executed.
+
+    In the example function, the first requirement is achieved by annotating
+    the status argument with a chess_storage() pragma.
+
+    To realise the second requirement, the exit() function jumps to the fixed
+    address zero. This is normally also the start address of the main()
+    function. To halt the ISS, a micro-code breakpoint at address 0 and with a
+    hit count of two must then be added.
+  
+To compile the C library on your target processor, open the libc.prx project
+file in ChessDE. You will be prompted to select a target processor model. Enter
+the name of your processor in the "Processor name" field, save the project file
+and make the project. This will produce the library runtime/lib/libc.a.
+
+The <stdio.h> functions make use the of hosted IO functionality of Checkers.
+This feature must be enabled when configuring the ISS. In checkers_cfg, select
+the "Functionality/Data" tab and enable the option "Enable input/output via
+<stdio.h>".
+
+
+4) Using the C library
+----------------------
+
+In order to use the C library, search paths must be specified for the header
+files and for the library file. These paths are best added to the processor
+project file.
+
+  - Open the processor project file in ChessDE.
+ 
+  - Open the "Project settings" window.
+
+  - Select the "Processor/CPP preprocessor" setting and edit the "Include
+    path". Add the runtime/include directory using the "Relative to processor"
+    option.
+
+  - Select the "Processor/Linking" setting and edit the "Library path". Add the
+    runtime/lib directory using the "Relative to processor" option.
+
+    Also edit the "Libraries in library path" setting and add the library name
+    "c".
+
+    As a result of these two settings, the runtime/lib/libc.a library will be
+    linked to every program.
+
+    

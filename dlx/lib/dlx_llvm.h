@@ -1,0 +1,6 @@
+#ifndef _dlx_llvm_h
+#define _dlx_llvm_h
+
+#include "isg/dlx_chess_llvm.h"
+
+#endif

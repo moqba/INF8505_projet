@@ -1,0 +1,14 @@
+include: |
+    #include "adapters/var_latency_mem_ia_tlm2_ft_axi_adapter.h"
+
+declare: |
+    scml2::ft_initiator_socket<[=$mem get data_width=]> p_[=$mem get name=]_ft;
+
+construct: |
+    mdl->m_[=$mem get name=] = new VarLatency_IA_TLM2_FT_AXI_Adapter<[=$mem get data_width=]>("m_[=$mem get name=]", &p_[=$mem get name=]_ft, this);
+
+initialize: |
+    , p_[=$mem get name=]_ft("p_[=$mem get name=]_ft")
+
+end_of_elab: |
+    (*(((VarLatency_IA_TLM2_FT_AXI_Adapter<8>*)mdl->m_[=$mem get name=])->mSocketAdapter))(scml2::get_scml_clock([=$iss get clock=]));

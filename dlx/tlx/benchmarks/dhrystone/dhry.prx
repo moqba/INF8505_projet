@@ -1,5 +1,0 @@
-<project name="Project" processor="tlx" lib="../../lib">
-    <file type="c" name="dhry.c" path=""/>
-    <option id="project.name" value="dhry"/>
-    <option id="project.type" value="exe"/>
-</project>

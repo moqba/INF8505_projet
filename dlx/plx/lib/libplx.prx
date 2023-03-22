@@ -1,6 +1,0 @@
-<project name="Project" processor="plx" lib=".">
-    <file type="a" name="plx_init.s" path=""/>
-    <file type="c" name="plx_div_longlong.c" path=""/>
-    <option id="project.name" value="libplx.a"/>
-    <option id="project.type" value="arch"/>
-</project>

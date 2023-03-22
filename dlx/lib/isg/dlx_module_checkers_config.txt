@@ -1,0 +1,59 @@
+ModuleReadsTransitory = div main divA divB
+ModuleWritesTransitory = div main div_busy_wb wh wl
+ModuleReadsTransitory = div div_busy_raw_writer 
+ModuleWritesTransitory = div div_busy_raw_writer div_busy_raw
+ModuleReadsTransitory = div div_busy_writer 
+ModuleWritesTransitory = div div_busy_writer div_busy
+ModuleProcess = div main
+ModuleProcess = div div_busy_raw_writer
+ModuleProcess = div div_busy_writer
+MulticycleFunctionalUnitOperations = div main vd_divide_divA_divB_wl_wh_div_EX
+MulticycleFunctionalUnitOperations = div div_busy_raw_writer vd_divide_divA_divB_wl_wh_div_EX
+MulticycleFunctionalUnitOperations = div div_busy_writer vd_divide_divA_divB_wl_wh_div_EX
+ModuleLocalStorage = div div__B div__PA div__cnt
+
+ModuleReadsTransitory = banks process_result dm0_rd dm1_rd dm2_rd dm3_rd
+ModuleWritesTransitory = banks process_result dmb_rd dmh_rd
+ModuleReadsTransitory = banks process_request dm_addr ld_dmb ld_dmh ld_dmw st_dmb st_dmh st_dmw
+ModuleWritesTransitory = banks process_request ld0 ld1 ld2 ld3 st0 st1 st2 st3
+ModuleReadsTransitory = banks dmw_rd_writer dm0_rd dm1_rd dm2_rd dm3_rd
+ModuleWritesTransitory = banks dmw_rd_writer dmw_rd
+ModuleReadsTransitory = banks dm3_wr_writer dmb_wr dmh_wr dmw_wr st_dmh st_dmw
+ModuleWritesTransitory = banks dm3_wr_writer dm3_wr
+ModuleReadsTransitory = banks dm3_addr_writer dm_addr
+ModuleWritesTransitory = banks dm3_addr_writer dm3_addr
+ModuleReadsTransitory = banks dm2_wr_writer dmb_wr dmh_wr dmw_wr st_dmh st_dmw
+ModuleWritesTransitory = banks dm2_wr_writer dm2_wr
+ModuleReadsTransitory = banks dm2_addr_writer dm_addr
+ModuleWritesTransitory = banks dm2_addr_writer dm2_addr
+ModuleReadsTransitory = banks dm1_wr_writer dmb_wr dmh_wr dmw_wr st_dmh st_dmw
+ModuleWritesTransitory = banks dm1_wr_writer dm1_wr
+ModuleReadsTransitory = banks dm1_addr_writer dm_addr
+ModuleWritesTransitory = banks dm1_addr_writer dm1_addr
+ModuleReadsTransitory = banks dm0_wr_writer dmb_wr dmh_wr dmw_wr st_dmh st_dmw
+ModuleWritesTransitory = banks dm0_wr_writer dm0_wr
+ModuleReadsTransitory = banks dm0_addr_writer dm_addr
+ModuleWritesTransitory = banks dm0_addr_writer dm0_addr
+ModuleProcess = banks process_result
+ModuleProcess = banks process_request
+ModuleProcess = banks dmw_rd_writer
+ModuleProcess = banks dm3_wr_writer
+ModuleProcess = banks dm3_addr_writer
+ModuleProcess = banks dm2_wr_writer
+ModuleProcess = banks dm2_addr_writer
+ModuleProcess = banks dm1_wr_writer
+ModuleProcess = banks dm1_addr_writer
+ModuleProcess = banks dm0_wr_writer
+ModuleProcess = banks dm0_addr_writer
+nml_interface = banks DMb
+mem_interface = banks DM0 DM1 DM2 DM3
+ModuleLocalStorage = banks banks__ld0_ff banks__ld1_ff banks__ld2_ff banks__ld3_ff
+
+ModuleDbgAccess = banks dbg_access_DMb
+
+
+PDGTypes = uint1_t uint32_t uint64_t uint6_t 
+
+NumberOfPdgModules = 4
+
+NumberOfPrimitveCFiles = 1

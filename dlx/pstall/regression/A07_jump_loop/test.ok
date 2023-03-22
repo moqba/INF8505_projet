@@ -1,5 +1,0 @@
-// test_cl_doi()
-chess_report(int): 0x0000002b // 43
-chess_report(int): 0x0000002f // 47
-chess_report(int): 0x00000033 // 51
-chess_report(int): 0x00000034 // 52

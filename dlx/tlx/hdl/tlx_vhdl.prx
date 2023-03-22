@@ -1,6 +1,0 @@
-<hdlgenerator name="HDL project" processor="tlx" lib="../lib">
-    <option id="hdl.gcf" value="go_options.cfg"/>
-    <option id="hdl.lang" value="vhdl"/>
-    <option id="hdl.outdir" value="tlx_vhdl"/>
-    <option id="cpp.define" value="IS_VHDL" inherit="1"/>
-</hdlgenerator>

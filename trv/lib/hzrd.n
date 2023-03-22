@@ -1,0 +1,77 @@
+/*
+-- File : hazards.n
+--
+-- Contents : nML model for the trv32p3 processor - bypass and stall rules.
+--
+-- Copyright (c) 2019-2020 Synopsys, Inc. This Synopsys processor model
+-- captures an ASIP Designer Design Technique. The model and all associated
+-- documentation are proprietary to Synopsys, Inc. and may only be used
+-- pursuant to the terms and conditions of a written license agreement with
+-- Synopsys, Inc.  All other use, reproduction, modification, or distribution
+-- of the Synopsys processor model or the associated  documentation is
+-- strictly prohibited.
+*/
+
+
+// ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+// ~~~ Hardware stalls for load-store instructions
+// ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+// ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+// AGU uses result from other units
+
+// Hazard condition
+// cycle            0  1  2  3  4  5  6  7  8
+// mv x5,x3         IF ID EX
+//                        ^^ write x5
+// ld x4,4(x5!)        IF ID EX
+//                        ^^ read x5
+
+hw_stall 1 cycles class(agu_read_after_write) () {
+  stage EX: X$[#] = ...;
+} -> {
+  stage ID: r3 = X$[#];
+}
+
+
+// ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+// ~~~ Hardware stalls for division
+// ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+// Assumption: cycles(2) annotated to div
+
+// ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+// Stall when an instruction reads the result while unit is still busy (RAW)
+
+hw_stall trn class(read_after_div) () {
+  trn(div_bsy); address_trn(div_adr);
+} -> {
+  ... = X$[#];
+}
+
+// ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+// Do not write to destination register before div result is written (WAW)
+
+hw_stall trn class(write_after_div) () {
+  trn(div_bsy); address_trn(div_adr);
+} -> {
+  X$[#] = ...;
+}
+
+// ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+// No new division may be started while the previous is still busy
+
+hw_stall trn class(div_busy) () {
+  trn(div_bsy);
+} -> {
+  class(div);
+}
+
+// ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+// No instruction may use register write port when result is written
+
+hw_stall trn class(div_wp) () {
+  trn(div_wnc);
+} -> {
+  rsrc(w1 `EX`);
+}

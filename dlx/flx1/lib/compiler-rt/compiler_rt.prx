@@ -1,7 +1,0 @@
-<project name="Project" processor="flx" lib="..">
-    <import path="../../../../libs/compiler-rt-9.0.0/lib/builtins" name="compiler_rt.prx"/>
-    <option id="cpp.define" value="__SOFT_FP__" inherit="1"/>
-    <option id="project.dir" value="lib/&lt;CONFIG&gt;"/>
-    <option id="project.name" value="libcompiler_rt.a"/>
-    <option id="project.type" value="arch"/>
-</project>

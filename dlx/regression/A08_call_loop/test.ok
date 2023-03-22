@@ -1,0 +1,14 @@
+// test_cl_doi()
+chess_report(int): 0x002a // 42
+chess_report(int): 0x002b // 43
+chess_report(int): 0x002e // 46
+chess_report(int): 0x002f // 47
+chess_report(int): 0x0032 // 50
+chess_report(int): 0x0033 // 51
+chess_report(int): 0x0034 // 52
+// test_clid_doi()
+chess_report(int): 0x002a // 42
+chess_report(int): 0x002f // 47
+chess_report(int): 0x0032 // 50
+chess_report(int): 0x0037 // 55
+chess_report(int): 0x0038 // 56

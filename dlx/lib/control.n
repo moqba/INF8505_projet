@@ -1,0 +1,302 @@
+/*
+-- File : control.n
+--
+-- Contents : nML model for the DLX processor -- control instructions.
+--
+-- Copyright (c) 2014-2016 Synopsys, Inc. This Synopsys processor model 
+-- captures an ASIP Designer Design Technique. The model and all associated 
+-- documentation are proprietary to Synopsys, Inc. and may only be used 
+-- pursuant to the terms and conditions of a written license agreement with 
+-- Synopsys, Inc.  All other use, reproduction, modification, or distribution 
+-- of the Synopsys processor model or the associated  documentation is 
+-- strictly prohibited. 
+*/
+
+
+
+opn control_instr(br_instr | j_instr | jal_instr | jalr_instr | jr_instr |
+		  nop_instr | swbrk_instr
+#if defined(DLX_HAS_DOLOOP)
+          | do_instr | doi_instr  
+#endif
+#ifdef DLX_HAS_ZLOOP
+          | zloop_instr
+#endif // def DLX_HAS_ZLOOP
+          ); 
+
+// Jump pipeline for j and jal
+//
+// i   : j    : IF  ID  EX  ME  WB
+// i+1 : ds1  :     IF  ID  EX  ME  WB
+// i+2 : t1   :         IF  ID  EX  ME  WB
+
+// Jump pipeline for jalr, jar, beqz-taken and bnez-taken
+// Branch not taken pipeline: beqz-not-taken and bnez-not-taken
+//
+// i   : beqz : IF  ID  EX  ME  WB
+// i+1 : ds1  :     IF  ID  EX  ME  WB
+// i+2 : ds2  :         IF  ID  EX  ME  WB
+// i+3 : n1   :             IF  ID  EX  ME  WB
+
+trn cnd<bool>;
+trn of16<int16>;
+trn of26<int26>;
+trn trgt<w32>;
+trn lnk<w32>;
+
+trn ds1<uint1>;    hw_init ds1 = 0;
+trn ds2<uint1>;    hw_init ds2 = 0;
+
+fu eq;   // test beqz or bnez
+trn eqA<w32>;
+
+fu pca;
+trn pcaA<w32>;
+trn pcaB<w32>;
+trn pcaC<w32>;
+
+opn br_instr(op: opcode, a: rdS1, i: c16s) 
+{
+    action {
+    stage ID:
+        a;
+	ds1 = 1;
+    stage EX:
+	switch (op) {
+	case beqz: cnd = eqz(eqA=pS1) @eq; 
+	case bnez: cnd = nez(eqA=pS1) @eq;
+	}
+	br(cnd,of16=i);
+	ds2 = 1;
+    }
+    syntax : op " " a ",#" dec i;
+    image  : op::a::"00000"::i, delay_slots(2), chess_pc_offset(2), class(jump_ex);
+}
+
+opn j_instr(i: c26s) 
+{
+    action {
+    stage ID: 
+        j(of26=i);
+	ds1 = 1;
+    }
+    syntax : "j #" dec i;
+    image  : opcode.j::i, delay_slots(1), chess_pc_offset(1), class(jump_id);
+}
+
+opn jal_instr(lr: wrLR, i: c26s) 
+{
+    action { 
+    stage ID: 
+	pS2 = lnk_pf = jal(of26=i); 
+	ds1 = 1;
+    stage EX..WB:
+	lr = pS2`EX`;
+    }
+    syntax : "jal #" dec i;
+    dummy_syntax : lr;
+    image  : opcode.jal::i, delay_slots(1), chess_pc_offset(1), class(jump_id);
+}
+
+opn jalr_instr(lr: wrLR, b: rdS1) 
+{
+    action { 
+    stage ID: 
+        b;
+	ds1 = 1;
+    stage EX:
+	lnk_pf = jalr(trgt=pS1); 
+	ds2 = 1;
+    stage EX..WB:
+	lr = lnk_pf`EX`;
+    }
+    syntax : "jalr " b;
+    dummy_syntax : lr;
+    image  : opcode.jalr::b::"00000"::"0000000000000000", delay_slots(2),class(jump_ex);
+}
+
+opn jr_instr(a: rdS1) 
+{
+    action {
+    stage ID: 
+        a;
+	ds1 = 1;
+    stage EX: 
+        jr(trgt=pS1);
+	ds2 = 1;
+    }  
+    syntax : "jr " a;
+    image  : opcode.jr::a::"00000"::"0000000000000000", delay_slots(2), class(jump_ex);
+}
+
+opn nop_instr() 
+{
+    action { stage ID: nop(); }  
+    syntax : "nop";
+    image  : opcode.function::"00000"::"00000"::"00000"::function_code.nop;
+}
+
+
+trn lnk_pf<w32>;   // link to the instruction in the pre-fetch stage (PC+1)
+hw_init lnk_pf = 0;
+
+#if defined(DLX_HAS_DOLOOP)
+
+trn le_offs<int16>;
+
+opn loop(last: c16s)
+{
+    action {
+    stage ID: ds1 = 1;
+    stage EX: ds2 = 1;
+    stage EX:
+        le_offs = last rsrc(pcaC);
+        hwdo(lcw,le_offs);
+#if !defined(__programmers_view__)
+        LF = lfw = incr(lfr=LF);
+        pcaB = le_offs;
+	pcaC = pcadd(pcaA=pcr=PC,pcaB) @pca;
+        LE[lfw] = lew = pcaC;
+        LS[lfw] = lsw = lnk_pf;
+        LC[lfw] = lcw;
+#endif
+    }
+    syntax : last;
+    image : last, delay_slots(2), chess_pc_offset(2);
+}
+
+opn do_instr(a: rdS1, l: loop)
+{
+    action {
+    stage ID:
+        a;
+    stage EX:
+        lcw = pS1;
+    stage ID..EX:
+        l;
+    }
+    syntax : "do " a "," l;
+    image : opcode.do::a::"xxxxx"::l;
+}
+
+opn doi_instr(count: c10u, l: loop)
+{
+    action {
+    stage EX:
+        lcw = count;
+    stage ID..EX:
+        l;
+    }
+    syntax : "doi " dec count "," l;
+    image : opcode.doi::count::l;
+}
+
+#endif
+
+#ifdef DLX_HAS_ZLOOP
+
+// zloop
+
+opn zloop_instr(zloop_s_instr|zloop_e_instr|zloop_cr_instr|zloop_ci_instr);
+
+cst c24u  <uint24>;
+
+trn tzc<w32>;
+trn tzs<w32>;
+trn tze<w32>;
+
+// Instructions
+// * mv zs, int       : offset int16
+// * mv ze, int       : offset int16
+// * mv zc, int       : uint24
+// * mv zc, reg       : w32
+
+// mv zs, imm
+opn zloop_s_instr(s: c16s, zs: mZS) {
+  action {
+    stage ID: ds1 = 1;
+    stage EX: ds2 = 1;
+    stage EX: zs = tzs; tzs = le_offs = s;
+  }
+  syntax : "mv zs," s;
+  image  : opcode.zlp :: "xxxxx" :: "00xxx" :: s, chess_pc_offset(2);
+}
+
+// mv ze, imm
+opn zloop_e_instr(e: c16s, ze: mZE) {
+  action {
+    stage ID: ds1 = 1;
+    stage EX: ds2 = 1;
+    stage EX: ze = tze; tze = le_offs = e;
+  }
+  syntax : "mv ze," e;
+  image  : opcode.zlp :: "xxxxx" :: "01xxx" :: e, chess_pc_offset(2);
+}
+
+// mv zc, reg
+opn zloop_cr_instr(c: rdS1, zc: mZC) {
+  action {
+    stage ID..EX: c;
+    stage EX:     zc = tzc = pS1;
+  }
+  syntax : "mv zc," c;
+  image  : opcode.zlp :: c :: "10xxx" :: "xxxxxxxxxxxxxxxx";
+}
+
+// mv zc, imm
+opn zloop_ci_instr(c: c24u, zc: mZC) {
+  action {
+    stage EX: zc = tzc = c;
+  }
+  syntax : "mv zc," c;
+  image  : opcode.zlp :: c[23..19] :: "11":: c[18..0];
+}
+
+// read/write ZS
+#ifdef __programmers_view__
+  mode mZS() {
+  write_value : stage EX: zsw;
+  write_action {
+    stage EX: ZS = zsw rsrc(pcaC);
+    }
+  }
+#else
+  mode mZS() {
+    write_value : stage EX: pcaB;
+    write_action {
+    stage EX: pcaC = pcadd(pcaA=pcr=PC,pcaB) @pca;
+              ZS = zsw = pcaC;
+  }
+}
+#endif
+
+// read/write ZE
+#ifdef __programmers_view__
+  mode mZE() {
+  write_value : stage EX: zew;
+  write_action {
+    stage EX: ZE = zew rsrc(pcaC);
+    }
+  }
+#else
+  mode mZE() {
+    write_value : stage EX: pcaB;
+    write_action {
+    stage EX: pcaC = pcadd(pcaA=pcr=PC,pcaB) @pca;
+              ZE = zew = pcaC;
+  }
+}
+#endif
+
+// read/write ZC
+mode mZC() {
+  write_value : stage EX: zcw;
+  write_action {
+    stage EX: ZC = zcw;
+#ifndef __programmers_view__
+    stage EX: ZD = zcw; // zloop_count_invariant
+#endif
+  }
+}
+
+#endif // def DLX_HAS_ZLOOP

@@ -1,0 +1,12 @@
+<simulator name="Simulator" processor="dlx" mode="ia" lib="../lib">
+    <option id="checkers.BreakpointType" value="src"/>
+    <option id="checkers.ColorStorageReadsWrites" value="all"/>
+    <option id="checkers.FileInputType" value="all"/>
+    <option id="checkers.FileOutputType" value="all"/>
+    <option id="checkers.HostedClib" value="on"/>
+    <option id="checkers.IssName" value="dlx_ia"/>
+    <option id="checkers.Profile" value="on"/>
+    <option id="checkers.TraceExecution" value="on"/>
+    <option id="checkers.WatchpointType" value="all"/>
+    <option id="checkers.WorkDir" value="work/dlx_ia"/>
+</simulator>

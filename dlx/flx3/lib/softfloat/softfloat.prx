@@ -1,8 +1,0 @@
-<project name="Project" processor="flx" lib="..">
-    <file type="c" name="softfloat.c" path="&lt;PROCDIR&gt;/softfloat"/>
-    <option id="llvm.clang" value="off"/>
-    <option id="noodle.optim.noxrt" value="on"/>
-    <option id="project.dir" value="lib/&lt;CONFIG&gt;"/>
-    <option id="project.name" value="libsoftfloat.a"/>
-    <option id="project.type" value="arch"/>
-</project>

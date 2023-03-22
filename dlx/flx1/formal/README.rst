@@ -1,1 +1,0 @@
-https://readytalk.webcasts.com/viewer/event.jsp?ei=1310895&tp_key=1a267d8a7f

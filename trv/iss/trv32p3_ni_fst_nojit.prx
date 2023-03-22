@@ -1,0 +1,22 @@
+<simulator name="Simulator" processor="trv32p3" mode="ca" lib="../lib">
+    <option id="checkers.AlignAddresses" value="off"/>
+    <option id="checkers.ArgcArgv" value="off"/>
+    <option id="checkers.BreakpointType" value="mic"/>
+    <option id="checkers.CheckAddresses" value="0"/>
+    <option id="checkers.CheckConflicts" value="0"/>
+    <option id="checkers.CheckReserved" value="0"/>
+    <option id="checkers.CheckStack" value="0"/>
+    <option id="checkers.CheckUninitialized" value="0"/>
+    <option id="checkers.ColorStorageReadsWrites" value="off"/>
+    <option id="checkers.HostedClib" value="on"/>
+    <option id="checkers.InstructionCountSupported" value="off"/>
+    <option id="checkers.InstructionHistorySupported" value="off"/>
+    <option id="checkers.IssName" value="trv32p3_ni_fst_nojit"/>
+    <option id="checkers.PcHistorySupported" value="off"/>
+    <option id="checkers.PipelineInfoSupported" value="off"/>
+    <option id="checkers.ReportWAWHazards" value="off"/>
+    <option id="checkers.SourceSteppingSupported" value="off"/>
+    <option id="checkers.TraceExecution" value="off"/>
+    <option id="checkers.WorkDir" value="work/trv32p3_ni_fst_nojit"/>
+    <option id="cpp.define" value="TRV32P3_NO_IO" inherit="1"/>
+</simulator>

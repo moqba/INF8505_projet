@@ -1,7 +1,0 @@
-// make()
-// fill()
-// test()
-chess_report(int): 0x0000abcd // 43981
-chess_report(long): 0x9876abcd // -1737053235
-chess_report(int): 0xffffffff // -1
-chess_report(long): 0xfffffffe // -2

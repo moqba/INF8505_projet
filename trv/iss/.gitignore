@@ -1,0 +1,15 @@
+/trv32p3_ca_dbg
+/trv32p3_ca_fst_jit
+/trv32p3_ca_fst_nojit
+/trv32p3_ia_dbg
+/trv32p3_ia_fst_blockjit
+/trv32p3_ia_fst_jit
+/trv32p3_ia_fst_nojit
+/trv32p3_ni_dbg
+/trv32p3_ni_fst_jit
+/trv32p3_ni_fst_nojit
+/trv32p3_sc_dbg
+/trv32p3_sc_ia
+/*.prxui
+/work/
+/cycles_graph.dot*

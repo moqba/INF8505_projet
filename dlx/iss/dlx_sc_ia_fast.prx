@@ -1,0 +1,27 @@
+<simulator name="Simulator" processor="dlx" mode="ia" lib="../lib">
+    <option id="checkers.AlignAddresses" value="off"/>
+    <option id="checkers.BreakpointType" value="all"/>
+    <option id="checkers.CheckAddresses" value="0"/>
+    <option id="checkers.CheckConflicts" value="0"/>
+    <option id="checkers.CheckStack" value="0"/>
+    <option id="checkers.CheckUninitialized" value="0"/>
+    <option id="checkers.DynamicBlockHotCount" value="0"/>
+    <option id="checkers.DynamicPcHotCount" value="0"/>
+    <option id="checkers.ExtraCFiles" value="systemc/dlx_sc_ia_top.cpp" inherit="1"/>
+    <option id="checkers.ExtraIncDirs" value="{$(OSCI_DIR)/include}" inherit="1"/>
+    <option id="checkers.ExtraLibDirs" value="{$(OSCI_DIR)/lib-linux64}" inherit="1"/>
+    <option id="checkers.ExtraLibraries" value="scml2 scml2_logging scml_clock systemc" inherit="1"/>
+    <option id="checkers.GenerateDynamicCode" value="on"/>
+    <option id="checkers.GenerateSystemCInterface" value="on"/>
+    <option id="checkers.GenerateSystemCInterfaceWithGUI" value="on"/>
+    <option id="checkers.HostedClib" value="on"/>
+    <option id="checkers.ISSLinkType" value="exe"/>
+    <option id="checkers.IssName" value="dlx_sc_ia_fast"/>
+    <option id="checkers.nMLMemoryInterfaceSelectStorages" value="all"/>
+    <option id="checkers.NoMain" value="on"/>
+    <option id="checkers.SourceSteppingSupported" value="off"/>
+    <option id="checkers.TraceExecution" value="off"/>
+    <option id="checkers.WatchpointStorages" value="R" inherit="1"/>
+    <option id="checkers.WatchpointType" value="selected"/>
+    <option id="checkers.WorkDir" value="work/dlx_sc_ia_fast"/>
+</simulator>

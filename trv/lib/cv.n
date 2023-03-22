@@ -1,0 +1,146 @@
+/*
+-- File : cv.n
+--
+-- Contents : nML model for the trv32p3 processor -- chess-view rules
+--
+-- Copyright (c) 2019-2020 Synopsys, Inc. This Synopsys processor model
+-- captures an ASIP Designer Design Technique. The model and all associated
+-- documentation are proprietary to Synopsys, Inc. and may only be used
+-- pursuant to the terms and conditions of a written license agreement with
+-- Synopsys, Inc.  All other use, reproduction, modification, or distribution
+-- of the Synopsys processor model or the associated  documentation is
+-- strictly prohibited.
+*/
+
+// ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+// Reading X[0] alias zero returns '0'
+// ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+chess_view() { r1 = zero; }
+          -> { r1 = 0;    }
+
+chess_view() { r2 = zero; }
+          -> { r2 = 0;    }
+
+
+// ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+// ~~~ ALU
+// ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+// ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+// reg move
+//
+// addi rd, rs1, 0
+
+chess_view () { aluR = add (aluA,aluB=0); class(alu_rri); }
+           -> { aluR = aluA; }
+
+// ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+// pass c12s constant
+//
+// addi rd, x0, imm
+
+chess_view (i:c12s) { aluR = add (aluA=zero,aluB=i); }
+                 -> { aluR = i; }
+
+// ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+// pass c20s_rp12 constant
+//
+// lui rd, imm
+
+chess_view (i:c20s_rp12) { aluR = add (aluA=zero,aluB=i); }
+                      -> { aluR = i; }
+
+// ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+// set equal zero
+//
+// sltiu rd, rs, 1
+
+chess_view () { aluR = sltu (aluA,aluB=1); }
+           -> { aluR = seq0 (aluA); }
+
+// ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+// set not equal zero
+//
+// sltu rd, x0, rs
+
+chess_view () { aluR = sltu (aluA=zero,aluB); }
+           -> { aluR = sne0 (aluB); }
+
+// ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+// zext_08 primitive, e.g. for unsigned to unsigned char
+//
+// andi rd, rs1, 0xff
+
+chess_view () { aluR = band (aluA,aluB=0xff); }
+           -> { aluR = zext_08 (aluA); }
+
+// ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+// nop
+//
+// addi x0, x0, 0
+
+chess_view () { w1_dead = add (aluA=zero,aluB=0); class(alu_rri); }
+           -> { nop(); }
+
+
+// ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+// ~~~ control
+// ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+// ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+// A JAL with destination register X[0] is a plain direct jump instruction
+//    jal x0, imm
+// => j imm
+
+chess_view () { w1_dead = jal (of21); }
+           -> { j (of21); }
+
+// ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+// A JALR with destination register X[0] is a plain indirect jump instruction
+//    jalr x0, rs1, 0
+// => jr rs1
+
+chess_view () { w1_dead = jalr (trgt); }
+           -> { jr (trgt); }
+
+// Explain the pass-through in front of jalr
+chess_view () { trgt = add (aluA,aluB=0); }
+           -> { trgt = aluA; }
+
+
+// ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+// ~~~ AGU
+// ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+// ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+// indirect addressing
+
+chess_view () { aguR = add (aguA,aguB=0); }
+           -> { aguR = aguA; }
+
+// ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+// direct addressing
+
+chess_view () { aguR = add (aguA=zero,aguB); }
+           -> { aguR = aguB; }
+
+
+// ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+// ~~~ Compiler abstraction for RTL optimized primitives
+// ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+// ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+// ~~~ Multiplier
+
+chess_view () { mpyR = mpyL; mul_hw (mpyA,mpyB,mpyMD=0b11,mpyL,mpyH); }
+           -> { mpyR = mul    (mpyA,mpyB); }
+
+chess_view () { mpyR = mpyH; mul_hw (mpyA,mpyB,mpyMD=0b11,mpyL,mpyH); }
+           -> { mpyR = mulh   (mpyA,mpyB); }
+
+chess_view () { mpyR = mpyH; mul_hw (mpyA,mpyB,mpyMD=0b10,mpyL,mpyH); }
+           -> { mpyR = mulhsu (mpyA,mpyB); }
+
+chess_view () { mpyR = mpyH; mul_hw (mpyA,mpyB,mpyMD=0b00,mpyL,mpyH); }
+           -> { mpyR = mulhu  (mpyA,mpyB); }

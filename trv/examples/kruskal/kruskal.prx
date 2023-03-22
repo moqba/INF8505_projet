@@ -1,0 +1,6 @@
+<project name="Project" processor="trv32p3" lib="../../lib">
+    <file type="c" name="Kruskal_MST.c" path=""/>
+    <option id="backend.mist2.ofexm" value="on"/>
+    <option id="project.name" value="kruskal"/>
+    <option id="project.type" value="exe"/>
+</project>

@@ -1,0 +1,8 @@
+<project name="Project" processor="trv32p3" lib=".">
+    <configuration remove="1" parent="Native"/>
+    <file type="a" name="trv32p3_init.s" path=""/>
+    <file type="c" name="trv32p3_basic.c" path=""/>
+    <file type="c" name="trv32p3_div.c" path=""/>
+    <option id="project.name" value="libtrv32p3.a"/>
+    <option id="project.type" value="arch"/>
+</project>

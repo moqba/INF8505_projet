@@ -1,0 +1,31 @@
+<simulator name="Simulator" processor="dlx" mode="ia" lib="../../lib">
+    <option id="checkers.active_low_reset" value="on"/>
+    <option id="checkers.BreakpointType" value="all"/>
+    <option id="checkers.CC_ext" value="cpp"/>
+    <option id="checkers.ColorStorageReadsWrites" value="all"/>
+    <option id="checkers.ExtraSystemCHeaders" value="" inherit="0"/>
+    <option id="checkers.FileInputType" value="all"/>
+    <option id="checkers.FileOutputType" value="all"/>
+    <option id="checkers.GenerateDynamicCode" value="off"/>
+    <option id="checkers.GenerateSystemCInterface" value="on"/>
+    <option id="checkers.GenerateSystemCInterfaceWithGUI" value="on"/>
+    <option id="checkers.HostedClib" value="on"/>
+    <option id="checkers.ISSLinkType" value="lib"/>
+    <option id="checkers.IssName" value="dlx_ia_tlm2"/>
+    <option id="checkers.Linux_CC_cmd" value="-g -O3 -DNDEBUG -DSYSTEMC_FLOW  --param large-stack-frame=2048 --param inline-unit-growth=310 --param large-function-growth=280"/>
+    <option id="checkers.MemoryYAML" value="{DMb adapters/var_latency_mem_ia_tlm2_ft_axi_adapter.yaml}" inherit="0"/>
+    <option id="checkers.nMLMemoryInterfaceSelectedStorages" value="DMb" inherit="1"/>
+    <option id="checkers.nMLMemoryInterfaceSelectStorages" value="selected"/>
+    <option id="checkers.Profile" value="on"/>
+    <option id="checkers.ReplaceMemoryAccessesByFunctionCall" value="on"/>
+    <option id="checkers.SystemCCompile" value="off"/>
+    <option id="checkers.TLM2Wrapper" value="1"/>
+    <option id="checkers.TraceExecution" value="on"/>
+    <option id="checkers.VPAIntegration" value="on"/>
+    <option id="checkers.Watchpoints" value="on"/>
+    <option id="checkers.WatchpointType" value="mem"/>
+    <option id="checkers.WorkDir" value="dlx_ia_work"/>
+    <option id="checkers.xargs" inherit="1">
+</option>
+    <option id="cpp.define" value="DLX_NI_FAST" inherit="1"/>
+</simulator>

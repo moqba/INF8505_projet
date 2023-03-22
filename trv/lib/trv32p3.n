@@ -1,0 +1,227 @@
+/*
+-- File : trv32p3.n
+--
+-- Contents : nML model for the trv32p3 processor.
+--
+-- Copyright (c) 2019-2020 Synopsys, Inc. This Synopsys processor model
+-- captures an ASIP Designer Design Technique. The model and all associated
+-- documentation are proprietary to Synopsys, Inc. and may only be used
+-- pursuant to the terms and conditions of a written license agreement with
+-- Synopsys, Inc.  All other use, reproduction, modification, or distribution
+-- of the Synopsys processor model or the associated  documentation is
+-- strictly prohibited.
+*/
+
+#include "trv32p3_define.h"
+
+enum stage_names {
+  PF=-1,// Prefetch
+  IF,   // Instruction Fetch
+  ID,   // Instruction Decode & Operand Fetch | Addr2mem
+  EX    // Instruction Execute & Writeback    | Mem2core
+};
+
+
+// ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+// ~~~ Program memory
+// ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+def pm_size = 2**(PM_SIZE_NBIT);
+
+mem PMb [pm_size] <t8u,addr> access {};
+
+mem PM  [pm_size,4] <iword,addr> alias PMb access {
+  ld_pm`0` : pm_rd`1` = PM[pm_addr`0`]`1`;
+};
+
+properties {
+  program_memory : PMb;
+  unconnected    : PM; // accessed in PCU
+}
+
+
+// ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+// ~~~ Data memory
+// ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+def dm_size = 2**(DM_SIZE_NBIT);
+
+mem DMb [dm_size,1] <w08,addr> access {
+  ld_dmb`0` : dmb_rd`1`          = DMb[dm_addr`0`]`1`;
+  st_dmb`0` : DMb[dm_addr`0`]`1` = dmb_wr`1`;
+};
+
+mem DMh [dm_size,2] <w16,addr> alias DMb access {
+  ld_dmh`0` : dmh_rd`1`          = DMh[dm_addr`0`]`1`;
+  st_dmh`0` : DMh[dm_addr`0`]`1` = dmh_wr`1`;
+};
+
+mem DMw [dm_size,4] <w32,addr> alias DMb access {
+  ld_dmw`0` : dmw_rd`1`          = DMw[dm_addr`0`]`1`;
+  st_dmw`0` : DMw[dm_addr`0`]`1` = dmw_wr`1`;
+};
+
+// ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+// Directly addressable memory range
+
+def dm_stat = 2**11;
+
+mem DMb_stat [dm_stat,1] <w08,addr> alias DMb[0] access {};
+mem DMh_stat [dm_stat,2] <w16,addr> alias DMb_stat access {};
+mem DMw_stat [dm_stat,4] <w32,addr> alias DMb_stat access {};
+
+property unconnected : DMb_stat, DMh_stat, DMw_stat;
+
+
+// ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+// ~~~ Registers
+// ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+enum eX {
+  x0, x1, x2, x3, x4, x5, x6, x7, x8, x9, x10, x11, x12, x13, x14, x15,
+  x16, x17, x18, x19, x20, x21, x22, x23, x24, x25, x26, x27, x28, x29, x30, x31
+};
+
+reg X[32] <w32,t5u> syntax ("x")
+    read(  r1   // operand 1
+           r2   // operand 2
+           r3   // agu
+        )
+    write( w1   // alu, mpy, div, load, ctrl
+         );
+hw_init X = others => 0;
+
+// dead-end transitories for writes to X[0] field
+trn w1_dead <w32>;
+property dead_end: w1_dead;
+
+// ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+// aliases of X[]
+
+reg zero <w32> alias X[0] read(r1 r2) write(); // =0
+
+reg LR   <w32> alias X[1] read(r1) write(w1);  // link register
+
+reg SP   <w32> alias X[2] read() write(w1);    // stack pointer
+
+property unconnected : zero, LR, SP;
+
+// ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+// PC
+
+reg PC <addr> read(pcr) write(pcw); hw_init PC = 0;  // program counter
+
+property program_counter : PC;
+
+// ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+// PC value pipeline
+
+reg  pif_PC <w32> read(trPC_ID) write(tif_PC);   // PM addr. of instr @ ID
+reg  pid_PC <w32> read(trPC_EX) write(tid_PC);   // PM addr. of instr @ EX
+
+hw_init pif_PC = 0;
+hw_init pid_PC = 0;
+property unconnected : pif_PC;
+property unconnected : pid_PC;
+
+
+// ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+// ~~~ Pipeline registers
+// ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+pipe pid_D1 <w32>;  // For lnk_id
+
+
+// ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+// ~~~ nML constants
+// ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+cst c5u         <t5u>;
+cst c6u         <t6u>;
+cst c12u        <t12u>;
+cst c12s        <t12s>;
+cst c13s_s2     <t13s_s2>;
+cst c20s_rp12   <t20s_rp12>;
+cst c21s_s2     <t21s_s2>;
+
+
+// ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+// ~~~ Properties
+// ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+properties {
+  endianness                  : little;
+  program_memory_endianness   : little;
+  chess_pc_offset             : words;
+  control_signals             : compact;
+  decode_stage                : ID;
+}
+
+
+// ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+// ~~~ Instruction set grammar
+// ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+// assembly syntax padding
+#define PADMNM _pad_7
+#define PADOP1 _pad_6
+#define PADOP2 _pad_5
+
+#include "opc.n"
+
+// Top level rule
+start trv32p3;
+opn trv32p3 (
+    bit32_ifmt
+#ifdef __chess__
+  | br_far_pinstr // pseudo instr.
+#endif
+);
+
+// top level for 32-bit instructions
+opn bit32_ifmt(
+    majOP
+  | majOP_IMM
+  | majLOAD
+  | majSTORE
+  | majBRANCH
+  | majJAL
+  | majJALR
+  | majLUI
+  | majAUIPC
+  | majCUSTOM3
+)
+{
+  image : majOP      :: opc32.OP
+        | majOP_IMM  :: opc32.OP_IMM
+        | majLOAD    :: opc32.LOAD
+        | majSTORE   :: opc32.STORE
+        | majBRANCH  :: opc32.BRANCH
+        | majJAL     :: opc32.JAL
+        | majJALR    :: opc32.JALR
+        | majLUI     :: opc32.LUI
+        | majAUIPC   :: opc32.AUIPC
+        | majCUSTOM3 :: opc32.CUSTOM3;
+}
+
+// One rule per major opcode
+opn majOP      (alu_rrr_ar_instr | mpy_rrr_instr | div_instr) complete_image;
+opn majOP_IMM  (alu_rris_ar_instr | alu_rri_sh_instr)         complete_image;
+opn majLOAD    (load_instr)                                   complete_image;
+opn majSTORE   (store_instr)                                  complete_image;
+opn majBRANCH  (br_instr)                                     complete_image;
+opn majJAL     (jal_instr)                                    complete_image;
+opn majJALR    (jalr_instr)                                   complete_image;
+opn majLUI     (alu_lui_instr)                                complete_image;
+opn majAUIPC   (alu_auipc_instr)                              complete_image;
+opn majCUSTOM3 (alu_rriu_ar_instr)                            complete_image;
+
+
+#include "jpeg.n"
+#include "alu.n"
+#include "mpy.n"
+#include "ldst.n"
+#include "ctrl.n"
+#include "div.n"
+#include "hzrd.n"
+#include "cv.n"

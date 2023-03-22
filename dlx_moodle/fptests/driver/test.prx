@@ -1,0 +1,8 @@
+<project name="Project" processor="dlx" lib="../../lib">
+    <file type="c" name="test.c" path=""/>
+    <file type="c" name="testfn.c" path=""/>
+    <option id="bridge.llibs" value="m" inherit="1" cfg="Native"/>
+    <option id="cpp.define" value="CHESS_CXX_ATTRIBUTES" inherit="1"/>
+    <option id="project.name" value="test"/>
+    <option id="project.type" value="exe"/>
+</project>

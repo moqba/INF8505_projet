@@ -1,0 +1,69 @@
+/*
+-- File : mpy.n
+--
+-- Contents : nML model for the trv32p3 processor -- MPY instructions.
+--
+-- Copyright (c) 2019-2020 Synopsys, Inc. This Synopsys processor model
+-- captures an ASIP Designer Design Technique. The model and all associated
+-- documentation are proprietary to Synopsys, Inc. and may only be used
+-- pursuant to the terms and conditions of a written license agreement with
+-- Synopsys, Inc.  All other use, reproduction, modification, or distribution
+-- of the Synopsys processor model or the associated  documentation is
+-- strictly prohibited.
+*/
+
+// ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+// ~~~ Units & Transitories
+// ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+fu mpy;
+trn mpyA   <w32>;
+trn mpyB   <w32>;
+trn mpyR   <w32>;
+
+trn mpyL   <w32>;       // low product
+trn mpyH   <w32>;       // high product
+trn mpyMD  <t2u>;       // mode: 0bAB, where A/B control signedness of mpyA/B
+                        // 0b11: mpyA and mpyB are signed
+                        // 0b10: mpyA is unsigned, mpyB is signed
+                        // 0b00: mpyA and mpyB are unsigned
+
+// avoid warning that one output is unused
+property dead_end : mpyL, mpyH;
+
+
+// ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+// ~~~ Instruction nML rules
+// ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+// ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+// ~~~ Multiplier
+// <op> rd, rs1, rs2
+// mul, mulh, mulhsu, mulhu
+
+opn mpy_rrr_instr(op: funct10_mul_div, rd: eX, rs1: eX, rs2: eX)
+{
+  action {
+  stage EX:             mpyA = r1 = X[rs1];
+                        mpyB = r2 = X[rs2];
+  // ---
+    switch (op) {
+      case mul    :     mul_hw (mpyA,mpyB,mpyMD=0b11,mpyL,mpyH) @ mpy;
+      case mulh   :     mul_hw (mpyA,mpyB,mpyMD=0b11,mpyL,mpyH) @ mpy;
+      case mulhsu :     mul_hw (mpyA,mpyB,mpyMD=0b10,mpyL,mpyH) @ mpy;
+      case mulhu  :     mul_hw (mpyA,mpyB,mpyMD=0b00,mpyL,mpyH) @ mpy;
+
+      // low product
+      case mul :
+                        mpyR = mpyL;
+      // high product
+      case mulh|mulhsu|mulhu:
+                        mpyR = mpyH;
+    }
+  // ---
+    if (rd: x0)         w1_dead = w1 = mpyR;
+    else                X[rd] = w1 = mpyR;
+  }
+  syntax : op PADMNM " " rd "," PADOP1 rs1 "," PADOP2 rs2;
+  image  : op[9..3]::rs2::rs1::op[2..0]::rd, class(mpy);
+}

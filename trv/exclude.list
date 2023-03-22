@@ -1,0 +1,8 @@
+exclude.list
+CHANGES
+.gitignore
+.gitattributes
+doc
+TODO
+SNPS
+mdl.yaml

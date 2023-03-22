@@ -1,0 +1,85 @@
+/*
+-- File : regfile.n
+--
+-- Contents : nML model for the DLX processor -- main register file access.
+--
+-- Copyright (c) 2014-2016 Synopsys, Inc. This Synopsys processor model 
+-- captures an ASIP Designer Design Technique. The model and all associated 
+-- documentation are proprietary to Synopsys, Inc. and may only be used 
+-- pursuant to the terms and conditions of a written license agreement with 
+-- Synopsys, Inc.  All other use, reproduction, modification, or distribution 
+-- of the Synopsys processor model or the associated  documentation is 
+-- strictly prohibited. 
+*/
+
+
+
+opn rdS1(r: c5u) { action: stage ID: pS1=r1=R[r]; syntax: "r" dec r; image: r; }
+opn rdS2(r: c5u) { action: stage ID: pS2=r2=R[r]; syntax: "r" dec r; image: r; }
+
+opn wrD1(r: c5u) {
+    action {
+    stage EX: pD1 = pd1w;  
+    stage ME: pE1 = pe1w = pD1;
+    stage WB: R[r] = w1 = pE1;
+    }
+    syntax: "r" dec r;
+    image: r;
+}
+
+opn wrE1(r: c5u) {
+    action {
+    stage ME: pE1 = pe1w;
+    stage WB: R[r] = w1 = pE1;
+    }
+    syntax: "r" dec r;
+    image: r;
+}
+
+opn wrD2(r: c5u) {
+    action {
+    stage EX: pD2 = pd2w;  
+    stage ME: pE2 = pe2w = pD2;
+    stage WB: R[r] = w2 = pE2;
+    }
+    syntax: "r" dec r;
+    image: r;
+}
+
+// single field write operations
+
+mode wrLR() {
+    write_value : stage EX: pd1w;
+    write_action { 
+    stage EX: pD1 = pd1w;  
+    stage ME: pE1 = pe1w = pD1;
+    stage WB: LR = w1 = pE1;
+    }
+    syntax: "r15";
+    image: "";
+}
+
+opn wrPL() {
+    action {
+    stage ME: pE1 = pe1w;
+    stage WB: PL = w1 = pE1;
+    }
+    syntax: "";
+    image: "";
+}
+
+opn wrPH() {
+    action {
+    stage ME: pE2 = pe2w;
+    stage WB: PH = w2 = pE2;
+    }
+    syntax: "";
+    image: "";
+}
+
+// Reading R0 yields 0.
+
+chess_view() { r1 = R[0]; } -> { r1 = 0; }
+chess_view() { r2 = R[0]; } -> { r2 = 0; }
+
+hw_init R = others => 0;

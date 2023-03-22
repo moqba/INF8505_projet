@@ -1,0 +1,14 @@
+<batch name="Batch project" processor="trv32p3" lib="../lib">
+    <prj kind="simulator" name="trv32p3_ca_dbg" path=""/>
+    <prj kind="simulator" name="trv32p3_ca_fst_nojit" path=""/>
+    <prj kind="simulator" name="trv32p3_ca_fst_jit" path=""/>
+    <prj kind="simulator" name="trv32p3_ia_dbg" path=""/>
+    <prj kind="simulator" name="trv32p3_ia_fst_nojit" path=""/>
+    <prj kind="simulator" name="trv32p3_ia_fst_jit" path=""/>
+    <prj kind="simulator" name="trv32p3_ia_fst_blockjit" path=""/>
+    <prj kind="simulator" name="trv32p3_ni_dbg" path=""/>
+    <prj kind="simulator" name="trv32p3_ni_fst_nojit" path=""/>
+    <prj kind="simulator" name="trv32p3_ni_fst_jit" path=""/>
+    <prj kind="simulator" name="trv32p3_sc_dbg" path=""/>
+    <prj kind="simulator" name="trv32p3_sc_ia" path=""/>
+</batch>

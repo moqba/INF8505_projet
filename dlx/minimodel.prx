@@ -1,0 +1,8 @@
+<batch name="Batch project" processor="dlx" lib="lib">
+    <prj kind="project" name="libdlx.prx" path="lib" configuration="Release"/>
+    <prj kind="project" name="softfloat.prx" path="lib/softfloat" configuration="Release"/>
+    <prj kind="project" name="libc.prx" path="lib/runtime" configuration="Release"/>
+    <prj kind="project" name="libm.prx" path="lib/runtime" configuration="Release"/>
+    <prj kind="simulator" name="dlx_ca.prx" path="iss"/>
+    <prj kind="project" name="libnative.prx" path="lib" configuration="Native"/>
+</batch>

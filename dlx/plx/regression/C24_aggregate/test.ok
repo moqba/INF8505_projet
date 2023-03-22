@@ -1,5 +1,0 @@
-chess_report(unsigned short): 0x00be // 190
-chess_report(int): 0x00000037 // 55
-chess_report(unsigned): 0x00007a44 // 31300
-chess_report(long): 0x009636e2 // 9844450
-chess_report(unsigned long): 0x009e0368 // 10355560

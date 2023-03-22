@@ -1,0 +1,16 @@
+<simulator name="Simulator" processor="trv32p3" mode="ia" lib="../lib">
+    <option id="checkers.AlignAddresses" value="off"/>
+    <option id="checkers.BreakpointType" value="mic"/>
+    <option id="checkers.CheckAddresses" value="0"/>
+    <option id="checkers.CheckConflicts" value="0"/>
+    <option id="checkers.CheckStack" value="0"/>
+    <option id="checkers.CheckUninitialized" value="0"/>
+    <option id="checkers.DynamicBlockHotCount" value="-1"/>
+    <option id="checkers.DynamicPcHotCount" value="0"/>
+    <option id="checkers.GenerateDynamicCode" value="on"/>
+    <option id="checkers.HostedClib" value="on"/>
+    <option id="checkers.IssName" value="trv32p3_ia_fst_jit"/>
+    <option id="checkers.SourceSteppingSupported" value="off"/>
+    <option id="checkers.TraceExecution" value="off"/>
+    <option id="checkers.WorkDir" value="work/trv32p3_ia_fst_jit"/>
+</simulator>

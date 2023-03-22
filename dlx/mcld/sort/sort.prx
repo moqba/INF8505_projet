@@ -1,5 +1,0 @@
-<project name="Project" processor="mcld" lib="../lib">
-    <file type="c" name="sort.c" path=""/>
-    <option id="project.name" value="sort"/>
-    <option id="project.type" value="exe"/>
-</project>

@@ -1,0 +1,13 @@
+include: |
+    #include "adapters/simple_mem_ca_tlm2_lt_adapter.h"
+
+declare: |
+    scml2::initiator_socket<[=$mem get data_width=]> p_[=$mem get name=]_ft;
+
+construct: |
+    mdl->m_[=$mem get name=] = new SimpleMem_CA_TLM2LT_Adapter<[=$mem get data_width=]>("m_[=$mem get name=]", &p_[=$mem get name=]_ft, this);
+
+initialize: |
+    , p_[=$mem get name=]_ft("p_[=$mem get name=]_ft")
+
+end_of_elab: |

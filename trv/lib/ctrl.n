@@ -1,0 +1,162 @@
+/*
+-- File : control.n
+--
+-- Contents : nML model for the trv32p3 processor -- control instructions.
+--
+-- Copyright (c) 2019-2020 Synopsys, Inc. This Synopsys processor model
+-- captures an ASIP Designer Design Technique. The model and all associated
+-- documentation are proprietary to Synopsys, Inc. and may only be used
+-- pursuant to the terms and conditions of a written license agreement with
+-- Synopsys, Inc.  All other use, reproduction, modification, or distribution
+-- of the Synopsys processor model or the associated  documentation is
+-- strictly prohibited.
+*/
+
+// ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+// ~~~ Units & Transitories
+// ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+// trn >> PCU
+trn cnd     <bool>;
+trn of21    <t21s_s2>;
+#ifdef __chess__
+trn of13_cd <t21s_s2>; // ext. offset for far branch pseudo instr.
+#else
+trn of13_cd <t13s_s2>;
+#endif
+trn trgt    <w32>;
+
+trn lnk_id  <w32>;
+trn lnk_ex  <w32>;
+
+
+// ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+// ~~~ Instruction nML rules
+// ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+// ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+// conditional branches
+// <op> rs1, rs2, imm
+// op: beq, bne, blt, bltu, bge, bgeu
+
+opn br_instr(op: funct3_bnch, i: c13s_s2, rs1: eX, rs2: eX)
+{
+  action {
+#ifndef __programmers_view__
+  stage ID:             pid_PC = tid_PC = trPC_ID = pif_PC;
+#endif
+  stage EX:             aluA = r1 = X[rs1];
+                        aluB = r2 = X[rs2];
+  // ---
+    switch (op) {
+      case beq  :       aluF = eq  (aluA,aluB) @alu;
+      case bne  :       aluF = ne  (aluA,aluB) @alu;
+      case blt  :       aluF = lt  (aluA,aluB) @alu;
+      case bltu :       aluF = ltu (aluA,aluB) @alu;
+      case bge  :       aluF = ge  (aluA,aluB) @alu;
+      case bgeu :       aluF = geu (aluA,aluB) @alu;
+    }
+                        br(cnd=aluF,of13_cd=i);
+  }
+  syntax : "beqz" PADMNM " " rs1 "," PADOP1 i  op<<beq>>  rs2<<x0>> // beq  rs1, x0
+         | "beqz" PADMNM " " rs2 "," PADOP1 i  op<<beq>>  rs1<<x0>> // beq  x0, rs2
+         | "beqz" PADMNM " " rs2 "," PADOP1 i  op<<bgeu>> rs1<<x0>> // bgeu x0, rs2
+         | "bnez" PADMNM " " rs1 "," PADOP1 i  op<<bne>>  rs2<<x0>> // bne  rs1, x0
+         | "bnez" PADMNM " " rs2 "," PADOP1 i  op<<bne>>  rs1<<x0>> // bne  x0, rs2
+         | "bnez" PADMNM " " rs2 "," PADOP1 i  op<<bltu>> rs1<<x0>> // bltu x0, rs2
+         | "bltz" PADMNM " " rs1 "," PADOP1 i  op<<blt>>  rs2<<x0>> // blt  rs1, x0
+         | "bgtz" PADMNM " " rs2 "," PADOP1 i  op<<blt>>  rs1<<x0>> // blt  x0, rs2
+         | "bgez" PADMNM " " rs1 "," PADOP1 i  op<<bge>>  rs2<<x0>> // bge  rs1, x0
+         | "blez" PADMNM " " rs2 "," PADOP1 i  op<<bge>>  rs1<<x0>> // bge  x0, rs2
+         | op     PADMNM " " rs1 "," PADOP1 rs2 "," PADOP2 i;
+  image  : i[12]::i[10..5]::rs2::rs1::op::i[4..1 zero]::i[11],
+           cycles(3|1), class(ctrl), class(branch);
+}
+
+#ifdef __chess__
+
+// ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+// pseudo instr.: conditional far branch
+// b<!cmp> rs1, rs2, +4   ; jump over jal if negated condition is true
+// jal x0, imm            ; jump to far target
+
+opn br_far_pinstr(op: funct3_bnch, i: c21s_s2, rs1: eX, rs2: eX)
+{
+  action {
+  stage EX:             aluA = r1 = X[rs1];
+                        aluB = r2 = X[rs2];
+  // ---
+    switch (op) {
+      // NOTE: conditions complemented
+      case bne  :       aluF = eq  (aluA,aluB) @alu;
+      case beq  :       aluF = ne  (aluA,aluB) @alu;
+      case bge  :       aluF = lt  (aluA,aluB) @alu;
+      case bgeu :       aluF = ltu (aluA,aluB) @alu;
+      case blt  :       aluF = ge  (aluA,aluB) @alu;
+      case bltu :       aluF = geu (aluA,aluB) @alu;
+    }
+                        br(cnd=aluF,of13_cd=i);
+  }
+  syntax : op " " rs1 "," rs2 "," i "chess_only";
+  image  ://
+          // jal_instr writing to X[0]
+          i[20]::i[10..1 zero]::i[11]::i[19..12]::"00000"::opc32.JAL::
+          // branch + 4 (jumping over 32-bit jal_instr)
+          "0"::"000000"::rs2::rs1::op::"0100"::"0"::opc32.BRANCH
+          // artificial prefix, removed by Chess, use 64b opcode space
+          ::"0000000000111111",
+
+          cycles(4|2), class(ctrl), class(pbranch), chess_pc_offset(6),
+             class(chess_artificial_prefix_word);
+
+          // chess_pc_offset is 6 bytes, bc. BRANCHes are executed relative to
+          // 2nd instruction, plus the artificial prefix (2 bytes)
+          // NOTE little endian! least significant bits come first
+}
+
+#endif
+
+// ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+// ~~~ jump and link
+// jal rd, imm
+
+opn jal_instr(rd: eX, i: c21s_s2)
+{
+  action {
+  stage ID:             lnk_id = jal (of21=i);
+  // ---
+    stage ID:           pid_D1 = lnk_id;
+    stage EX:
+      if (rd: x0)       w1_dead = w1 = pid_D1;
+      else              X[rd] = w1 = pid_D1;
+  }
+  syntax : "call" PADMNM " " i  rd<<x1>> // jal x1, i
+         | "j"    PADMNM " " i  rd<<x0>> // jal x0, i
+         | "jal"  PADMNM " " rd "," PADOP1 dec i;
+  image  : i[20]::i[10..1 zero]::i[11]::i[19..12]::rd,
+           cycles(2), class(ctrl), class(jal);
+}
+
+// ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+// ~~~ indirect jump and link
+// jalr rd, rs1, imm
+
+opn jalr_instr(rd: eX, rs1: eX, i: c12s)
+{
+  action {
+  stage EX:             aluA = r1 = X[rs1];
+                        aluB = i;
+  // ---
+                        aluR = add (aluA,aluB) @alu;
+                        lnk_ex = jalr (trgt=aluR);
+  // ---
+    if (rd: x0)         w1_dead = w1 = lnk_ex;
+    else                X[rd] = w1 = lnk_ex;
+  }
+  syntax : "ret"                   rd<<x0>> i<<0>> rs1<<x1>> // jalr x0, x1,  0
+         | "call" PADMNM " " rs1   rd<<x1>> i<<0>>           // jalr x1, rs1, 0
+         | "jr"   PADMNM " " rs1   rd<<x0>> i<<0>>           // jalr x0, rs1, 0
+         | "jalr" PADMNM " " rd "," PADOP1 rs1 "," PADOP2 dec i;
+  image  : i::rs1::"000"::rd,
+           cycles(3), class(ctrl), class(jalr);
+}

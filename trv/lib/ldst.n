@@ -1,0 +1,97 @@
+/*
+-- File : ldst.n
+--
+-- Contents : nML model for the trv32p3 processor -- load/store instructions.
+--
+-- Copyright (c) 2019-2020 Synopsys, Inc. This Synopsys processor model
+-- captures an ASIP Designer Design Technique. The model and all associated
+-- documentation are proprietary to Synopsys, Inc. and may only be used
+-- pursuant to the terms and conditions of a written license agreement with
+-- Synopsys, Inc.  All other use, reproduction, modification, or distribution
+-- of the Synopsys processor model or the associated  documentation is
+-- strictly prohibited.
+*/
+
+// ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+// ~~~ Units & Transitories
+// ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+// load-extension unit (zero-/sign extension)
+fu lx;
+trn lxB <w08>;
+trn lxH <w16>;
+trn lxR <w32>;
+
+// AGU
+fu agu;
+trn aguA   <w32>;       // opA
+trn aguB   <w32>;       // opB
+trn aguR   <w32>;       // agu result
+
+
+// ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+// ~~~ Instruction nML rules
+// ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+// ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+// ~~~ Load operations
+// lb, lbu, lh, lhu, lw
+
+opn load_instr(op: funct3_lb, rd: eX, rs1: eX, i: c12s)
+{
+  action {
+  stage ID:             aguA = r3 = X[rs1];
+                        aguB = i;
+  // ---
+  stage ID:             aguR = add (aguA,aguB) @agu;
+                        dm_addr = aguR;
+  stage ID..EX:
+    switch (op) {
+      case lb|lbu :     dmb_rd`EX` = DMb[dm_addr`ID`]`EX`;
+      case lh|lhu :     dmh_rd`EX` = DMh[dm_addr`ID`]`EX`;
+      case lw     :     dmw_rd`EX` = DMw[dm_addr`ID`]`EX`;
+    }
+  stage EX:
+    switch (op) {
+      case lb  :        lxR = sext (lxB=dmb_rd) @lx;
+      case lbu :        lxR = zext (lxB=dmb_rd) @lx;
+      case lh  :        lxR = sext (lxH=dmh_rd) @lx;
+      case lhu :        lxR = zext (lxH=dmh_rd) @lx;
+      case lw  :        lxR =           dmw_rd  @lx;
+    }
+  // ---
+    if (rd: x0)         w1_dead = w1 = lxR;
+    else                X[rd] = w1 = lxR;
+  }
+  syntax: op PADMNM " " rd "," PADOP1 i "(" rs1 ")";
+  image : i::rs1::op::rd, class(load);
+}
+
+// ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+// ~~~ Store operations
+// sb, sh, sw
+
+opn store_instr(op: funct3_sb, rs1: eX, rs2: eX, i: c12s)
+{
+  action {
+  stage ID:             aguA = r3 = X[rs1];
+                        aguB = i;
+  // ---
+  stage ID:             aguR = add (aguA,aguB) @agu;
+                        dm_addr = aguR;
+  stage EX:
+    switch (op) {
+      case sb :         dmb_wr = r2 = X[rs2];
+      case sh :         dmh_wr = r2 = X[rs2];
+      case sw :         dmw_wr = r2 = X[rs2];
+    }
+  stage ID..EX:
+    switch (op) {
+      case sb :         DMb[dm_addr`ID`]`EX` = dmb_wr`EX`;
+      case sh :         DMh[dm_addr`ID`]`EX` = dmh_wr`EX`;
+      case sw :         DMw[dm_addr`ID`]`EX` = dmw_wr`EX`;
+    }
+  }
+  syntax : op PADMNM " " rs2 "," PADOP1 i "(" rs1 ")";
+  image  : i[11..5]::rs2::rs1::op::i[4..0], class(store);
+}

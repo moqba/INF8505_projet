@@ -1,0 +1,9 @@
+<batch name="Batch project" processor="trv32p3" lib="lib">
+    <prj kind="project" name="libtrv32p3" path="lib" configuration="Release"/>
+    <prj kind="project" name="softfloat" path="lib/softfloat" configuration="Release"/>
+    <prj kind="project" name="libc" path="lib/runtime" configuration="Release"/>
+    <prj kind="project" name="libm" path="lib/runtime" configuration="Release"/>
+    <prj kind="simulator" name="trv32p3_ca_dbg" path="iss"/>
+    <prj kind="hdlgenerator" name="trv32p3_vlog" path="hdl"/>
+    <prj kind="project" name="libnative.prx" path="lib" configuration="Native"/>
+</batch>

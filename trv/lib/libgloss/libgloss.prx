@@ -1,0 +1,17 @@
+<project name="Project" processor="trv32p3" lib="..">
+    <file type="c" name="undefined.c" path=""/>
+    <file type="c" name="rt_support.c" path=""/>
+    <file type="c" name="sbrk.c" path=""/>
+    <file type="c" name="crt0.c" path=""/>
+    <option id="cpp.include" value="../newlib/libc/include ../../../../libs/newlib-snapshot-20151023/newlib/libc/include" inherit="0"/>
+    <option id="llvm.clang" value="on"/>
+    <option id="llvm.lang" value="ext"/>
+    <option id="llvm.xargs" value="-fno-builtin" inherit="1"/>
+    <option id="project.dir" value="lib/&lt;CONFIG&gt;"/>
+    <option id="project.name" value="libgloss.a"/>
+    <option id="project.type" value="arch"/>
+    <configuration remove="1" parent="Release"/>
+    <configuration remove="1" parent="Debug"/>
+    <configuration remove="1" parent="Native"/>
+    <option id="llvm.optim" value="s"/>
+</project>

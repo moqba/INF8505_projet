@@ -1,0 +1,11 @@
+/*
+-- jpeg.n
+--
+-- Ce fichier est inclus à la fin de trv32p3.n
+--
+-- Description en nML des instructions personnalisées JPEG
+*/
+
+// Il peut être nécessaire de modifier trv32p3.n pour ajouter votre classe d'instructions à CUSTOM3
+
+

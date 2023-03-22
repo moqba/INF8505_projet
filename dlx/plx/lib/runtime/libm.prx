@@ -1,6 +1,0 @@
-<project name="Project" processor="plx" lib="..">
-    <file type="c" name="math.c" path="src"/>
-    <option id="project.dir" value="lib/&lt;CONFIG&gt;"/>
-    <option id="project.name" value="libm.a"/>
-    <option id="project.type" value="arch"/>
-</project>

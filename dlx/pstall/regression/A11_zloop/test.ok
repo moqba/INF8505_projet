@@ -1,7 +1,0 @@
-// test_zlp1()
-chess_report(int): 0x0000000d // 13
-chess_report(int): 0x0000000f // 15
-chess_report(int): 0x00000011 // 17
-chess_report(int): 0x0000001b // 27
-chess_report(int): 0x0000001f // 31
-chess_report(int): 0x00000023 // 35

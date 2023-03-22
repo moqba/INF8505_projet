@@ -1,0 +1,10 @@
+<project name="Project" processor="trv32p3" lib="..">
+    <import path="../../../../libs/libcxx-9.0.0" name="libcxx-lite.prx"/>
+    <option id="project.dir" value="lib/&lt;CONFIG&gt;"/>
+    <option id="project.name" value="libc++lite.a"/>
+    <option id="project.type" value="arch"/>
+    <configuration remove="1" parent="Release"/>
+    <configuration remove="1" parent="Debug"/>
+    <configuration remove="1" parent="Native"/>
+    <option id="llvm.optim" value="s"/>
+</project>

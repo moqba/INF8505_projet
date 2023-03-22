@@ -1,0 +1,64 @@
+/*
+-- File : div.n
+--
+-- Contents : nML model for the trv32p3 processor -- Divide instructions.
+--
+-- Copyright (c) 2019-2020 Synopsys, Inc. This Synopsys processor model
+-- captures an ASIP Designer Design Technique. The model and all associated
+-- documentation are proprietary to Synopsys, Inc. and may only be used
+-- pursuant to the terms and conditions of a written license agreement with
+-- Synopsys, Inc.  All other use, reproduction, modification, or distribution
+-- of the Synopsys processor model or the associated  documentation is
+-- strictly prohibited.
+*/
+
+// ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+// ~~~ Units & Transitories
+// ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+fu div;
+trn divA <w32>;
+trn divB <w32>;
+trn divR <w32>;
+
+trn X_w1_div_main_pdg_w_a<t5unz>;
+// trick to tell Go that the div MCFU does not write to X[0]
+
+// Hazard transitories
+
+trn div_bsy <t1u>;  hw_init div_bsy = 0;
+trn div_wnc <t1u>;  hw_init div_wnc = 0; // writes next cycle
+trn div_adr <t5u>;  hw_init div_adr = 0;
+
+trn div_wad <t5u>;
+
+
+// ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+// ~~~ Instruction nML rules
+// ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+// ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+// ~~~ Division and remainder
+// <op> rd, rs1, rs2
+// div, rem, divu, remu
+
+opn div_instr(op: funct10_mul_div, rd: eX, rs1: eX, rs2: eX)
+{
+  action {
+  stage EX:             divA = r1 = X[rs1];
+                        divB = r2 = X[rs2];
+  // ---
+    switch (op) {
+      case divu  :      divR = divu (divA,divB) @div;
+      case remu  :      divR = remu (divA,divB) @div;
+      case div   :      divR = divs (divA,divB) @div;
+      case rem   :      divR = rems (divA,divB) @div;
+    }
+  // ---
+    if (rd: !x0)        X[div_wad=rd] = w1 = divR;
+    else                w1_dead = divR;
+    // note: property(multicycle) removes output path(s) starting at divR
+  }
+  syntax : op PADMNM " " rd "," PADOP1 rs1 "," PADOP2 rs2;
+  image  : op[9..3]::rs2::rs1::op[2..0]::rd, class(div), cycles(2);
+}

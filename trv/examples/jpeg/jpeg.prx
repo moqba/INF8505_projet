@@ -1,0 +1,10 @@
+<project name="Project" processor="trv32p3" lib="../../lib">
+    <file type="c" name="coder.c" path=""/>
+    <file type="c" name="tb_coder.c" path=""/>
+    <file type="c" name="tables.c" path=""/>
+    <file type="c" name="header.c" path=""/>
+    <file type="c" name="io.c" path=""/>
+    <option id="backend.mist2.ofexm" value="on"/>
+    <option id="project.name" value="jpeg"/>
+    <option id="project.type" value="exe"/>
+</project>

@@ -1,0 +1,192 @@
+/*
+-- File : hazards.n
+--
+-- Contents : nML model for the DLX processor - bypass and stall rules.
+--
+-- Copyright (c) 2014-2016 Synopsys, Inc. This Synopsys processor model 
+-- captures an ASIP Designer Design Technique. The model and all associated 
+-- documentation are proprietary to Synopsys, Inc. and may only be used 
+-- pursuant to the terms and conditions of a written license agreement with 
+-- Synopsys, Inc.  All other use, reproduction, modification, or distribution 
+-- of the Synopsys processor model or the associated  documentation is 
+-- strictly prohibited. 
+*/
+
+#if defined(DLX_HAS_DOLOOP)
+// Hazards related to end-of-loop checking for zero-overhead loops:
+
+//  A minimum offset is required from a jump instruction to the end-of-loop,
+//  such that the jump instruction or any next instruction word still fetched
+//  cannot trigger an end-of-loop check before the jump condition is known.
+//  The following hazard rules are needed given the dlx PCU, where the
+//  end-of-loop check happens based on the address of the instruction in the IF
+//  stage, and is disabled (lp_update==0) when a jump signal is set or when no
+//  PM fetch is done (issue_sig()==0 ).
+
+//  a jump may not be the end-of-loop instruction, as the end-of-loop check (at
+//  IF stage) would then come earlier than the jump action (ID/EX stage).
+
+sw_stall 1..2 instructions class(jump_to_loop_end) () {
+    class(jump_id);
+} -> {
+    special(end_of_loop);
+}
+
+sw_stall 1..3 instructions class(jump_to_loop_end) () {
+    class(jump_ex);
+} -> {
+    special(end_of_loop);
+}
+
+//  two (nested) hardware loops may not end at the same address
+sw_stall 0 instructions class(between_loop_ends) () {
+    special(end_of_loop);
+} -> {
+    special(end_of_loop);
+}
+
+//   disallow software breakpoint on end-of-loop instruction
+sw_stall 1 instructions () {
+    special(pdc_sw_breakpoint);
+} -> {
+    special(end_of_loop);
+}
+
+#endif
+
+#ifdef DLX_HAS_ZLOOP
+
+// ensure loop count registers are witten before end of loop test
+
+sw_stall 1..3 instructions class(zlp_cnt) () { ZC = ...; } -> { special(end_of_loop); }
+sw_stall 1..3 instructions class(zlp_stt) () { ZE = ...; } -> { special(end_of_loop); }
+sw_stall 1..3 instructions class(zlp_end) () { ZS = ...; } -> { special(end_of_loop); }
+
+// Avoid setting *relative* LS, LE in delay_slots (of jump) because the PC has already changed:
+sw_stall 1..2 cycles () { stage EX: ZE = ...; } -> { special(delay_slot_end); }
+sw_stall 1..2 cycles () { stage EX: ZS = ...; } -> { special(delay_slot_end); }
+
+
+#endif // def DLX_HAS_ZLOOP
+
+
+//trick avoid the # character to be interpreted as a preprocessor operator
+#define _H_ #
+
+// bypasses for write port w1
+
+#define BYPASS_1_CYCLE_FROM_PD1W_TO(DST)   \
+bypass 1 cycles class(bypass_from_EX) () { \
+    stage EX: pD1 = _H_ pd1w; 		   \
+    stage ME: pE1 = pe1w = pD1;		   \
+    stage WB: R$[_H_] = w1 = pE1;	   \
+} -> {			        	   \
+    stage ID: DST = R$[_H_];		   \
+}
+
+BYPASS_1_CYCLE_FROM_PD1W_TO(#pS1=r1)
+BYPASS_1_CYCLE_FROM_PD1W_TO(#pS2=r2)
+
+#define BYPASS_2_CYCLES_FROM_PE1W_TO(DST)  \
+bypass 2 cycles class(bypass_from_ME) () { \
+    stage ME: pE1 = _H_ pe1w;		   \
+    stage WB: R$[_H_] = w1 = pE1;	   \
+} -> {			        	   \
+    stage ID: DST = R$[_H_];		   \
+}
+
+BYPASS_2_CYCLES_FROM_PE1W_TO(#pS1=r1)
+BYPASS_2_CYCLES_FROM_PE1W_TO(#pS2=r2)
+
+#define BYPASS_3_CYCLES_FROM_W1_TO(DST)	   \
+bypass 3 cycles class(bypass_from_WB) () { \
+    stage WB: R$[_H_] = _H_ w1;		   \
+} -> {			        	   \
+    stage ID: DST = R$[_H_];		   \
+}
+
+BYPASS_3_CYCLES_FROM_W1_TO(#pS1=r1)
+BYPASS_3_CYCLES_FROM_W1_TO(#pS2=r2)
+
+// bypasses for write port w2
+
+#define BYPASS_1_CYCLE_FROM_PD2W_TO(DST)   \
+bypass 1 cycles class(bypass_from_EX) () { \
+    stage EX: pD2 = _H_ pd2w; 		   \
+    stage ME: pE2 = pe2w = pD2;		   \
+    stage WB: R$[_H_] = w2 = pE2;	   \
+} -> {			        	   \
+    stage ID: DST = R$[_H_];		   \
+}
+
+BYPASS_1_CYCLE_FROM_PD2W_TO(#pS1=r1)
+BYPASS_1_CYCLE_FROM_PD2W_TO(#pS2=r2)
+
+#define BYPASS_2_CYCLES_FROM_PE2W_TO(DST)  \
+bypass 2 cycles class(bypass_from_ME) () { \
+    stage ME: pE2 = _H_ pe2w;		   \
+    stage WB: R$[_H_] = w2 = pE2;	   \
+} -> {			        	   \
+    stage ID: DST = R$[_H_];		   \
+}
+
+BYPASS_2_CYCLES_FROM_PE2W_TO(#pS1=r1)
+BYPASS_2_CYCLES_FROM_PE2W_TO(#pS2=r2)
+
+#define BYPASS_3_CYCLES_FROM_W2_TO(DST)    \
+bypass 3 cycles class(bypass_from_WB) () { \
+    stage WB: R$[_H_] = _H_ w2;		   \
+} -> {			        	   \
+    stage ID: DST = R$[_H_];		   \
+}
+
+BYPASS_3_CYCLES_FROM_W2_TO(#pS1=r1)
+BYPASS_3_CYCLES_FROM_W2_TO(#pS2=r2)
+
+// stall when result of multiplication is used in next instruction
+
+hw_stall 1 cycles class(hw_stall_mpy) () {
+    stage ME: pE1 = pe1w = mpyC;
+    stage WB: R$[#] = w1 = pE1;
+} -> {
+    stage ID: ... = R$[#];
+}
+
+hw_stall 1 cycles class(hw_stall_mpy) () {
+    stage ME: pE2 = pe2w = mpyD;
+    stage WB: R$[#] = w2 = pE2;
+} -> {
+    stage ID: ... = R$[#];
+}
+
+// stall when result of load is used in next instruction
+
+hw_stall 1 cycles class(hw_stall_load) () {
+    stage ME: pE1 = pe1w = lxC;
+    stage WB: R[#] = w1 = pE1;
+} -> {
+    stage ID: ... = R[#];
+}
+
+#if !defined(__programmers_view__)
+
+// stall if next instruction is dependent on division results
+
+hw_stall trn class(hw_stall_div_dep) () 
+    { trn(div_busy_raw); } -> { stage ID: ... = PL; } // quotient
+hw_stall trn class(hw_stall_div_dep) () 
+    { trn(div_busy_raw); } -> { stage ID: ... = PH; } // remainder
+
+// stall division while previous division is still active 
+
+hw_stall trn class(hw_stall_div_busy) () 
+    { trn(div_busy); } -> { stage EX: divide(divA, divB, wl, wh); }
+
+// stall instructions that write to result register of division  
+
+hw_stall trn class(hw_stall_div_out)  () 
+    { trn(div_busy_wb); } -> { stage WB: PL = ...; } 
+hw_stall trn class(hw_stall_div_out)  () 
+    { trn(div_busy_wb); } -> { stage WB: PH = ...; } 
+
+#endif
