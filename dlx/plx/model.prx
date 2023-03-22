@@ -1,0 +1,7 @@
+<batch name="Batch project" processor="plx" lib="lib">
+    <prj kind="project" name="libplx.prx" path="lib" configuration="Release"/>
+    <prj kind="project" name="libc.prx" path="lib/runtime" configuration="Release"/>
+    <prj kind="project" name="softfloat.prx" path="lib/softfloat" configuration="Release"/>
+    <prj kind="project" name="libm.prx" path="lib/runtime" configuration="Release"/>
+    <prj kind="project" name="libnative.prx" path="lib" configuration="Native"/>
+</batch>

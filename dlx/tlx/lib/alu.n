@@ -1,0 +1,205 @@
+/*
+-- File : alu.n
+--
+-- Contents : nML model for the TLX processor -- ALU instructions.
+--
+-- Copyright (c) 2014-2021 Synopsys, Inc. This Synopsys processor model
+-- captures an ASIP Designer Design Technique. The model and all associated
+-- documentation are proprietary to Synopsys, Inc. and may only be used
+-- pursuant to the terms and conditions of a written license agreement with
+-- Synopsys, Inc.  All other use, reproduction, modification, or distribution
+-- of the Synopsys processor model or the associated  documentation is
+-- strictly prohibited.
+*/
+
+
+
+opn alu_instr( alu_rrr | alu_rr | alu_rrr2 | alu_lmul
+             | alu_rri | alu_rru | alu_lhi);
+
+fu  alu;
+trn aluA<w32>;
+trn aluB<w32>;
+trn aluC<w32>;
+trn aluI<w16>;
+trn aluU<int16p>;
+trn aluM<uint1>;
+trn aluN<uint1>;
+
+fu  shf;
+trn shfA<w32>;
+trn shfB<w32>;
+trn shfC<w32>;
+
+fu  mpy;
+trn mpyA<w32>;
+trn mpyB<w32>;
+trn mpyC<w32>;
+trn mpyD<w32>;
+
+opn alu_rrr(op: function_code, d1: mR1, s1: mR1, s2: mR2)
+{
+    action {
+    stage EX:
+        switch (op) {
+        case add  : d1 = aluC = add (aluA=s1,aluB=s2,MC=aluM) @alu;
+        case sub  : d1 = aluC = sub (aluA=s1,aluB=s2,MC=aluM) @alu;
+
+        case addx : d1 = aluC = addx(aluA=s1,aluB=s2,aluN=MC,MC=aluM) @alu;
+        case subx : d1 = aluC = subx(aluA=s1,aluB=s2,aluN=MC,MC=aluM) @alu;
+
+        case and  : d1 = aluC = band(aluA=s1,aluB=s2) @alu;
+        case or   : d1 = aluC = bor (aluA=s1,aluB=s2) @alu;
+        case seq  : d1 = aluC = seq (aluA=s1,aluB=s2) @alu;
+        case sge  : d1 = aluC = sge (aluA=s1,aluB=s2) @alu;
+        case sgeu : d1 = aluC = sgeu(aluA=s1,aluB=s2) @alu;
+        case sgt  : d1 = aluC = sgt (aluA=s1,aluB=s2) @alu;
+        case sgtu : d1 = aluC = sgtu(aluA=s1,aluB=s2) @alu;
+        case sle  : d1 = aluC = sle (aluA=s1,aluB=s2) @alu;
+        case sleu : d1 = aluC = sleu(aluA=s1,aluB=s2) @alu;
+        case sll  : d1 = shfC = sll (shfA=s1,shfB=s2) @shf;
+        case slt  : d1 = aluC = slt (aluA=s1,aluB=s2) @alu;
+        case sltu : d1 = aluC = sltu(aluA=s1,aluB=s2) @alu;
+        case sne  : d1 = aluC = sne (aluA=s1,aluB=s2) @alu;
+        case sra  : d1 = shfC = sra (shfA=s1,shfB=s2) @shf;
+        case srl  : d1 = shfC = srl (shfA=s1,shfB=s2) @shf;
+        case xor  : d1 = aluC = bxor(aluA=s1,aluB=s2) @alu;
+        case xtd  : d1 = aluC = xtd (aluA=s1,aluB=s2) @alu;
+        }
+    }
+    syntax : op " " d1 "," s1 "," s2;
+    image  : opcode.function::s1::s2::d1::op;
+}
+
+opn alu_rr(op: function_code, d1: mR1, s1: mR1)
+{
+    action {
+    stage EX:
+        switch (op) {
+        case clb  : d1 = aluC = clb(aluA=s1) @alu;
+        }
+    }
+    syntax : op " " d1 "," s1;
+    image  : opcode.function::s1::"xxxxx"::d1::op;
+}
+
+opn alu_rrr2(op: function_code, d1: mR1, s1: mR1, s2: mR2)
+{
+    action {
+    stage EX:
+        switch (op) {
+        case mul : d1 = mpyC = mul (mpyA=s1,mpyB=s2) @mpy;
+        }
+    }
+    syntax : op " " d1 "," s1 "," s2;
+    image  : opcode.function::s1::s2::d1::op;
+}
+
+opn alu_lmul(op: function_code, pl: mPL, ph: mPH, s1: mR1, s2: mR2)
+{
+    action {
+    stage EX:
+        switch (op) {
+            case lmulss: lmulss(mpyA=s1,mpyB=s2,pl=mpyC,ph=mpyD) @mpy;
+            case lmulsu: lmulsu(mpyA=s1,mpyB=s2,pl=mpyC,ph=mpyD) @mpy;
+            case lmuluu: lmuluu(mpyA=s1,mpyB=s2,pl=mpyC,ph=mpyD) @mpy;
+        }
+    }
+    syntax : op " " s1 "," s2;
+    dummy_syntax : pl ph;
+    image  : opcode.function::s1::s2::"xxxxx"::op;
+}
+
+opn alu_rri(op: opcode, d1: mR1, s1: mR1, i: c16s)
+{
+    action {
+    stage EX:
+        switch (op) {
+        case addi:  d1 = aluC = add (aluA=s1,aluB=i,MC=aluM) @alu;
+        case subi:  d1 = aluC = sub (aluA=s1,aluB=i,MC=aluM) @alu;
+
+        case addix: d1 = aluC = addx(aluA=s1,aluB=i,aluN=MC,MC=aluM) @alu;
+        case subix: d1 = aluC = subx(aluA=s1,aluB=i,aluN=MC,MC=aluM) @alu;
+
+        case seqi:  d1 = aluC = seq (aluA=s1,aluB=i) @alu;
+        case sgei:  d1 = aluC = sge (aluA=s1,aluB=i) @alu;
+        case sgti:  d1 = aluC = sgt (aluA=s1,aluB=i) @alu;
+        case slei:  d1 = aluC = sle (aluA=s1,aluB=i) @alu;
+        case slti:  d1 = aluC = slt (aluA=s1,aluB=i) @alu;
+        case snei:  d1 = aluC = sne (aluA=s1,aluB=i) @alu;
+        }
+    }
+    syntax : op " " d1 "," s1 ",#" i;
+    image  : op::s1::d1::i;
+}
+
+opn alu_rru(op: opcode, d1: mR1, s1: mR1, i: c16u)
+{
+    action {
+    stage EX:
+        s1;
+        switch (op) {
+        case addui:  d1 = aluC = add (aluA=s1,aluB=i,MC=aluM) @alu;
+        case subui:  d1 = aluC = sub (aluA=s1,aluB=i,MC=aluM) @alu;
+
+        case adduix: d1 = aluC = addx(aluA=s1,aluB=i,aluN=MC,MC=aluM) @alu;
+        case subuix: d1 = aluC = subx(aluA=s1,aluB=i,aluN=MC,MC=aluM) @alu;
+
+        case andi :  d1 = aluC = band(aluA=s1,aluB=i) @alu;
+        case ori  :  d1 = aluC = bor (aluA=s1,aluB=i) @alu;
+        case sgeui:  d1 = aluC = sgeu(aluA=s1,aluB=i) @alu;
+        case sgtui:  d1 = aluC = sgtu(aluA=s1,aluB=i) @alu;
+        case sleui:  d1 = aluC = sleu(aluA=s1,aluB=i) @alu;
+        case slli :  d1 = shfC = sll (shfA=s1,shfB=i) @shf;
+        case sltui:  d1 = aluC = sltu(aluA=s1,aluB=i) @alu;
+        case srai :  d1 = shfC = sra (shfA=s1,shfB=i) @shf;
+        case srli :  d1 = shfC = srl (shfA=s1,shfB=i) @shf;
+        case xori :  d1 = aluC = bxor(aluA=s1,aluB=i) @alu;
+        case xtdi :  d1 = aluC = xtd (aluA=s1,aluB=i) @alu;
+        }
+        d1;
+    }
+    syntax : op " " d1 "," s1 ",#" i;
+    image  : op::s1::d1::i;
+}
+
+opn alu_lhi(d1: mR1, i: c16p)
+{
+    action {
+    stage EX:
+        d1 = aluC = lhi(aluU=i) @alu;
+    }
+    syntax: "lhi " d1 ", #" i;
+    image : opcode.lhi::"xxxxx"::d1::i;
+}
+
+// pass modes on ALU
+
+chess_view() { // reg move
+    aluC = bor(aluA,aluB=0);
+} -> {
+    aluC = aluA;
+}
+
+chess_view() { // pass c16u constant
+    aluC = bor(aluA=R[0],aluB);
+} -> {
+    aluC = aluB;
+}
+
+chess_view() { // pass c16s constant
+    aluC = add(aluA=R[0],aluB,aluM);
+    } -> {
+    aluC = aluB;
+}
+
+// primitives for conversion to unsigned char/short
+
+chess_view() { aluC=band(aluA,aluB=0xff); }   -> { aluC=zero_extend_08(aluA); }
+chess_view() { aluC=band(aluA,aluB=0xffff); } -> { aluC=zero_extend_16(aluA); }
+
+chess_view() { aluC=xtd(aluA,aluB=8); }   -> { aluC=sign_extend_08(aluA); }
+chess_view() { aluC=xtd(aluA,aluB=16); }  -> { aluC=sign_extend_16(aluA); }
+
+chess_view() { aluC = seq(aluA,aluB=R[0]); } -> { aluC = seq0(aluA); }
+chess_view() { aluC = sne(aluA,aluB=R[0]); } -> { aluC = sne0(aluA); }

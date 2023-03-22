@@ -1,0 +1,8 @@
+<project name="Project" processor="vlx" lib=".">
+    <file type="c" name="vlx_div_longlong.c" path="&lt;PROCDIR&gt;"/>
+    <file type="a" name="vlx_init.s" path=""/>
+    <file type="c" name="vlx_basic.c" path=""/>
+    <option id="llvm.clang" value="off"/>
+    <option id="project.name" value="libvlx.a"/>
+    <option id="project.type" value="arch"/>
+</project>

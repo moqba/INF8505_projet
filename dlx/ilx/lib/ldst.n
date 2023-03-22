@@ -1,0 +1,204 @@
+/*
+-- File : ldst.n
+--
+-- Contents : nML model for the ILX processor -- load/store instructions.
+--
+-- Copyright (c) 2014-2021 Synopsys, Inc. This Synopsys processor model
+-- captures an ASIP Designer Design Technique. The model and all associated
+-- documentation are proprietary to Synopsys, Inc. and may only be used
+-- pursuant to the terms and conditions of a written license agreement with
+-- Synopsys, Inc.  All other use, reproduction, modification, or distribution
+-- of the Synopsys processor model or the associated  documentation is
+-- strictly prohibited.
+*/
+
+opn load_store_instr( load      | store
+                    | load_pm   | store_pm
+                    | load_rsvd | store_cond
+                    );
+
+fu  agu; // address generation unit
+trn aguA<w32>;
+trn aguB<w32>;
+trn aguC<w32>;
+
+fu  lx;  // load extend unit
+trn lxB<w08>;
+trn lxH<w16>;
+trn lxC<w32>;
+
+fu  sx;  // store extract unit
+trn sxB<w08>;
+trn sxH<w16>;
+trn sxW<w32>;
+
+
+opn load(op: opcode, d1: wmeR1, s1: rexR1, i: c16s)
+{
+    action {
+    stage ID..EX:
+        aguA = s1`EX`;
+    stage EX:
+        dm_ad = aguC = add(aguA,aguB=i) @agu;
+    stage EX..ME:
+        switch (op) {
+        case lb : stage EX..ME: dmb_rd`ME` = DMb[dm_ad`EX`]`ME`;
+                  stage ME:     lxC = extend_sign(lxB=dmb_rd) @lx;
+        case lbu: stage EX..ME: dmb_rd`ME` = DMb[dm_ad`EX`]`ME`;
+                  stage ME:     lxC = extend_zero(lxB=dmb_rd) @lx;
+        case lh : stage EX..ME: dmh_rd`ME` = DMh[dm_ad`EX`]`ME`;
+                  stage ME:     lxC = extend_sign(lxH=dmh_rd) @lx;
+        case lhu: stage EX..ME: dmh_rd`ME` = DMh[dm_ad`EX`]`ME`;
+                  stage ME:     lxC = extend_zero(lxH=dmh_rd) @lx;
+        case lw : stage EX..ME: dmw_rd`ME` = DMw[dm_ad`EX`]`ME`;
+                  stage ME:     lxC = dmw_rd;
+        }
+    stage ID..WB:
+        d1 = lxC`ME`;
+    }
+    syntax: op " " d1 "," i "(" s1 ")";
+    image : op::s1::d1::i;
+}
+
+
+opn store(op: opcode, s2: rexR2, s1: rexR1, i: c16s)
+{
+    action {
+    stage ID..EX:
+        aguA = s1`EX`;
+        sxW  = s2`EX`;
+    stage EX:
+        dm_ad = aguC = add(aguA,aguB=i) @agu;
+    stage EX..ME:
+        switch (op) {
+        case sb: stage EX:     dmb_wr = sxB = extract_w08(sxW) @sx;
+                 stage EX..ME: DMb[dm_ad`EX`]`ME` = dmb_wr`EX`;
+        case sh: stage EX:     dmh_wr = sxH = extract_w16(sxW) @sx;
+                 stage EX..ME: DMh[dm_ad`EX`]`ME` = dmh_wr`EX`;
+        case sw: stage EX:     dmw_wr = sxW;
+                 stage EX..ME: DMw[dm_ad`EX`]`ME` = dmw_wr`EX`;
+       }
+    }
+    syntax : op " " s2 "," i "(" s1 ")";
+    image  : op::s1::s2::i;
+}
+
+chess_view () {  // indirect addressing
+    aguC = add(aguA,aguB=0);
+} -> {
+    aguC = aguA;
+}
+
+chess_view () {  // direct addressing
+    aguC = add(aguA=R[0],aguB);
+} -> {
+    aguC = aguB;
+}
+
+opn load_pm(op: function_code, d1: wmeR1, s1: rexR1, d2: wexR2, m: c5s)
+{
+    action {
+    stage ID..EX:
+        aguA = s1`EX`;
+    stage EX:
+        aguC = add(aguA,aguB=m) @agu;
+        dm_ad = aguA;
+    stage EX..ME:
+        switch (op) {
+        case lb : stage EX..ME: dmb_rd`ME` = DMb[dm_ad`EX`]`ME`;
+                  stage ME:     lxC = extend_sign(lxB=dmb_rd) @lx;
+        case lbu: stage EX..ME: dmb_rd`ME` = DMb[dm_ad`EX`]`ME`;
+                  stage ME:     lxC = extend_zero(lxB=dmb_rd) @lx;
+        case lh : stage EX..ME: dmh_rd`ME` = DMh[dm_ad`EX`]`ME`;
+                  stage ME:     lxC = extend_sign(lxH=dmh_rd) @lx;
+        case lhu: stage EX..ME: dmh_rd`ME` = DMh[dm_ad`EX`]`ME`;
+                  stage ME:     lxC = extend_zero(lxH=dmh_rd) @lx;
+        case lw : stage EX..ME: dmw_rd`ME` = DMw[dm_ad`EX`]`ME`;
+                  stage ME:     lxC = dmw_rd;
+        }
+    stage ID..WB:
+        d1 =  lxC`ME`;
+        d2 = aguC`EX`;
+    }
+    syntax: op " " d1 ",(" s1 "+=" m ")";
+    image : opcode.function::s1::d1::m::op::d2<alias s1>, class(ldstpm);
+}
+
+opn store_pm(op: function_code, s2: rexR2, s1: rexR1, d2: wexR2, m: c5s)
+{
+    action {
+    stage ID..EX:
+        aguA = s1`EX`;
+        sxW  = s2`EX`;
+    stage EX:
+        aguC = add(aguA,aguB=m) @agu;
+        dm_ad = aguA;
+    stage EX..ME:
+        switch (op) {
+        case sb: stage EX:     dmb_wr = sxB = extract_w08(sxW) @sx;
+                 stage EX..ME: DMb[dm_ad`EX`]`ME` = dmb_wr`EX`;
+        case sh: stage EX:     dmh_wr = sxH = extract_w16(sxW) @sx;
+                 stage EX..ME: DMh[dm_ad`EX`]`ME` = dmh_wr`EX`;
+        case sw: stage EX:     dmw_wr = sxW;
+                 stage EX..ME: DMw[dm_ad`EX`]`ME` = dmw_wr`EX`;
+       }
+    stage ID..WB:
+        d2 = aguC`EX`;
+    }
+    syntax : op " " s2 ",(" s1 "+=" dec m ")";
+    image : opcode.function::s1::s2::m::op::d2<alias s1>, class(ldstpm);
+}
+
+/*** RESERVED_LOAD / STORE CONDTIONAL ***/
+
+opn load_rsvd(d1: wmeR1, s1: rexR1, i: c5s)
+{
+    action {
+    stage ID..EX:
+        aguA=s1`EX`;
+    stage EX:
+        dm_ad = aguC = add(aguA,aguB=i) @agu;
+    stage EX..ME:
+        lrsc_ena`EX` = trn_lrsc_ena`EX` = 1`EX`;
+        lxC = dmw_rd`ME` = DMw[dm_ad`EX`]`ME`;
+    stage ID..WB:
+        d1 = lxC`ME`;
+    }
+    syntax: "lr " d1 "," i "(" s1 ")";
+    image : opcode.function::s1::d1::i::function_code.lr;
+}
+
+opn store_cond(s2: rexR2, s1: rexR1, d1: wmeR1, i: c5s)
+{
+    action {
+    stage ID..EX:
+        aguA = s1`EX`;
+        sxW  = s2`EX`;
+    stage EX:
+        dm_ad = aguC = add(aguA,aguB=i) @agu;
+        dmw_wr = sxW;
+    stage EX..ME:
+        lrsc_ena`EX` = trn_lrsc_ena`EX` = 1`EX`;
+        DMw[dm_ad`EX`]`ME` = dmw_wr`EX`;
+    stage ID..WB:
+        d1 = tmeR1`ME`=lrsc_ack`ME`;
+    }
+    syntax : "sc " s2 "," i "(" s1 ")";
+    image  : opcode.function::s1::s2::i::function_code.sc::d1<alias s2>;
+}
+
+chess_view() {
+    lrsc_ena = trn_lrsc_ena = 1;
+    dmw_rd = DMw[dm_ad];
+} -> {
+    dmw_rd = load_rsvd(dm_ad);
+}
+
+chess_view() {
+    lrsc_ena = trn_lrsc_ena = 1;
+    DMw[dm_ad] = dmw_wr;
+    pmeR1 = lrsc_ack;
+} -> {
+    pmeR1 = store_cond(dm_ad, dmw_wr);
+}
+

@@ -1,0 +1,110 @@
+// switch_tail_break(0)
+chess_report(int): 0x00000009 // 9
+// switch_tail_break(3)
+chess_report(int): 0x00000003 // 3
+// switch_fall_through(0)
+chess_report(int): 0x00000009 // 9
+// switch_fall_through(3)
+chess_report(int): 0x00000010 // 16
+// switch_mixed(0)
+chess_report(int): 0x00000009 // 9
+// switch_mixed(2)
+chess_report(int): 0x00000005 // 5
+// switch_mixed(3)
+chess_report(int): 0x00000003 // 3
+// switch_mixed(4)
+chess_report(int): 0x0000000d // 13
+// switch_if_break(2, 0)
+chess_report(int): 0x00000005 // 5
+// switch_if_break(2, 1)
+chess_report(int): 0x00000002 // 2
+// switch_if_break(3, 0)
+chess_report(int): 0x00000003 // 3
+// switch_if_break(3, 1)
+chess_report(int): 0x00000003 // 3
+// switch_nested_if(2, 0)
+chess_report(int): 0x0000000f // 15
+// switch_nested_if(2, 1)
+chess_report(int): 0x0000004c // 76
+// switch_nested_switch(0, 0)
+chess_report(int): 0x00000009 // 9
+// switch_nested_switch(2, 1)
+chess_report(int): 0x00000075 // 117
+// switch_nested_switch(4, 0)
+chess_report(int): 0xfffffc25 // -987
+// switch_nested_switch(4, 1)
+chess_report(int): 0x00000071 // 113
+// switch_nested_switch(4, 2)
+chess_report(int): 0x00000201 // 513
+// switch_nested_switch(4, 3)
+chess_report(int): 0x00000139 // 313
+// switch_default_not_last(0)
+chess_report(int): 0x00000009 // 9
+// switch_default_not_last(2)
+chess_report(int): 0x00000002 // 2
+// switch_default_not_last(4)
+chess_report(int): 0x00000004 // 4
+// switch_color(0, 0)
+chess_report(int): 0x0000000a // 10
+chess_report(int): 0x00000028 // 40
+chess_report(int): 0x0000008c // 140
+chess_report(int): 0x00000474 // 1140
+chess_report(int): 0x00000006 // 6
+chess_report(int): 0x00000132 // 306
+chess_report(int): 0x000005a6 // 1446
+// switch_color(0, 1)
+chess_report(int): 0x0000000a // 10
+chess_report(int): 0x00000028 // 40
+chess_report(int): 0x0000008c // 140
+chess_report(int): 0x00000474 // 1140
+chess_report(int): 0x00000001 // 1
+chess_report(int): 0x00000065 // 101
+chess_report(int): 0x000004d9 // 1241
+// switch_color(1, 0)
+chess_report(int): 0x00000009 // 9
+chess_report(int): 0x0000006d // 109
+chess_report(int): 0x00000135 // 309
+chess_report(int): 0x0000051d // 1309
+chess_report(int): 0x00000005 // 5
+chess_report(int): 0x000000cd // 205
+chess_report(int): 0x000005ea // 1514
+// switch_color(1, 1)
+chess_report(int): 0x00000009 // 9
+chess_report(int): 0x0000006d // 109
+chess_report(int): 0x00000135 // 309
+chess_report(int): 0x0000051d // 1309
+chess_report(int): 0x00000002 // 2
+chess_report(int): 0x000000ca // 202
+chess_report(int): 0x000005e7 // 1511
+// switch_color(2, 0)
+chess_report(int): 0x00000007 // 7
+chess_report(int): 0x00000039 // 57
+chess_report(int): 0x00000165 // 357
+chess_report(int): 0x00000935 // 2357
+chess_report(int): 0x00000003 // 3
+chess_report(int): 0x0000012f // 303
+chess_report(int): 0x00000a64 // 2660
+// switch_color(2, 1)
+chess_report(int): 0x00000007 // 7
+chess_report(int): 0x00000039 // 57
+chess_report(int): 0x00000165 // 357
+chess_report(int): 0x00000935 // 2357
+chess_report(int): 0x00000003 // 3
+chess_report(int): 0x00000067 // 103
+chess_report(int): 0x0000099c // 2460
+// switch_color(3, 0)
+chess_report(int): 0x00000004 // 4
+chess_report(int): 0x0000005e // 94
+chess_report(int): 0x0000018a // 394
+chess_report(int): 0x00000572 // 1394
+chess_report(int): 0x00000003 // 3
+chess_report(int): 0x0000012f // 303
+chess_report(int): 0x000006a1 // 1697
+// switch_color(3, 1)
+chess_report(int): 0x00000004 // 4
+chess_report(int): 0x0000005e // 94
+chess_report(int): 0x0000018a // 394
+chess_report(int): 0x00000572 // 1394
+chess_report(int): 0x00000003 // 3
+chess_report(int): 0x00000067 // 103
+chess_report(int): 0x000005d9 // 1497

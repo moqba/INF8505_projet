@@ -1,0 +1,22 @@
+include: |
+    #define private public
+    #include "scml2/initiator_socket.h"
+    #undef private
+    #include "adapters/DMb_adapter.h"
+
+declare: |
+    scml2::initiator_socket<[=$mem get data_width=]> p_[=$mem get name=]0;
+    scml2::initiator_socket<[=$mem get data_width=]> p_[=$mem get name=]1;
+    scml2::initiator_socket<[=$mem get data_width=]> p_[=$mem get name=]2;
+    scml2::initiator_socket<[=$mem get data_width=]> p_[=$mem get name=]3;
+
+construct: |
+    mdl->m_[=$mem get name=] = new DMb_adapter<[=$mem get data_width=]>("m_[=$mem get name=]", &p_[=$mem get name=]0, &p_[=$mem get name=]1, &p_[=$mem get name=]2, &p_[=$mem get name=]3, this);
+
+initialize: |
+    , p_[=$mem get name=]0("p_[=$mem get name=]0")
+    , p_[=$mem get name=]1("p_[=$mem get name=]1")
+    , p_[=$mem get name=]2("p_[=$mem get name=]2")
+    , p_[=$mem get name=]3("p_[=$mem get name=]3")
+
+end_of_elab: |

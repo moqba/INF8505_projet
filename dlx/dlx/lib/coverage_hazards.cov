@@ -1,0 +1,82 @@
+vlog dlx::coverage_hazards() {%
+
+  covergroup cg_hzd @(posedge clock);
+
+    // mpy raw
+    cp_hzd_L151 : coverpoint inst_hazards.hazards_n_L151HWraw {
+      bins raw_mpyC_w1 = { 1 };
+      bins no_hzd = { 0 };
+    }
+    cp_hzd_L158 : coverpoint inst_hazards.hazards_n_L158HWraw {
+      bins raw_mpyD_w2 = { 1 };
+      bins no_hzd = { 0 };
+    }
+
+    // load raw
+    cp_hzd_L167 : coverpoint inst_hazards.hazards_n_L167HWraw {
+      bins raw_lxC_w1 = { 1 };
+      bins no_hzd = { 0 };
+    }
+
+    // div raw
+    cp_hzd_L178 : coverpoint inst_hazards.hazards_n_L178HWnoDep {
+      bins raw_PL_div = { 1 };
+      bins no_hzd = { 0 };
+    }
+    cp_hzd_L180 : coverpoint inst_hazards.hazards_n_L180HWnoDep {
+      bins raw_PH_rem = { 1 };
+      bins no_hzd = { 0 };
+    }
+
+    // div2div
+    cp_hzd_L185 : coverpoint inst_hazards.hazards_n_L185HWnoDep {
+      bins div2div = { 1 };
+      bins no_hzd = { 0 };
+    }
+
+    // div waw
+    cp_hzd_L190 : coverpoint inst_hazards.hazards_n_L190HWnoDep {
+      bins waw_PL_div = { 1 };
+      bins no_hzd = { 0 };
+    }
+    cp_hzd_L192 : coverpoint inst_hazards.hazards_n_L192HWnoDep {
+      bins waw_PH_rem = { 1 };
+      bins no_hzd = { 0 };
+    }
+
+    // bypasses
+    cp_byp_pS1  : coverpoint inst_hazards.mux___pS1_w_bin_sel_ByPass_out {
+      bins pd1w_to_pS1 = { 3'b101 };
+      bins pe1w_to_pS1 = { 3'b011 };
+      bins w1_to_pS1   = { 3'b001 };
+      bins pd2w_to_pS1 = { 3'b110 };
+      bins pe2w_to_pS1 = { 3'b100 };
+      bins w2_to_pS1   = { 3'b010 };
+      bins none        = { 0 };
+    }
+    cp_byp_pS2  : coverpoint inst_hazards.mux___pS2_w_bin_sel_ByPass_out {
+      bins pd1w_to_pS2 = { 3'b101 };
+      bins pe1w_to_pS2 = { 3'b011 };
+      bins w1_to_pS2   = { 3'b001 };
+      bins pd2w_to_pS2 = { 3'b110 };
+      bins pe2w_to_pS2 = { 3'b100 };
+      bins w2_to_pS2   = { 3'b010 };
+      bins none        = { 0 };
+    }
+
+    // cross bypasses
+    cr_byp_mux : cross cp_byp_pS1, cp_byp_pS2 {
+      // there is no instr. writing to pD1 and pD2
+      ignore_bins ill_pd1w_pd2w_to_pS1_pS2 =
+          binsof(cp_byp_pS1) intersect { 3'b101 } &&    // pd1w_to_pS1
+          binsof(cp_byp_pS2) intersect { 3'b110 };      // pd2w_to_pS2
+      ignore_bins ill_pd1w_pd2w_to_pS2_pS1 =
+          binsof(cp_byp_pS1) intersect { 3'b110 } &&    // pd2w_to_pS1
+          binsof(cp_byp_pS2) intersect { 3'b101 };      // pd1w_to_pS2
+    }
+
+  endgroup
+
+  cg_hzd i_cg_hzd = new();
+
+%}

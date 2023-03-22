@@ -1,0 +1,2872 @@
+// signed_div(1, 1)
+chess_report(int): 0x00000001 // 1
+chess_report(int): 0x00000000 // 0
+// unsigned_div(1, 1)
+chess_report(unsigned): 0x00000001 // 1
+chess_report(unsigned): 0x00000000 // 0
+// signed_div(10, 20)
+chess_report(int): 0x00000000 // 0
+chess_report(int): 0x0000000a // 10
+// unsigned_div(10, 20)
+chess_report(unsigned): 0x00000000 // 0
+chess_report(unsigned): 0x0000000a // 10
+// signed_div(-25, 4)
+chess_report(int): 0xfffffffa // -6
+chess_report(int): 0xffffffff // -1
+// unsigned_div(4294967271, 4)
+chess_report(unsigned): 0x3ffffff9 // 1073741817
+chess_report(unsigned): 0x00000003 // 3
+// signed_div(-122, 53)
+chess_report(int): 0xfffffffe // -2
+chess_report(int): 0xfffffff0 // -16
+// unsigned_div(4294967174, 53)
+chess_report(unsigned): 0x04d4873c // 81037116
+chess_report(unsigned): 0x0000001a // 26
+// signed_div(127, 1)
+chess_report(int): 0x0000007f // 127
+chess_report(int): 0x00000000 // 0
+// unsigned_div(127, 1)
+chess_report(unsigned): 0x0000007f // 127
+chess_report(unsigned): 0x00000000 // 0
+// signed_div(127, 127)
+chess_report(int): 0x00000001 // 1
+chess_report(int): 0x00000000 // 0
+// unsigned_div(127, 127)
+chess_report(unsigned): 0x00000001 // 1
+chess_report(unsigned): 0x00000000 // 0
+// signed_div(0, 127)
+chess_report(int): 0x00000000 // 0
+chess_report(int): 0x00000000 // 0
+// unsigned_div(0, 127)
+chess_report(unsigned): 0x00000000 // 0
+chess_report(unsigned): 0x00000000 // 0
+// signed_div(1, 127)
+chess_report(int): 0x00000000 // 0
+chess_report(int): 0x00000001 // 1
+// unsigned_div(1, 127)
+chess_report(unsigned): 0x00000000 // 0
+chess_report(unsigned): 0x00000001 // 1
+// signed_div(-1, 127)
+chess_report(int): 0x00000000 // 0
+chess_report(int): 0xffffffff // -1
+// unsigned_div(4294967295, 127)
+chess_report(unsigned): 0x02040810 // 33818640
+chess_report(unsigned): 0x0000000f // 15
+// signed_div(-127, 1)
+chess_report(int): 0xffffff81 // -127
+chess_report(int): 0x00000000 // 0
+// unsigned_div(4294967169, 1)
+chess_report(unsigned): 0xffffff81 // 4294967169
+chess_report(unsigned): 0x00000000 // 0
+// signed_div(0, -127)
+chess_report(int): 0x00000000 // 0
+chess_report(int): 0x00000000 // 0
+// unsigned_div(0, 4294967169)
+chess_report(unsigned): 0x00000000 // 0
+chess_report(unsigned): 0x00000000 // 0
+// signed_div(1, -127)
+chess_report(int): 0x00000000 // 0
+chess_report(int): 0x00000001 // 1
+// unsigned_div(1, 4294967169)
+chess_report(unsigned): 0x00000000 // 0
+chess_report(unsigned): 0x00000001 // 1
+// signed_div(-1, -127)
+chess_report(int): 0x00000000 // 0
+chess_report(int): 0xffffffff // -1
+// unsigned_div(4294967295, 4294967169)
+chess_report(unsigned): 0x00000001 // 1
+chess_report(unsigned): 0x0000007e // 126
+// signed_div(-127, -127)
+chess_report(int): 0x00000001 // 1
+chess_report(int): 0x00000000 // 0
+// unsigned_div(4294967169, 4294967169)
+chess_report(unsigned): 0x00000001 // 1
+chess_report(unsigned): 0x00000000 // 0
+// signed_div(-128, 1)
+chess_report(int): 0xffffff80 // -128
+chess_report(int): 0x00000000 // 0
+// unsigned_div(4294967168, 1)
+chess_report(unsigned): 0xffffff80 // 4294967168
+chess_report(unsigned): 0x00000000 // 0
+// signed_div(-128, -128)
+chess_report(int): 0x00000001 // 1
+chess_report(int): 0x00000000 // 0
+// unsigned_div(4294967168, 4294967168)
+chess_report(unsigned): 0x00000001 // 1
+chess_report(unsigned): 0x00000000 // 0
+// signed_div(0, -128)
+chess_report(int): 0x00000000 // 0
+chess_report(int): 0x00000000 // 0
+// unsigned_div(0, 4294967168)
+chess_report(unsigned): 0x00000000 // 0
+chess_report(unsigned): 0x00000000 // 0
+// signed_div(1, -128)
+chess_report(int): 0x00000000 // 0
+chess_report(int): 0x00000001 // 1
+// unsigned_div(1, 4294967168)
+chess_report(unsigned): 0x00000000 // 0
+chess_report(unsigned): 0x00000001 // 1
+// signed_div(-1, -128)
+chess_report(int): 0x00000000 // 0
+chess_report(int): 0xffffffff // -1
+// unsigned_div(4294967295, 4294967168)
+chess_report(unsigned): 0x00000001 // 1
+chess_report(unsigned): 0x0000007f // 127
+// signed_div(0, 0)
+// unsigned_div(0, 0)
+// signed_div(0, 1)
+chess_report(int): 0x00000000 // 0
+chess_report(int): 0x00000000 // 0
+// unsigned_div(0, 1)
+chess_report(unsigned): 0x00000000 // 0
+chess_report(unsigned): 0x00000000 // 0
+// signed_div(0, -1)
+chess_report(int): 0x00000000 // 0
+chess_report(int): 0x00000000 // 0
+// unsigned_div(0, 4294967295)
+chess_report(unsigned): 0x00000000 // 0
+chess_report(unsigned): 0x00000000 // 0
+// signed_div(0, 10)
+chess_report(int): 0x00000000 // 0
+chess_report(int): 0x00000000 // 0
+// unsigned_div(0, 10)
+chess_report(unsigned): 0x00000000 // 0
+chess_report(unsigned): 0x00000000 // 0
+// signed_div(0, -25)
+chess_report(int): 0x00000000 // 0
+chess_report(int): 0x00000000 // 0
+// unsigned_div(0, 4294967271)
+chess_report(unsigned): 0x00000000 // 0
+chess_report(unsigned): 0x00000000 // 0
+// signed_div(0, -122)
+chess_report(int): 0x00000000 // 0
+chess_report(int): 0x00000000 // 0
+// unsigned_div(0, 4294967174)
+chess_report(unsigned): 0x00000000 // 0
+chess_report(unsigned): 0x00000000 // 0
+// signed_div(0, 134217727)
+chess_report(int): 0x00000000 // 0
+chess_report(int): 0x00000000 // 0
+// unsigned_div(0, 134217727)
+chess_report(unsigned): 0x00000000 // 0
+chess_report(unsigned): 0x00000000 // 0
+// signed_div(0, 134217727)
+chess_report(int): 0x00000000 // 0
+chess_report(int): 0x00000000 // 0
+// unsigned_div(0, 134217727)
+chess_report(unsigned): 0x00000000 // 0
+chess_report(unsigned): 0x00000000 // 0
+// signed_div(0, 117440512)
+chess_report(int): 0x00000000 // 0
+chess_report(int): 0x00000000 // 0
+// unsigned_div(0, 117440512)
+chess_report(unsigned): 0x00000000 // 0
+chess_report(unsigned): 0x00000000 // 0
+// signed_div(0, 117440511)
+chess_report(int): 0x00000000 // 0
+chess_report(int): 0x00000000 // 0
+// unsigned_div(0, 117440511)
+chess_report(unsigned): 0x00000000 // 0
+chess_report(unsigned): 0x00000000 // 0
+// signed_div(0, 67108864)
+chess_report(int): 0x00000000 // 0
+chess_report(int): 0x00000000 // 0
+// unsigned_div(0, 67108864)
+chess_report(unsigned): 0x00000000 // 0
+chess_report(unsigned): 0x00000000 // 0
+// signed_div(0, 67108863)
+chess_report(int): 0x00000000 // 0
+chess_report(int): 0x00000000 // 0
+// unsigned_div(0, 67108863)
+chess_report(unsigned): 0x00000000 // 0
+chess_report(unsigned): 0x00000000 // 0
+// signed_div(0, 50331648)
+chess_report(int): 0x00000000 // 0
+chess_report(int): 0x00000000 // 0
+// unsigned_div(0, 50331648)
+chess_report(unsigned): 0x00000000 // 0
+chess_report(unsigned): 0x00000000 // 0
+// signed_div(0, -2147483648)
+chess_report(int): 0x00000000 // 0
+chess_report(int): 0x00000000 // 0
+// unsigned_div(0, 2147483648)
+chess_report(unsigned): 0x00000000 // 0
+chess_report(unsigned): 0x00000000 // 0
+// signed_div(0, 2147483647)
+chess_report(int): 0x00000000 // 0
+chess_report(int): 0x00000000 // 0
+// unsigned_div(0, 2147483647)
+chess_report(unsigned): 0x00000000 // 0
+chess_report(unsigned): 0x00000000 // 0
+// signed_div(0, 2147483646)
+chess_report(int): 0x00000000 // 0
+chess_report(int): 0x00000000 // 0
+// unsigned_div(0, 2147483646)
+chess_report(unsigned): 0x00000000 // 0
+chess_report(unsigned): 0x00000000 // 0
+// signed_div(0, -1)
+chess_report(int): 0x00000000 // 0
+chess_report(int): 0x00000000 // 0
+// unsigned_div(0, 4294967295)
+chess_report(unsigned): 0x00000000 // 0
+chess_report(unsigned): 0x00000000 // 0
+// signed_div(0, -2)
+chess_report(int): 0x00000000 // 0
+chess_report(int): 0x00000000 // 0
+// unsigned_div(0, 4294967294)
+chess_report(unsigned): 0x00000000 // 0
+chess_report(unsigned): 0x00000000 // 0
+// signed_div(0, 178956970)
+chess_report(int): 0x00000000 // 0
+chess_report(int): 0x00000000 // 0
+// unsigned_div(0, 178956970)
+chess_report(unsigned): 0x00000000 // 0
+chess_report(unsigned): 0x00000000 // 0
+// signed_div(1, 0)
+// unsigned_div(1, 0)
+// signed_div(1, 1)
+chess_report(int): 0x00000001 // 1
+chess_report(int): 0x00000000 // 0
+// unsigned_div(1, 1)
+chess_report(unsigned): 0x00000001 // 1
+chess_report(unsigned): 0x00000000 // 0
+// signed_div(1, -1)
+chess_report(int): 0xffffffff // -1
+chess_report(int): 0x00000000 // 0
+// unsigned_div(1, 4294967295)
+chess_report(unsigned): 0x00000000 // 0
+chess_report(unsigned): 0x00000001 // 1
+// signed_div(1, 10)
+chess_report(int): 0x00000000 // 0
+chess_report(int): 0x00000001 // 1
+// unsigned_div(1, 10)
+chess_report(unsigned): 0x00000000 // 0
+chess_report(unsigned): 0x00000001 // 1
+// signed_div(1, -25)
+chess_report(int): 0x00000000 // 0
+chess_report(int): 0x00000001 // 1
+// unsigned_div(1, 4294967271)
+chess_report(unsigned): 0x00000000 // 0
+chess_report(unsigned): 0x00000001 // 1
+// signed_div(1, -122)
+chess_report(int): 0x00000000 // 0
+chess_report(int): 0x00000001 // 1
+// unsigned_div(1, 4294967174)
+chess_report(unsigned): 0x00000000 // 0
+chess_report(unsigned): 0x00000001 // 1
+// signed_div(1, 134217727)
+chess_report(int): 0x00000000 // 0
+chess_report(int): 0x00000001 // 1
+// unsigned_div(1, 134217727)
+chess_report(unsigned): 0x00000000 // 0
+chess_report(unsigned): 0x00000001 // 1
+// signed_div(1, 134217727)
+chess_report(int): 0x00000000 // 0
+chess_report(int): 0x00000001 // 1
+// unsigned_div(1, 134217727)
+chess_report(unsigned): 0x00000000 // 0
+chess_report(unsigned): 0x00000001 // 1
+// signed_div(1, 117440512)
+chess_report(int): 0x00000000 // 0
+chess_report(int): 0x00000001 // 1
+// unsigned_div(1, 117440512)
+chess_report(unsigned): 0x00000000 // 0
+chess_report(unsigned): 0x00000001 // 1
+// signed_div(1, 117440511)
+chess_report(int): 0x00000000 // 0
+chess_report(int): 0x00000001 // 1
+// unsigned_div(1, 117440511)
+chess_report(unsigned): 0x00000000 // 0
+chess_report(unsigned): 0x00000001 // 1
+// signed_div(1, 67108864)
+chess_report(int): 0x00000000 // 0
+chess_report(int): 0x00000001 // 1
+// unsigned_div(1, 67108864)
+chess_report(unsigned): 0x00000000 // 0
+chess_report(unsigned): 0x00000001 // 1
+// signed_div(1, 67108863)
+chess_report(int): 0x00000000 // 0
+chess_report(int): 0x00000001 // 1
+// unsigned_div(1, 67108863)
+chess_report(unsigned): 0x00000000 // 0
+chess_report(unsigned): 0x00000001 // 1
+// signed_div(1, 50331648)
+chess_report(int): 0x00000000 // 0
+chess_report(int): 0x00000001 // 1
+// unsigned_div(1, 50331648)
+chess_report(unsigned): 0x00000000 // 0
+chess_report(unsigned): 0x00000001 // 1
+// signed_div(1, -2147483648)
+chess_report(int): 0x00000000 // 0
+chess_report(int): 0x00000001 // 1
+// unsigned_div(1, 2147483648)
+chess_report(unsigned): 0x00000000 // 0
+chess_report(unsigned): 0x00000001 // 1
+// signed_div(1, 2147483647)
+chess_report(int): 0x00000000 // 0
+chess_report(int): 0x00000001 // 1
+// unsigned_div(1, 2147483647)
+chess_report(unsigned): 0x00000000 // 0
+chess_report(unsigned): 0x00000001 // 1
+// signed_div(1, 2147483646)
+chess_report(int): 0x00000000 // 0
+chess_report(int): 0x00000001 // 1
+// unsigned_div(1, 2147483646)
+chess_report(unsigned): 0x00000000 // 0
+chess_report(unsigned): 0x00000001 // 1
+// signed_div(1, -1)
+chess_report(int): 0xffffffff // -1
+chess_report(int): 0x00000000 // 0
+// unsigned_div(1, 4294967295)
+chess_report(unsigned): 0x00000000 // 0
+chess_report(unsigned): 0x00000001 // 1
+// signed_div(1, -2)
+chess_report(int): 0x00000000 // 0
+chess_report(int): 0x00000001 // 1
+// unsigned_div(1, 4294967294)
+chess_report(unsigned): 0x00000000 // 0
+chess_report(unsigned): 0x00000001 // 1
+// signed_div(1, 178956970)
+chess_report(int): 0x00000000 // 0
+chess_report(int): 0x00000001 // 1
+// unsigned_div(1, 178956970)
+chess_report(unsigned): 0x00000000 // 0
+chess_report(unsigned): 0x00000001 // 1
+// signed_div(-1, 0)
+// unsigned_div(4294967295, 0)
+// signed_div(-1, 1)
+chess_report(int): 0xffffffff // -1
+chess_report(int): 0x00000000 // 0
+// unsigned_div(4294967295, 1)
+chess_report(unsigned): 0xffffffff // 4294967295
+chess_report(unsigned): 0x00000000 // 0
+// signed_div(-1, -1)
+chess_report(int): 0x00000001 // 1
+chess_report(int): 0x00000000 // 0
+// unsigned_div(4294967295, 4294967295)
+chess_report(unsigned): 0x00000001 // 1
+chess_report(unsigned): 0x00000000 // 0
+// signed_div(-1, 10)
+chess_report(int): 0x00000000 // 0
+chess_report(int): 0xffffffff // -1
+// unsigned_div(4294967295, 10)
+chess_report(unsigned): 0x19999999 // 429496729
+chess_report(unsigned): 0x00000005 // 5
+// signed_div(-1, -25)
+chess_report(int): 0x00000000 // 0
+chess_report(int): 0xffffffff // -1
+// unsigned_div(4294967295, 4294967271)
+chess_report(unsigned): 0x00000001 // 1
+chess_report(unsigned): 0x00000018 // 24
+// signed_div(-1, -122)
+chess_report(int): 0x00000000 // 0
+chess_report(int): 0xffffffff // -1
+// unsigned_div(4294967295, 4294967174)
+chess_report(unsigned): 0x00000001 // 1
+chess_report(unsigned): 0x00000079 // 121
+// signed_div(-1, 134217727)
+chess_report(int): 0x00000000 // 0
+chess_report(int): 0xffffffff // -1
+// unsigned_div(4294967295, 134217727)
+chess_report(unsigned): 0x00000020 // 32
+chess_report(unsigned): 0x0000001f // 31
+// signed_div(-1, 134217727)
+chess_report(int): 0x00000000 // 0
+chess_report(int): 0xffffffff // -1
+// unsigned_div(4294967295, 134217727)
+chess_report(unsigned): 0x00000020 // 32
+chess_report(unsigned): 0x0000001f // 31
+// signed_div(-1, 117440512)
+chess_report(int): 0x00000000 // 0
+chess_report(int): 0xffffffff // -1
+// unsigned_div(4294967295, 117440512)
+chess_report(unsigned): 0x00000024 // 36
+chess_report(unsigned): 0x03ffffff // 67108863
+// signed_div(-1, 117440511)
+chess_report(int): 0x00000000 // 0
+chess_report(int): 0xffffffff // -1
+// unsigned_div(4294967295, 117440511)
+chess_report(unsigned): 0x00000024 // 36
+chess_report(unsigned): 0x04000023 // 67108899
+// signed_div(-1, 67108864)
+chess_report(int): 0x00000000 // 0
+chess_report(int): 0xffffffff // -1
+// unsigned_div(4294967295, 67108864)
+chess_report(unsigned): 0x0000003f // 63
+chess_report(unsigned): 0x03ffffff // 67108863
+// signed_div(-1, 67108863)
+chess_report(int): 0x00000000 // 0
+chess_report(int): 0xffffffff // -1
+// unsigned_div(4294967295, 67108863)
+chess_report(unsigned): 0x00000040 // 64
+chess_report(unsigned): 0x0000003f // 63
+// signed_div(-1, 50331648)
+chess_report(int): 0x00000000 // 0
+chess_report(int): 0xffffffff // -1
+// unsigned_div(4294967295, 50331648)
+chess_report(unsigned): 0x00000055 // 85
+chess_report(unsigned): 0x00ffffff // 16777215
+// signed_div(-1, -2147483648)
+chess_report(int): 0x00000000 // 0
+chess_report(int): 0xffffffff // -1
+// unsigned_div(4294967295, 2147483648)
+chess_report(unsigned): 0x00000001 // 1
+chess_report(unsigned): 0x7fffffff // 2147483647
+// signed_div(-1, 2147483647)
+chess_report(int): 0x00000000 // 0
+chess_report(int): 0xffffffff // -1
+// unsigned_div(4294967295, 2147483647)
+chess_report(unsigned): 0x00000002 // 2
+chess_report(unsigned): 0x00000001 // 1
+// signed_div(-1, 2147483646)
+chess_report(int): 0x00000000 // 0
+chess_report(int): 0xffffffff // -1
+// unsigned_div(4294967295, 2147483646)
+chess_report(unsigned): 0x00000002 // 2
+chess_report(unsigned): 0x00000003 // 3
+// signed_div(-1, -1)
+chess_report(int): 0x00000001 // 1
+chess_report(int): 0x00000000 // 0
+// unsigned_div(4294967295, 4294967295)
+chess_report(unsigned): 0x00000001 // 1
+chess_report(unsigned): 0x00000000 // 0
+// signed_div(-1, -2)
+chess_report(int): 0x00000000 // 0
+chess_report(int): 0xffffffff // -1
+// unsigned_div(4294967295, 4294967294)
+chess_report(unsigned): 0x00000001 // 1
+chess_report(unsigned): 0x00000001 // 1
+// signed_div(-1, 178956970)
+chess_report(int): 0x00000000 // 0
+chess_report(int): 0xffffffff // -1
+// unsigned_div(4294967295, 178956970)
+chess_report(unsigned): 0x00000018 // 24
+chess_report(unsigned): 0x0000000f // 15
+// signed_div(10, 0)
+// unsigned_div(10, 0)
+// signed_div(10, 1)
+chess_report(int): 0x0000000a // 10
+chess_report(int): 0x00000000 // 0
+// unsigned_div(10, 1)
+chess_report(unsigned): 0x0000000a // 10
+chess_report(unsigned): 0x00000000 // 0
+// signed_div(10, -1)
+chess_report(int): 0xfffffff6 // -10
+chess_report(int): 0x00000000 // 0
+// unsigned_div(10, 4294967295)
+chess_report(unsigned): 0x00000000 // 0
+chess_report(unsigned): 0x0000000a // 10
+// signed_div(10, 10)
+chess_report(int): 0x00000001 // 1
+chess_report(int): 0x00000000 // 0
+// unsigned_div(10, 10)
+chess_report(unsigned): 0x00000001 // 1
+chess_report(unsigned): 0x00000000 // 0
+// signed_div(10, -25)
+chess_report(int): 0x00000000 // 0
+chess_report(int): 0x0000000a // 10
+// unsigned_div(10, 4294967271)
+chess_report(unsigned): 0x00000000 // 0
+chess_report(unsigned): 0x0000000a // 10
+// signed_div(10, -122)
+chess_report(int): 0x00000000 // 0
+chess_report(int): 0x0000000a // 10
+// unsigned_div(10, 4294967174)
+chess_report(unsigned): 0x00000000 // 0
+chess_report(unsigned): 0x0000000a // 10
+// signed_div(10, 134217727)
+chess_report(int): 0x00000000 // 0
+chess_report(int): 0x0000000a // 10
+// unsigned_div(10, 134217727)
+chess_report(unsigned): 0x00000000 // 0
+chess_report(unsigned): 0x0000000a // 10
+// signed_div(10, 134217727)
+chess_report(int): 0x00000000 // 0
+chess_report(int): 0x0000000a // 10
+// unsigned_div(10, 134217727)
+chess_report(unsigned): 0x00000000 // 0
+chess_report(unsigned): 0x0000000a // 10
+// signed_div(10, 117440512)
+chess_report(int): 0x00000000 // 0
+chess_report(int): 0x0000000a // 10
+// unsigned_div(10, 117440512)
+chess_report(unsigned): 0x00000000 // 0
+chess_report(unsigned): 0x0000000a // 10
+// signed_div(10, 117440511)
+chess_report(int): 0x00000000 // 0
+chess_report(int): 0x0000000a // 10
+// unsigned_div(10, 117440511)
+chess_report(unsigned): 0x00000000 // 0
+chess_report(unsigned): 0x0000000a // 10
+// signed_div(10, 67108864)
+chess_report(int): 0x00000000 // 0
+chess_report(int): 0x0000000a // 10
+// unsigned_div(10, 67108864)
+chess_report(unsigned): 0x00000000 // 0
+chess_report(unsigned): 0x0000000a // 10
+// signed_div(10, 67108863)
+chess_report(int): 0x00000000 // 0
+chess_report(int): 0x0000000a // 10
+// unsigned_div(10, 67108863)
+chess_report(unsigned): 0x00000000 // 0
+chess_report(unsigned): 0x0000000a // 10
+// signed_div(10, 50331648)
+chess_report(int): 0x00000000 // 0
+chess_report(int): 0x0000000a // 10
+// unsigned_div(10, 50331648)
+chess_report(unsigned): 0x00000000 // 0
+chess_report(unsigned): 0x0000000a // 10
+// signed_div(10, -2147483648)
+chess_report(int): 0x00000000 // 0
+chess_report(int): 0x0000000a // 10
+// unsigned_div(10, 2147483648)
+chess_report(unsigned): 0x00000000 // 0
+chess_report(unsigned): 0x0000000a // 10
+// signed_div(10, 2147483647)
+chess_report(int): 0x00000000 // 0
+chess_report(int): 0x0000000a // 10
+// unsigned_div(10, 2147483647)
+chess_report(unsigned): 0x00000000 // 0
+chess_report(unsigned): 0x0000000a // 10
+// signed_div(10, 2147483646)
+chess_report(int): 0x00000000 // 0
+chess_report(int): 0x0000000a // 10
+// unsigned_div(10, 2147483646)
+chess_report(unsigned): 0x00000000 // 0
+chess_report(unsigned): 0x0000000a // 10
+// signed_div(10, -1)
+chess_report(int): 0xfffffff6 // -10
+chess_report(int): 0x00000000 // 0
+// unsigned_div(10, 4294967295)
+chess_report(unsigned): 0x00000000 // 0
+chess_report(unsigned): 0x0000000a // 10
+// signed_div(10, -2)
+chess_report(int): 0xfffffffb // -5
+chess_report(int): 0x00000000 // 0
+// unsigned_div(10, 4294967294)
+chess_report(unsigned): 0x00000000 // 0
+chess_report(unsigned): 0x0000000a // 10
+// signed_div(10, 178956970)
+chess_report(int): 0x00000000 // 0
+chess_report(int): 0x0000000a // 10
+// unsigned_div(10, 178956970)
+chess_report(unsigned): 0x00000000 // 0
+chess_report(unsigned): 0x0000000a // 10
+// signed_div(-25, 0)
+// unsigned_div(4294967271, 0)
+// signed_div(-25, 1)
+chess_report(int): 0xffffffe7 // -25
+chess_report(int): 0x00000000 // 0
+// unsigned_div(4294967271, 1)
+chess_report(unsigned): 0xffffffe7 // 4294967271
+chess_report(unsigned): 0x00000000 // 0
+// signed_div(-25, -1)
+chess_report(int): 0x00000019 // 25
+chess_report(int): 0x00000000 // 0
+// unsigned_div(4294967271, 4294967295)
+chess_report(unsigned): 0x00000000 // 0
+chess_report(unsigned): 0xffffffe7 // 4294967271
+// signed_div(-25, 10)
+chess_report(int): 0xfffffffe // -2
+chess_report(int): 0xfffffffb // -5
+// unsigned_div(4294967271, 10)
+chess_report(unsigned): 0x19999997 // 429496727
+chess_report(unsigned): 0x00000001 // 1
+// signed_div(-25, -25)
+chess_report(int): 0x00000001 // 1
+chess_report(int): 0x00000000 // 0
+// unsigned_div(4294967271, 4294967271)
+chess_report(unsigned): 0x00000001 // 1
+chess_report(unsigned): 0x00000000 // 0
+// signed_div(-25, -122)
+chess_report(int): 0x00000000 // 0
+chess_report(int): 0xffffffe7 // -25
+// unsigned_div(4294967271, 4294967174)
+chess_report(unsigned): 0x00000001 // 1
+chess_report(unsigned): 0x00000061 // 97
+// signed_div(-25, 134217727)
+chess_report(int): 0x00000000 // 0
+chess_report(int): 0xffffffe7 // -25
+// unsigned_div(4294967271, 134217727)
+chess_report(unsigned): 0x00000020 // 32
+chess_report(unsigned): 0x00000007 // 7
+// signed_div(-25, 134217727)
+chess_report(int): 0x00000000 // 0
+chess_report(int): 0xffffffe7 // -25
+// unsigned_div(4294967271, 134217727)
+chess_report(unsigned): 0x00000020 // 32
+chess_report(unsigned): 0x00000007 // 7
+// signed_div(-25, 117440512)
+chess_report(int): 0x00000000 // 0
+chess_report(int): 0xffffffe7 // -25
+// unsigned_div(4294967271, 117440512)
+chess_report(unsigned): 0x00000024 // 36
+chess_report(unsigned): 0x03ffffe7 // 67108839
+// signed_div(-25, 117440511)
+chess_report(int): 0x00000000 // 0
+chess_report(int): 0xffffffe7 // -25
+// unsigned_div(4294967271, 117440511)
+chess_report(unsigned): 0x00000024 // 36
+chess_report(unsigned): 0x0400000b // 67108875
+// signed_div(-25, 67108864)
+chess_report(int): 0x00000000 // 0
+chess_report(int): 0xffffffe7 // -25
+// unsigned_div(4294967271, 67108864)
+chess_report(unsigned): 0x0000003f // 63
+chess_report(unsigned): 0x03ffffe7 // 67108839
+// signed_div(-25, 67108863)
+chess_report(int): 0x00000000 // 0
+chess_report(int): 0xffffffe7 // -25
+// unsigned_div(4294967271, 67108863)
+chess_report(unsigned): 0x00000040 // 64
+chess_report(unsigned): 0x00000027 // 39
+// signed_div(-25, 50331648)
+chess_report(int): 0x00000000 // 0
+chess_report(int): 0xffffffe7 // -25
+// unsigned_div(4294967271, 50331648)
+chess_report(unsigned): 0x00000055 // 85
+chess_report(unsigned): 0x00ffffe7 // 16777191
+// signed_div(-25, -2147483648)
+chess_report(int): 0x00000000 // 0
+chess_report(int): 0xffffffe7 // -25
+// unsigned_div(4294967271, 2147483648)
+chess_report(unsigned): 0x00000001 // 1
+chess_report(unsigned): 0x7fffffe7 // 2147483623
+// signed_div(-25, 2147483647)
+chess_report(int): 0x00000000 // 0
+chess_report(int): 0xffffffe7 // -25
+// unsigned_div(4294967271, 2147483647)
+chess_report(unsigned): 0x00000001 // 1
+chess_report(unsigned): 0x7fffffe8 // 2147483624
+// signed_div(-25, 2147483646)
+chess_report(int): 0x00000000 // 0
+chess_report(int): 0xffffffe7 // -25
+// unsigned_div(4294967271, 2147483646)
+chess_report(unsigned): 0x00000001 // 1
+chess_report(unsigned): 0x7fffffe9 // 2147483625
+// signed_div(-25, -1)
+chess_report(int): 0x00000019 // 25
+chess_report(int): 0x00000000 // 0
+// unsigned_div(4294967271, 4294967295)
+chess_report(unsigned): 0x00000000 // 0
+chess_report(unsigned): 0xffffffe7 // 4294967271
+// signed_div(-25, -2)
+chess_report(int): 0x0000000c // 12
+chess_report(int): 0xffffffff // -1
+// unsigned_div(4294967271, 4294967294)
+chess_report(unsigned): 0x00000000 // 0
+chess_report(unsigned): 0xffffffe7 // 4294967271
+// signed_div(-25, 178956970)
+chess_report(int): 0x00000000 // 0
+chess_report(int): 0xffffffe7 // -25
+// unsigned_div(4294967271, 178956970)
+chess_report(unsigned): 0x00000017 // 23
+chess_report(unsigned): 0x0aaaaaa1 // 178956961
+// signed_div(-122, 0)
+// unsigned_div(4294967174, 0)
+// signed_div(-122, 1)
+chess_report(int): 0xffffff86 // -122
+chess_report(int): 0x00000000 // 0
+// unsigned_div(4294967174, 1)
+chess_report(unsigned): 0xffffff86 // 4294967174
+chess_report(unsigned): 0x00000000 // 0
+// signed_div(-122, -1)
+chess_report(int): 0x0000007a // 122
+chess_report(int): 0x00000000 // 0
+// unsigned_div(4294967174, 4294967295)
+chess_report(unsigned): 0x00000000 // 0
+chess_report(unsigned): 0xffffff86 // 4294967174
+// signed_div(-122, 10)
+chess_report(int): 0xfffffff4 // -12
+chess_report(int): 0xfffffffe // -2
+// unsigned_div(4294967174, 10)
+chess_report(unsigned): 0x1999998d // 429496717
+chess_report(unsigned): 0x00000004 // 4
+// signed_div(-122, -25)
+chess_report(int): 0x00000004 // 4
+chess_report(int): 0xffffffea // -22
+// unsigned_div(4294967174, 4294967271)
+chess_report(unsigned): 0x00000000 // 0
+chess_report(unsigned): 0xffffff86 // 4294967174
+// signed_div(-122, -122)
+chess_report(int): 0x00000001 // 1
+chess_report(int): 0x00000000 // 0
+// unsigned_div(4294967174, 4294967174)
+chess_report(unsigned): 0x00000001 // 1
+chess_report(unsigned): 0x00000000 // 0
+// signed_div(-122, 134217727)
+chess_report(int): 0x00000000 // 0
+chess_report(int): 0xffffff86 // -122
+// unsigned_div(4294967174, 134217727)
+chess_report(unsigned): 0x0000001f // 31
+chess_report(unsigned): 0x07ffffa5 // 134217637
+// signed_div(-122, 134217727)
+chess_report(int): 0x00000000 // 0
+chess_report(int): 0xffffff86 // -122
+// unsigned_div(4294967174, 134217727)
+chess_report(unsigned): 0x0000001f // 31
+chess_report(unsigned): 0x07ffffa5 // 134217637
+// signed_div(-122, 117440512)
+chess_report(int): 0x00000000 // 0
+chess_report(int): 0xffffff86 // -122
+// unsigned_div(4294967174, 117440512)
+chess_report(unsigned): 0x00000024 // 36
+chess_report(unsigned): 0x03ffff86 // 67108742
+// signed_div(-122, 117440511)
+chess_report(int): 0x00000000 // 0
+chess_report(int): 0xffffff86 // -122
+// unsigned_div(4294967174, 117440511)
+chess_report(unsigned): 0x00000024 // 36
+chess_report(unsigned): 0x03ffffaa // 67108778
+// signed_div(-122, 67108864)
+chess_report(int): 0x00000000 // 0
+chess_report(int): 0xffffff86 // -122
+// unsigned_div(4294967174, 67108864)
+chess_report(unsigned): 0x0000003f // 63
+chess_report(unsigned): 0x03ffff86 // 67108742
+// signed_div(-122, 67108863)
+chess_report(int): 0x00000000 // 0
+chess_report(int): 0xffffff86 // -122
+// unsigned_div(4294967174, 67108863)
+chess_report(unsigned): 0x0000003f // 63
+chess_report(unsigned): 0x03ffffc5 // 67108805
+// signed_div(-122, 50331648)
+chess_report(int): 0x00000000 // 0
+chess_report(int): 0xffffff86 // -122
+// unsigned_div(4294967174, 50331648)
+chess_report(unsigned): 0x00000055 // 85
+chess_report(unsigned): 0x00ffff86 // 16777094
+// signed_div(-122, -2147483648)
+chess_report(int): 0x00000000 // 0
+chess_report(int): 0xffffff86 // -122
+// unsigned_div(4294967174, 2147483648)
+chess_report(unsigned): 0x00000001 // 1
+chess_report(unsigned): 0x7fffff86 // 2147483526
+// signed_div(-122, 2147483647)
+chess_report(int): 0x00000000 // 0
+chess_report(int): 0xffffff86 // -122
+// unsigned_div(4294967174, 2147483647)
+chess_report(unsigned): 0x00000001 // 1
+chess_report(unsigned): 0x7fffff87 // 2147483527
+// signed_div(-122, 2147483646)
+chess_report(int): 0x00000000 // 0
+chess_report(int): 0xffffff86 // -122
+// unsigned_div(4294967174, 2147483646)
+chess_report(unsigned): 0x00000001 // 1
+chess_report(unsigned): 0x7fffff88 // 2147483528
+// signed_div(-122, -1)
+chess_report(int): 0x0000007a // 122
+chess_report(int): 0x00000000 // 0
+// unsigned_div(4294967174, 4294967295)
+chess_report(unsigned): 0x00000000 // 0
+chess_report(unsigned): 0xffffff86 // 4294967174
+// signed_div(-122, -2)
+chess_report(int): 0x0000003d // 61
+chess_report(int): 0x00000000 // 0
+// unsigned_div(4294967174, 4294967294)
+chess_report(unsigned): 0x00000000 // 0
+chess_report(unsigned): 0xffffff86 // 4294967174
+// signed_div(-122, 178956970)
+chess_report(int): 0x00000000 // 0
+chess_report(int): 0xffffff86 // -122
+// unsigned_div(4294967174, 178956970)
+chess_report(unsigned): 0x00000017 // 23
+chess_report(unsigned): 0x0aaaaa40 // 178956864
+// signed_div(134217727, 0)
+// unsigned_div(134217727, 0)
+// signed_div(134217727, 1)
+chess_report(int): 0x07ffffff // 134217727
+chess_report(int): 0x00000000 // 0
+// unsigned_div(134217727, 1)
+chess_report(unsigned): 0x07ffffff // 134217727
+chess_report(unsigned): 0x00000000 // 0
+// signed_div(134217727, -1)
+chess_report(int): 0xf8000001 // -134217727
+chess_report(int): 0x00000000 // 0
+// unsigned_div(134217727, 4294967295)
+chess_report(unsigned): 0x00000000 // 0
+chess_report(unsigned): 0x07ffffff // 134217727
+// signed_div(134217727, 10)
+chess_report(int): 0x00cccccc // 13421772
+chess_report(int): 0x00000007 // 7
+// unsigned_div(134217727, 10)
+chess_report(unsigned): 0x00cccccc // 13421772
+chess_report(unsigned): 0x00000007 // 7
+// signed_div(134217727, -25)
+chess_report(int): 0xffae147b // -5368709
+chess_report(int): 0x00000002 // 2
+// unsigned_div(134217727, 4294967271)
+chess_report(unsigned): 0x00000000 // 0
+chess_report(unsigned): 0x07ffffff // 134217727
+// signed_div(134217727, -122)
+chess_report(int): 0xffef368f // -1100145
+chess_report(int): 0x00000025 // 37
+// unsigned_div(134217727, 4294967174)
+chess_report(unsigned): 0x00000000 // 0
+chess_report(unsigned): 0x07ffffff // 134217727
+// signed_div(134217727, 134217727)
+chess_report(int): 0x00000001 // 1
+chess_report(int): 0x00000000 // 0
+// unsigned_div(134217727, 134217727)
+chess_report(unsigned): 0x00000001 // 1
+chess_report(unsigned): 0x00000000 // 0
+// signed_div(134217727, 134217727)
+chess_report(int): 0x00000001 // 1
+chess_report(int): 0x00000000 // 0
+// unsigned_div(134217727, 134217727)
+chess_report(unsigned): 0x00000001 // 1
+chess_report(unsigned): 0x00000000 // 0
+// signed_div(134217727, 117440512)
+chess_report(int): 0x00000001 // 1
+chess_report(int): 0x00ffffff // 16777215
+// unsigned_div(134217727, 117440512)
+chess_report(unsigned): 0x00000001 // 1
+chess_report(unsigned): 0x00ffffff // 16777215
+// signed_div(134217727, 117440511)
+chess_report(int): 0x00000001 // 1
+chess_report(int): 0x01000000 // 16777216
+// unsigned_div(134217727, 117440511)
+chess_report(unsigned): 0x00000001 // 1
+chess_report(unsigned): 0x01000000 // 16777216
+// signed_div(134217727, 67108864)
+chess_report(int): 0x00000001 // 1
+chess_report(int): 0x03ffffff // 67108863
+// unsigned_div(134217727, 67108864)
+chess_report(unsigned): 0x00000001 // 1
+chess_report(unsigned): 0x03ffffff // 67108863
+// signed_div(134217727, 67108863)
+chess_report(int): 0x00000002 // 2
+chess_report(int): 0x00000001 // 1
+// unsigned_div(134217727, 67108863)
+chess_report(unsigned): 0x00000002 // 2
+chess_report(unsigned): 0x00000001 // 1
+// signed_div(134217727, 50331648)
+chess_report(int): 0x00000002 // 2
+chess_report(int): 0x01ffffff // 33554431
+// unsigned_div(134217727, 50331648)
+chess_report(unsigned): 0x00000002 // 2
+chess_report(unsigned): 0x01ffffff // 33554431
+// signed_div(134217727, -2147483648)
+chess_report(int): 0x00000000 // 0
+chess_report(int): 0x07ffffff // 134217727
+// unsigned_div(134217727, 2147483648)
+chess_report(unsigned): 0x00000000 // 0
+chess_report(unsigned): 0x07ffffff // 134217727
+// signed_div(134217727, 2147483647)
+chess_report(int): 0x00000000 // 0
+chess_report(int): 0x07ffffff // 134217727
+// unsigned_div(134217727, 2147483647)
+chess_report(unsigned): 0x00000000 // 0
+chess_report(unsigned): 0x07ffffff // 134217727
+// signed_div(134217727, 2147483646)
+chess_report(int): 0x00000000 // 0
+chess_report(int): 0x07ffffff // 134217727
+// unsigned_div(134217727, 2147483646)
+chess_report(unsigned): 0x00000000 // 0
+chess_report(unsigned): 0x07ffffff // 134217727
+// signed_div(134217727, -1)
+chess_report(int): 0xf8000001 // -134217727
+chess_report(int): 0x00000000 // 0
+// unsigned_div(134217727, 4294967295)
+chess_report(unsigned): 0x00000000 // 0
+chess_report(unsigned): 0x07ffffff // 134217727
+// signed_div(134217727, -2)
+chess_report(int): 0xfc000001 // -67108863
+chess_report(int): 0x00000001 // 1
+// unsigned_div(134217727, 4294967294)
+chess_report(unsigned): 0x00000000 // 0
+chess_report(unsigned): 0x07ffffff // 134217727
+// signed_div(134217727, 178956970)
+chess_report(int): 0x00000000 // 0
+chess_report(int): 0x07ffffff // 134217727
+// unsigned_div(134217727, 178956970)
+chess_report(unsigned): 0x00000000 // 0
+chess_report(unsigned): 0x07ffffff // 134217727
+// signed_div(134217727, 0)
+// unsigned_div(134217727, 0)
+// signed_div(134217727, 1)
+chess_report(int): 0x07ffffff // 134217727
+chess_report(int): 0x00000000 // 0
+// unsigned_div(134217727, 1)
+chess_report(unsigned): 0x07ffffff // 134217727
+chess_report(unsigned): 0x00000000 // 0
+// signed_div(134217727, -1)
+chess_report(int): 0xf8000001 // -134217727
+chess_report(int): 0x00000000 // 0
+// unsigned_div(134217727, 4294967295)
+chess_report(unsigned): 0x00000000 // 0
+chess_report(unsigned): 0x07ffffff // 134217727
+// signed_div(134217727, 10)
+chess_report(int): 0x00cccccc // 13421772
+chess_report(int): 0x00000007 // 7
+// unsigned_div(134217727, 10)
+chess_report(unsigned): 0x00cccccc // 13421772
+chess_report(unsigned): 0x00000007 // 7
+// signed_div(134217727, -25)
+chess_report(int): 0xffae147b // -5368709
+chess_report(int): 0x00000002 // 2
+// unsigned_div(134217727, 4294967271)
+chess_report(unsigned): 0x00000000 // 0
+chess_report(unsigned): 0x07ffffff // 134217727
+// signed_div(134217727, -122)
+chess_report(int): 0xffef368f // -1100145
+chess_report(int): 0x00000025 // 37
+// unsigned_div(134217727, 4294967174)
+chess_report(unsigned): 0x00000000 // 0
+chess_report(unsigned): 0x07ffffff // 134217727
+// signed_div(134217727, 134217727)
+chess_report(int): 0x00000001 // 1
+chess_report(int): 0x00000000 // 0
+// unsigned_div(134217727, 134217727)
+chess_report(unsigned): 0x00000001 // 1
+chess_report(unsigned): 0x00000000 // 0
+// signed_div(134217727, 134217727)
+chess_report(int): 0x00000001 // 1
+chess_report(int): 0x00000000 // 0
+// unsigned_div(134217727, 134217727)
+chess_report(unsigned): 0x00000001 // 1
+chess_report(unsigned): 0x00000000 // 0
+// signed_div(134217727, 117440512)
+chess_report(int): 0x00000001 // 1
+chess_report(int): 0x00ffffff // 16777215
+// unsigned_div(134217727, 117440512)
+chess_report(unsigned): 0x00000001 // 1
+chess_report(unsigned): 0x00ffffff // 16777215
+// signed_div(134217727, 117440511)
+chess_report(int): 0x00000001 // 1
+chess_report(int): 0x01000000 // 16777216
+// unsigned_div(134217727, 117440511)
+chess_report(unsigned): 0x00000001 // 1
+chess_report(unsigned): 0x01000000 // 16777216
+// signed_div(134217727, 67108864)
+chess_report(int): 0x00000001 // 1
+chess_report(int): 0x03ffffff // 67108863
+// unsigned_div(134217727, 67108864)
+chess_report(unsigned): 0x00000001 // 1
+chess_report(unsigned): 0x03ffffff // 67108863
+// signed_div(134217727, 67108863)
+chess_report(int): 0x00000002 // 2
+chess_report(int): 0x00000001 // 1
+// unsigned_div(134217727, 67108863)
+chess_report(unsigned): 0x00000002 // 2
+chess_report(unsigned): 0x00000001 // 1
+// signed_div(134217727, 50331648)
+chess_report(int): 0x00000002 // 2
+chess_report(int): 0x01ffffff // 33554431
+// unsigned_div(134217727, 50331648)
+chess_report(unsigned): 0x00000002 // 2
+chess_report(unsigned): 0x01ffffff // 33554431
+// signed_div(134217727, -2147483648)
+chess_report(int): 0x00000000 // 0
+chess_report(int): 0x07ffffff // 134217727
+// unsigned_div(134217727, 2147483648)
+chess_report(unsigned): 0x00000000 // 0
+chess_report(unsigned): 0x07ffffff // 134217727
+// signed_div(134217727, 2147483647)
+chess_report(int): 0x00000000 // 0
+chess_report(int): 0x07ffffff // 134217727
+// unsigned_div(134217727, 2147483647)
+chess_report(unsigned): 0x00000000 // 0
+chess_report(unsigned): 0x07ffffff // 134217727
+// signed_div(134217727, 2147483646)
+chess_report(int): 0x00000000 // 0
+chess_report(int): 0x07ffffff // 134217727
+// unsigned_div(134217727, 2147483646)
+chess_report(unsigned): 0x00000000 // 0
+chess_report(unsigned): 0x07ffffff // 134217727
+// signed_div(134217727, -1)
+chess_report(int): 0xf8000001 // -134217727
+chess_report(int): 0x00000000 // 0
+// unsigned_div(134217727, 4294967295)
+chess_report(unsigned): 0x00000000 // 0
+chess_report(unsigned): 0x07ffffff // 134217727
+// signed_div(134217727, -2)
+chess_report(int): 0xfc000001 // -67108863
+chess_report(int): 0x00000001 // 1
+// unsigned_div(134217727, 4294967294)
+chess_report(unsigned): 0x00000000 // 0
+chess_report(unsigned): 0x07ffffff // 134217727
+// signed_div(134217727, 178956970)
+chess_report(int): 0x00000000 // 0
+chess_report(int): 0x07ffffff // 134217727
+// unsigned_div(134217727, 178956970)
+chess_report(unsigned): 0x00000000 // 0
+chess_report(unsigned): 0x07ffffff // 134217727
+// signed_div(117440512, 0)
+// unsigned_div(117440512, 0)
+// signed_div(117440512, 1)
+chess_report(int): 0x07000000 // 117440512
+chess_report(int): 0x00000000 // 0
+// unsigned_div(117440512, 1)
+chess_report(unsigned): 0x07000000 // 117440512
+chess_report(unsigned): 0x00000000 // 0
+// signed_div(117440512, -1)
+chess_report(int): 0xf9000000 // -117440512
+chess_report(int): 0x00000000 // 0
+// unsigned_div(117440512, 4294967295)
+chess_report(unsigned): 0x00000000 // 0
+chess_report(unsigned): 0x07000000 // 117440512
+// signed_div(117440512, 10)
+chess_report(int): 0x00b33333 // 11744051
+chess_report(int): 0x00000002 // 2
+// unsigned_div(117440512, 10)
+chess_report(unsigned): 0x00b33333 // 11744051
+chess_report(unsigned): 0x00000002 // 2
+// signed_div(117440512, -25)
+chess_report(int): 0xffb851ec // -4697620
+chess_report(int): 0x0000000c // 12
+// unsigned_div(117440512, 4294967271)
+chess_report(unsigned): 0x00000000 // 0
+chess_report(unsigned): 0x07000000 // 117440512
+// signed_div(117440512, -122)
+chess_report(int): 0xfff14fbd // -962627
+chess_report(int): 0x00000012 // 18
+// unsigned_div(117440512, 4294967174)
+chess_report(unsigned): 0x00000000 // 0
+chess_report(unsigned): 0x07000000 // 117440512
+// signed_div(117440512, 134217727)
+chess_report(int): 0x00000000 // 0
+chess_report(int): 0x07000000 // 117440512
+// unsigned_div(117440512, 134217727)
+chess_report(unsigned): 0x00000000 // 0
+chess_report(unsigned): 0x07000000 // 117440512
+// signed_div(117440512, 134217727)
+chess_report(int): 0x00000000 // 0
+chess_report(int): 0x07000000 // 117440512
+// unsigned_div(117440512, 134217727)
+chess_report(unsigned): 0x00000000 // 0
+chess_report(unsigned): 0x07000000 // 117440512
+// signed_div(117440512, 117440512)
+chess_report(int): 0x00000001 // 1
+chess_report(int): 0x00000000 // 0
+// unsigned_div(117440512, 117440512)
+chess_report(unsigned): 0x00000001 // 1
+chess_report(unsigned): 0x00000000 // 0
+// signed_div(117440512, 117440511)
+chess_report(int): 0x00000001 // 1
+chess_report(int): 0x00000001 // 1
+// unsigned_div(117440512, 117440511)
+chess_report(unsigned): 0x00000001 // 1
+chess_report(unsigned): 0x00000001 // 1
+// signed_div(117440512, 67108864)
+chess_report(int): 0x00000001 // 1
+chess_report(int): 0x03000000 // 50331648
+// unsigned_div(117440512, 67108864)
+chess_report(unsigned): 0x00000001 // 1
+chess_report(unsigned): 0x03000000 // 50331648
+// signed_div(117440512, 67108863)
+chess_report(int): 0x00000001 // 1
+chess_report(int): 0x03000001 // 50331649
+// unsigned_div(117440512, 67108863)
+chess_report(unsigned): 0x00000001 // 1
+chess_report(unsigned): 0x03000001 // 50331649
+// signed_div(117440512, 50331648)
+chess_report(int): 0x00000002 // 2
+chess_report(int): 0x01000000 // 16777216
+// unsigned_div(117440512, 50331648)
+chess_report(unsigned): 0x00000002 // 2
+chess_report(unsigned): 0x01000000 // 16777216
+// signed_div(117440512, -2147483648)
+chess_report(int): 0x00000000 // 0
+chess_report(int): 0x07000000 // 117440512
+// unsigned_div(117440512, 2147483648)
+chess_report(unsigned): 0x00000000 // 0
+chess_report(unsigned): 0x07000000 // 117440512
+// signed_div(117440512, 2147483647)
+chess_report(int): 0x00000000 // 0
+chess_report(int): 0x07000000 // 117440512
+// unsigned_div(117440512, 2147483647)
+chess_report(unsigned): 0x00000000 // 0
+chess_report(unsigned): 0x07000000 // 117440512
+// signed_div(117440512, 2147483646)
+chess_report(int): 0x00000000 // 0
+chess_report(int): 0x07000000 // 117440512
+// unsigned_div(117440512, 2147483646)
+chess_report(unsigned): 0x00000000 // 0
+chess_report(unsigned): 0x07000000 // 117440512
+// signed_div(117440512, -1)
+chess_report(int): 0xf9000000 // -117440512
+chess_report(int): 0x00000000 // 0
+// unsigned_div(117440512, 4294967295)
+chess_report(unsigned): 0x00000000 // 0
+chess_report(unsigned): 0x07000000 // 117440512
+// signed_div(117440512, -2)
+chess_report(int): 0xfc800000 // -58720256
+chess_report(int): 0x00000000 // 0
+// unsigned_div(117440512, 4294967294)
+chess_report(unsigned): 0x00000000 // 0
+chess_report(unsigned): 0x07000000 // 117440512
+// signed_div(117440512, 178956970)
+chess_report(int): 0x00000000 // 0
+chess_report(int): 0x07000000 // 117440512
+// unsigned_div(117440512, 178956970)
+chess_report(unsigned): 0x00000000 // 0
+chess_report(unsigned): 0x07000000 // 117440512
+// signed_div(117440511, 0)
+// unsigned_div(117440511, 0)
+// signed_div(117440511, 1)
+chess_report(int): 0x06ffffff // 117440511
+chess_report(int): 0x00000000 // 0
+// unsigned_div(117440511, 1)
+chess_report(unsigned): 0x06ffffff // 117440511
+chess_report(unsigned): 0x00000000 // 0
+// signed_div(117440511, -1)
+chess_report(int): 0xf9000001 // -117440511
+chess_report(int): 0x00000000 // 0
+// unsigned_div(117440511, 4294967295)
+chess_report(unsigned): 0x00000000 // 0
+chess_report(unsigned): 0x06ffffff // 117440511
+// signed_div(117440511, 10)
+chess_report(int): 0x00b33333 // 11744051
+chess_report(int): 0x00000001 // 1
+// unsigned_div(117440511, 10)
+chess_report(unsigned): 0x00b33333 // 11744051
+chess_report(unsigned): 0x00000001 // 1
+// signed_div(117440511, -25)
+chess_report(int): 0xffb851ec // -4697620
+chess_report(int): 0x0000000b // 11
+// unsigned_div(117440511, 4294967271)
+chess_report(unsigned): 0x00000000 // 0
+chess_report(unsigned): 0x06ffffff // 117440511
+// signed_div(117440511, -122)
+chess_report(int): 0xfff14fbd // -962627
+chess_report(int): 0x00000011 // 17
+// unsigned_div(117440511, 4294967174)
+chess_report(unsigned): 0x00000000 // 0
+chess_report(unsigned): 0x06ffffff // 117440511
+// signed_div(117440511, 134217727)
+chess_report(int): 0x00000000 // 0
+chess_report(int): 0x06ffffff // 117440511
+// unsigned_div(117440511, 134217727)
+chess_report(unsigned): 0x00000000 // 0
+chess_report(unsigned): 0x06ffffff // 117440511
+// signed_div(117440511, 134217727)
+chess_report(int): 0x00000000 // 0
+chess_report(int): 0x06ffffff // 117440511
+// unsigned_div(117440511, 134217727)
+chess_report(unsigned): 0x00000000 // 0
+chess_report(unsigned): 0x06ffffff // 117440511
+// signed_div(117440511, 117440512)
+chess_report(int): 0x00000000 // 0
+chess_report(int): 0x06ffffff // 117440511
+// unsigned_div(117440511, 117440512)
+chess_report(unsigned): 0x00000000 // 0
+chess_report(unsigned): 0x06ffffff // 117440511
+// signed_div(117440511, 117440511)
+chess_report(int): 0x00000001 // 1
+chess_report(int): 0x00000000 // 0
+// unsigned_div(117440511, 117440511)
+chess_report(unsigned): 0x00000001 // 1
+chess_report(unsigned): 0x00000000 // 0
+// signed_div(117440511, 67108864)
+chess_report(int): 0x00000001 // 1
+chess_report(int): 0x02ffffff // 50331647
+// unsigned_div(117440511, 67108864)
+chess_report(unsigned): 0x00000001 // 1
+chess_report(unsigned): 0x02ffffff // 50331647
+// signed_div(117440511, 67108863)
+chess_report(int): 0x00000001 // 1
+chess_report(int): 0x03000000 // 50331648
+// unsigned_div(117440511, 67108863)
+chess_report(unsigned): 0x00000001 // 1
+chess_report(unsigned): 0x03000000 // 50331648
+// signed_div(117440511, 50331648)
+chess_report(int): 0x00000002 // 2
+chess_report(int): 0x00ffffff // 16777215
+// unsigned_div(117440511, 50331648)
+chess_report(unsigned): 0x00000002 // 2
+chess_report(unsigned): 0x00ffffff // 16777215
+// signed_div(117440511, -2147483648)
+chess_report(int): 0x00000000 // 0
+chess_report(int): 0x06ffffff // 117440511
+// unsigned_div(117440511, 2147483648)
+chess_report(unsigned): 0x00000000 // 0
+chess_report(unsigned): 0x06ffffff // 117440511
+// signed_div(117440511, 2147483647)
+chess_report(int): 0x00000000 // 0
+chess_report(int): 0x06ffffff // 117440511
+// unsigned_div(117440511, 2147483647)
+chess_report(unsigned): 0x00000000 // 0
+chess_report(unsigned): 0x06ffffff // 117440511
+// signed_div(117440511, 2147483646)
+chess_report(int): 0x00000000 // 0
+chess_report(int): 0x06ffffff // 117440511
+// unsigned_div(117440511, 2147483646)
+chess_report(unsigned): 0x00000000 // 0
+chess_report(unsigned): 0x06ffffff // 117440511
+// signed_div(117440511, -1)
+chess_report(int): 0xf9000001 // -117440511
+chess_report(int): 0x00000000 // 0
+// unsigned_div(117440511, 4294967295)
+chess_report(unsigned): 0x00000000 // 0
+chess_report(unsigned): 0x06ffffff // 117440511
+// signed_div(117440511, -2)
+chess_report(int): 0xfc800001 // -58720255
+chess_report(int): 0x00000001 // 1
+// unsigned_div(117440511, 4294967294)
+chess_report(unsigned): 0x00000000 // 0
+chess_report(unsigned): 0x06ffffff // 117440511
+// signed_div(117440511, 178956970)
+chess_report(int): 0x00000000 // 0
+chess_report(int): 0x06ffffff // 117440511
+// unsigned_div(117440511, 178956970)
+chess_report(unsigned): 0x00000000 // 0
+chess_report(unsigned): 0x06ffffff // 117440511
+// signed_div(67108864, 0)
+// unsigned_div(67108864, 0)
+// signed_div(67108864, 1)
+chess_report(int): 0x04000000 // 67108864
+chess_report(int): 0x00000000 // 0
+// unsigned_div(67108864, 1)
+chess_report(unsigned): 0x04000000 // 67108864
+chess_report(unsigned): 0x00000000 // 0
+// signed_div(67108864, -1)
+chess_report(int): 0xfc000000 // -67108864
+chess_report(int): 0x00000000 // 0
+// unsigned_div(67108864, 4294967295)
+chess_report(unsigned): 0x00000000 // 0
+chess_report(unsigned): 0x04000000 // 67108864
+// signed_div(67108864, 10)
+chess_report(int): 0x00666666 // 6710886
+chess_report(int): 0x00000004 // 4
+// unsigned_div(67108864, 10)
+chess_report(unsigned): 0x00666666 // 6710886
+chess_report(unsigned): 0x00000004 // 4
+// signed_div(67108864, -25)
+chess_report(int): 0xffd70a3e // -2684354
+chess_report(int): 0x0000000e // 14
+// unsigned_div(67108864, 4294967271)
+chess_report(unsigned): 0x00000000 // 0
+chess_report(unsigned): 0x04000000 // 67108864
+// signed_div(67108864, -122)
+chess_report(int): 0xfff79b48 // -550072
+chess_report(int): 0x00000050 // 80
+// unsigned_div(67108864, 4294967174)
+chess_report(unsigned): 0x00000000 // 0
+chess_report(unsigned): 0x04000000 // 67108864
+// signed_div(67108864, 134217727)
+chess_report(int): 0x00000000 // 0
+chess_report(int): 0x04000000 // 67108864
+// unsigned_div(67108864, 134217727)
+chess_report(unsigned): 0x00000000 // 0
+chess_report(unsigned): 0x04000000 // 67108864
+// signed_div(67108864, 134217727)
+chess_report(int): 0x00000000 // 0
+chess_report(int): 0x04000000 // 67108864
+// unsigned_div(67108864, 134217727)
+chess_report(unsigned): 0x00000000 // 0
+chess_report(unsigned): 0x04000000 // 67108864
+// signed_div(67108864, 117440512)
+chess_report(int): 0x00000000 // 0
+chess_report(int): 0x04000000 // 67108864
+// unsigned_div(67108864, 117440512)
+chess_report(unsigned): 0x00000000 // 0
+chess_report(unsigned): 0x04000000 // 67108864
+// signed_div(67108864, 117440511)
+chess_report(int): 0x00000000 // 0
+chess_report(int): 0x04000000 // 67108864
+// unsigned_div(67108864, 117440511)
+chess_report(unsigned): 0x00000000 // 0
+chess_report(unsigned): 0x04000000 // 67108864
+// signed_div(67108864, 67108864)
+chess_report(int): 0x00000001 // 1
+chess_report(int): 0x00000000 // 0
+// unsigned_div(67108864, 67108864)
+chess_report(unsigned): 0x00000001 // 1
+chess_report(unsigned): 0x00000000 // 0
+// signed_div(67108864, 67108863)
+chess_report(int): 0x00000001 // 1
+chess_report(int): 0x00000001 // 1
+// unsigned_div(67108864, 67108863)
+chess_report(unsigned): 0x00000001 // 1
+chess_report(unsigned): 0x00000001 // 1
+// signed_div(67108864, 50331648)
+chess_report(int): 0x00000001 // 1
+chess_report(int): 0x01000000 // 16777216
+// unsigned_div(67108864, 50331648)
+chess_report(unsigned): 0x00000001 // 1
+chess_report(unsigned): 0x01000000 // 16777216
+// signed_div(67108864, -2147483648)
+chess_report(int): 0x00000000 // 0
+chess_report(int): 0x04000000 // 67108864
+// unsigned_div(67108864, 2147483648)
+chess_report(unsigned): 0x00000000 // 0
+chess_report(unsigned): 0x04000000 // 67108864
+// signed_div(67108864, 2147483647)
+chess_report(int): 0x00000000 // 0
+chess_report(int): 0x04000000 // 67108864
+// unsigned_div(67108864, 2147483647)
+chess_report(unsigned): 0x00000000 // 0
+chess_report(unsigned): 0x04000000 // 67108864
+// signed_div(67108864, 2147483646)
+chess_report(int): 0x00000000 // 0
+chess_report(int): 0x04000000 // 67108864
+// unsigned_div(67108864, 2147483646)
+chess_report(unsigned): 0x00000000 // 0
+chess_report(unsigned): 0x04000000 // 67108864
+// signed_div(67108864, -1)
+chess_report(int): 0xfc000000 // -67108864
+chess_report(int): 0x00000000 // 0
+// unsigned_div(67108864, 4294967295)
+chess_report(unsigned): 0x00000000 // 0
+chess_report(unsigned): 0x04000000 // 67108864
+// signed_div(67108864, -2)
+chess_report(int): 0xfe000000 // -33554432
+chess_report(int): 0x00000000 // 0
+// unsigned_div(67108864, 4294967294)
+chess_report(unsigned): 0x00000000 // 0
+chess_report(unsigned): 0x04000000 // 67108864
+// signed_div(67108864, 178956970)
+chess_report(int): 0x00000000 // 0
+chess_report(int): 0x04000000 // 67108864
+// unsigned_div(67108864, 178956970)
+chess_report(unsigned): 0x00000000 // 0
+chess_report(unsigned): 0x04000000 // 67108864
+// signed_div(67108863, 0)
+// unsigned_div(67108863, 0)
+// signed_div(67108863, 1)
+chess_report(int): 0x03ffffff // 67108863
+chess_report(int): 0x00000000 // 0
+// unsigned_div(67108863, 1)
+chess_report(unsigned): 0x03ffffff // 67108863
+chess_report(unsigned): 0x00000000 // 0
+// signed_div(67108863, -1)
+chess_report(int): 0xfc000001 // -67108863
+chess_report(int): 0x00000000 // 0
+// unsigned_div(67108863, 4294967295)
+chess_report(unsigned): 0x00000000 // 0
+chess_report(unsigned): 0x03ffffff // 67108863
+// signed_div(67108863, 10)
+chess_report(int): 0x00666666 // 6710886
+chess_report(int): 0x00000003 // 3
+// unsigned_div(67108863, 10)
+chess_report(unsigned): 0x00666666 // 6710886
+chess_report(unsigned): 0x00000003 // 3
+// signed_div(67108863, -25)
+chess_report(int): 0xffd70a3e // -2684354
+chess_report(int): 0x0000000d // 13
+// unsigned_div(67108863, 4294967271)
+chess_report(unsigned): 0x00000000 // 0
+chess_report(unsigned): 0x03ffffff // 67108863
+// signed_div(67108863, -122)
+chess_report(int): 0xfff79b48 // -550072
+chess_report(int): 0x0000004f // 79
+// unsigned_div(67108863, 4294967174)
+chess_report(unsigned): 0x00000000 // 0
+chess_report(unsigned): 0x03ffffff // 67108863
+// signed_div(67108863, 134217727)
+chess_report(int): 0x00000000 // 0
+chess_report(int): 0x03ffffff // 67108863
+// unsigned_div(67108863, 134217727)
+chess_report(unsigned): 0x00000000 // 0
+chess_report(unsigned): 0x03ffffff // 67108863
+// signed_div(67108863, 134217727)
+chess_report(int): 0x00000000 // 0
+chess_report(int): 0x03ffffff // 67108863
+// unsigned_div(67108863, 134217727)
+chess_report(unsigned): 0x00000000 // 0
+chess_report(unsigned): 0x03ffffff // 67108863
+// signed_div(67108863, 117440512)
+chess_report(int): 0x00000000 // 0
+chess_report(int): 0x03ffffff // 67108863
+// unsigned_div(67108863, 117440512)
+chess_report(unsigned): 0x00000000 // 0
+chess_report(unsigned): 0x03ffffff // 67108863
+// signed_div(67108863, 117440511)
+chess_report(int): 0x00000000 // 0
+chess_report(int): 0x03ffffff // 67108863
+// unsigned_div(67108863, 117440511)
+chess_report(unsigned): 0x00000000 // 0
+chess_report(unsigned): 0x03ffffff // 67108863
+// signed_div(67108863, 67108864)
+chess_report(int): 0x00000000 // 0
+chess_report(int): 0x03ffffff // 67108863
+// unsigned_div(67108863, 67108864)
+chess_report(unsigned): 0x00000000 // 0
+chess_report(unsigned): 0x03ffffff // 67108863
+// signed_div(67108863, 67108863)
+chess_report(int): 0x00000001 // 1
+chess_report(int): 0x00000000 // 0
+// unsigned_div(67108863, 67108863)
+chess_report(unsigned): 0x00000001 // 1
+chess_report(unsigned): 0x00000000 // 0
+// signed_div(67108863, 50331648)
+chess_report(int): 0x00000001 // 1
+chess_report(int): 0x00ffffff // 16777215
+// unsigned_div(67108863, 50331648)
+chess_report(unsigned): 0x00000001 // 1
+chess_report(unsigned): 0x00ffffff // 16777215
+// signed_div(67108863, -2147483648)
+chess_report(int): 0x00000000 // 0
+chess_report(int): 0x03ffffff // 67108863
+// unsigned_div(67108863, 2147483648)
+chess_report(unsigned): 0x00000000 // 0
+chess_report(unsigned): 0x03ffffff // 67108863
+// signed_div(67108863, 2147483647)
+chess_report(int): 0x00000000 // 0
+chess_report(int): 0x03ffffff // 67108863
+// unsigned_div(67108863, 2147483647)
+chess_report(unsigned): 0x00000000 // 0
+chess_report(unsigned): 0x03ffffff // 67108863
+// signed_div(67108863, 2147483646)
+chess_report(int): 0x00000000 // 0
+chess_report(int): 0x03ffffff // 67108863
+// unsigned_div(67108863, 2147483646)
+chess_report(unsigned): 0x00000000 // 0
+chess_report(unsigned): 0x03ffffff // 67108863
+// signed_div(67108863, -1)
+chess_report(int): 0xfc000001 // -67108863
+chess_report(int): 0x00000000 // 0
+// unsigned_div(67108863, 4294967295)
+chess_report(unsigned): 0x00000000 // 0
+chess_report(unsigned): 0x03ffffff // 67108863
+// signed_div(67108863, -2)
+chess_report(int): 0xfe000001 // -33554431
+chess_report(int): 0x00000001 // 1
+// unsigned_div(67108863, 4294967294)
+chess_report(unsigned): 0x00000000 // 0
+chess_report(unsigned): 0x03ffffff // 67108863
+// signed_div(67108863, 178956970)
+chess_report(int): 0x00000000 // 0
+chess_report(int): 0x03ffffff // 67108863
+// unsigned_div(67108863, 178956970)
+chess_report(unsigned): 0x00000000 // 0
+chess_report(unsigned): 0x03ffffff // 67108863
+// signed_div(50331648, 0)
+// unsigned_div(50331648, 0)
+// signed_div(50331648, 1)
+chess_report(int): 0x03000000 // 50331648
+chess_report(int): 0x00000000 // 0
+// unsigned_div(50331648, 1)
+chess_report(unsigned): 0x03000000 // 50331648
+chess_report(unsigned): 0x00000000 // 0
+// signed_div(50331648, -1)
+chess_report(int): 0xfd000000 // -50331648
+chess_report(int): 0x00000000 // 0
+// unsigned_div(50331648, 4294967295)
+chess_report(unsigned): 0x00000000 // 0
+chess_report(unsigned): 0x03000000 // 50331648
+// signed_div(50331648, 10)
+chess_report(int): 0x004ccccc // 5033164
+chess_report(int): 0x00000008 // 8
+// unsigned_div(50331648, 10)
+chess_report(unsigned): 0x004ccccc // 5033164
+chess_report(unsigned): 0x00000008 // 8
+// signed_div(50331648, -25)
+chess_report(int): 0xffe147af // -2013265
+chess_report(int): 0x00000017 // 23
+// unsigned_div(50331648, 4294967271)
+chess_report(unsigned): 0x00000000 // 0
+chess_report(unsigned): 0x03000000 // 50331648
+// signed_div(50331648, -122)
+chess_report(int): 0xfff9b476 // -412554
+chess_report(int): 0x0000003c // 60
+// unsigned_div(50331648, 4294967174)
+chess_report(unsigned): 0x00000000 // 0
+chess_report(unsigned): 0x03000000 // 50331648
+// signed_div(50331648, 134217727)
+chess_report(int): 0x00000000 // 0
+chess_report(int): 0x03000000 // 50331648
+// unsigned_div(50331648, 134217727)
+chess_report(unsigned): 0x00000000 // 0
+chess_report(unsigned): 0x03000000 // 50331648
+// signed_div(50331648, 134217727)
+chess_report(int): 0x00000000 // 0
+chess_report(int): 0x03000000 // 50331648
+// unsigned_div(50331648, 134217727)
+chess_report(unsigned): 0x00000000 // 0
+chess_report(unsigned): 0x03000000 // 50331648
+// signed_div(50331648, 117440512)
+chess_report(int): 0x00000000 // 0
+chess_report(int): 0x03000000 // 50331648
+// unsigned_div(50331648, 117440512)
+chess_report(unsigned): 0x00000000 // 0
+chess_report(unsigned): 0x03000000 // 50331648
+// signed_div(50331648, 117440511)
+chess_report(int): 0x00000000 // 0
+chess_report(int): 0x03000000 // 50331648
+// unsigned_div(50331648, 117440511)
+chess_report(unsigned): 0x00000000 // 0
+chess_report(unsigned): 0x03000000 // 50331648
+// signed_div(50331648, 67108864)
+chess_report(int): 0x00000000 // 0
+chess_report(int): 0x03000000 // 50331648
+// unsigned_div(50331648, 67108864)
+chess_report(unsigned): 0x00000000 // 0
+chess_report(unsigned): 0x03000000 // 50331648
+// signed_div(50331648, 67108863)
+chess_report(int): 0x00000000 // 0
+chess_report(int): 0x03000000 // 50331648
+// unsigned_div(50331648, 67108863)
+chess_report(unsigned): 0x00000000 // 0
+chess_report(unsigned): 0x03000000 // 50331648
+// signed_div(50331648, 50331648)
+chess_report(int): 0x00000001 // 1
+chess_report(int): 0x00000000 // 0
+// unsigned_div(50331648, 50331648)
+chess_report(unsigned): 0x00000001 // 1
+chess_report(unsigned): 0x00000000 // 0
+// signed_div(50331648, -2147483648)
+chess_report(int): 0x00000000 // 0
+chess_report(int): 0x03000000 // 50331648
+// unsigned_div(50331648, 2147483648)
+chess_report(unsigned): 0x00000000 // 0
+chess_report(unsigned): 0x03000000 // 50331648
+// signed_div(50331648, 2147483647)
+chess_report(int): 0x00000000 // 0
+chess_report(int): 0x03000000 // 50331648
+// unsigned_div(50331648, 2147483647)
+chess_report(unsigned): 0x00000000 // 0
+chess_report(unsigned): 0x03000000 // 50331648
+// signed_div(50331648, 2147483646)
+chess_report(int): 0x00000000 // 0
+chess_report(int): 0x03000000 // 50331648
+// unsigned_div(50331648, 2147483646)
+chess_report(unsigned): 0x00000000 // 0
+chess_report(unsigned): 0x03000000 // 50331648
+// signed_div(50331648, -1)
+chess_report(int): 0xfd000000 // -50331648
+chess_report(int): 0x00000000 // 0
+// unsigned_div(50331648, 4294967295)
+chess_report(unsigned): 0x00000000 // 0
+chess_report(unsigned): 0x03000000 // 50331648
+// signed_div(50331648, -2)
+chess_report(int): 0xfe800000 // -25165824
+chess_report(int): 0x00000000 // 0
+// unsigned_div(50331648, 4294967294)
+chess_report(unsigned): 0x00000000 // 0
+chess_report(unsigned): 0x03000000 // 50331648
+// signed_div(50331648, 178956970)
+chess_report(int): 0x00000000 // 0
+chess_report(int): 0x03000000 // 50331648
+// unsigned_div(50331648, 178956970)
+chess_report(unsigned): 0x00000000 // 0
+chess_report(unsigned): 0x03000000 // 50331648
+// signed_div(-2147483648, 0)
+// unsigned_div(2147483648, 0)
+// signed_div(-2147483648, 1)
+chess_report(int): 0x80000000 // -2147483648
+chess_report(int): 0x00000000 // 0
+// unsigned_div(2147483648, 1)
+chess_report(unsigned): 0x80000000 // 2147483648
+chess_report(unsigned): 0x00000000 // 0
+// signed_div(-2147483648, -1)
+// unsigned_div(2147483648, 4294967295)
+chess_report(unsigned): 0x00000000 // 0
+chess_report(unsigned): 0x80000000 // 2147483648
+// signed_div(-2147483648, 10)
+chess_report(int): 0xf3333334 // -214748364
+chess_report(int): 0xfffffff8 // -8
+// unsigned_div(2147483648, 10)
+chess_report(unsigned): 0x0ccccccc // 214748364
+chess_report(unsigned): 0x00000008 // 8
+// signed_div(-2147483648, -25)
+chess_report(int): 0x051eb851 // 85899345
+chess_report(int): 0xffffffe9 // -23
+// unsigned_div(2147483648, 4294967271)
+chess_report(unsigned): 0x00000000 // 0
+chess_report(unsigned): 0x80000000 // 2147483648
+// signed_div(-2147483648, -122)
+chess_report(int): 0x010c9714 // 17602324
+chess_report(int): 0xffffff88 // -120
+// unsigned_div(2147483648, 4294967174)
+chess_report(unsigned): 0x00000000 // 0
+chess_report(unsigned): 0x80000000 // 2147483648
+// signed_div(-2147483648, 134217727)
+chess_report(int): 0xfffffff0 // -16
+chess_report(int): 0xfffffff0 // -16
+// unsigned_div(2147483648, 134217727)
+chess_report(unsigned): 0x00000010 // 16
+chess_report(unsigned): 0x00000010 // 16
+// signed_div(-2147483648, 134217727)
+chess_report(int): 0xfffffff0 // -16
+chess_report(int): 0xfffffff0 // -16
+// unsigned_div(2147483648, 134217727)
+chess_report(unsigned): 0x00000010 // 16
+chess_report(unsigned): 0x00000010 // 16
+// signed_div(-2147483648, 117440512)
+chess_report(int): 0xffffffee // -18
+chess_report(int): 0xfe000000 // -33554432
+// unsigned_div(2147483648, 117440512)
+chess_report(unsigned): 0x00000012 // 18
+chess_report(unsigned): 0x02000000 // 33554432
+// signed_div(-2147483648, 117440511)
+chess_report(int): 0xffffffee // -18
+chess_report(int): 0xfdffffee // -33554450
+// unsigned_div(2147483648, 117440511)
+chess_report(unsigned): 0x00000012 // 18
+chess_report(unsigned): 0x02000012 // 33554450
+// signed_div(-2147483648, 67108864)
+chess_report(int): 0xffffffe0 // -32
+chess_report(int): 0x00000000 // 0
+// unsigned_div(2147483648, 67108864)
+chess_report(unsigned): 0x00000020 // 32
+chess_report(unsigned): 0x00000000 // 0
+// signed_div(-2147483648, 67108863)
+chess_report(int): 0xffffffe0 // -32
+chess_report(int): 0xffffffe0 // -32
+// unsigned_div(2147483648, 67108863)
+chess_report(unsigned): 0x00000020 // 32
+chess_report(unsigned): 0x00000020 // 32
+// signed_div(-2147483648, 50331648)
+chess_report(int): 0xffffffd6 // -42
+chess_report(int): 0xfe000000 // -33554432
+// unsigned_div(2147483648, 50331648)
+chess_report(unsigned): 0x0000002a // 42
+chess_report(unsigned): 0x02000000 // 33554432
+// signed_div(-2147483648, -2147483648)
+chess_report(int): 0x00000001 // 1
+chess_report(int): 0x00000000 // 0
+// unsigned_div(2147483648, 2147483648)
+chess_report(unsigned): 0x00000001 // 1
+chess_report(unsigned): 0x00000000 // 0
+// signed_div(-2147483648, 2147483647)
+chess_report(int): 0xffffffff // -1
+chess_report(int): 0xffffffff // -1
+// unsigned_div(2147483648, 2147483647)
+chess_report(unsigned): 0x00000001 // 1
+chess_report(unsigned): 0x00000001 // 1
+// signed_div(-2147483648, 2147483646)
+chess_report(int): 0xffffffff // -1
+chess_report(int): 0xfffffffe // -2
+// unsigned_div(2147483648, 2147483646)
+chess_report(unsigned): 0x00000001 // 1
+chess_report(unsigned): 0x00000002 // 2
+// signed_div(-2147483648, -1)
+// unsigned_div(2147483648, 4294967295)
+chess_report(unsigned): 0x00000000 // 0
+chess_report(unsigned): 0x80000000 // 2147483648
+// signed_div(-2147483648, -2)
+chess_report(int): 0x40000000 // 1073741824
+chess_report(int): 0x00000000 // 0
+// unsigned_div(2147483648, 4294967294)
+chess_report(unsigned): 0x00000000 // 0
+chess_report(unsigned): 0x80000000 // 2147483648
+// signed_div(-2147483648, 178956970)
+chess_report(int): 0xfffffff4 // -12
+chess_report(int): 0xfffffff8 // -8
+// unsigned_div(2147483648, 178956970)
+chess_report(unsigned): 0x0000000c // 12
+chess_report(unsigned): 0x00000008 // 8
+// signed_div(2147483647, 0)
+// unsigned_div(2147483647, 0)
+// signed_div(2147483647, 1)
+chess_report(int): 0x7fffffff // 2147483647
+chess_report(int): 0x00000000 // 0
+// unsigned_div(2147483647, 1)
+chess_report(unsigned): 0x7fffffff // 2147483647
+chess_report(unsigned): 0x00000000 // 0
+// signed_div(2147483647, -1)
+chess_report(int): 0x80000001 // -2147483647
+chess_report(int): 0x00000000 // 0
+// unsigned_div(2147483647, 4294967295)
+chess_report(unsigned): 0x00000000 // 0
+chess_report(unsigned): 0x7fffffff // 2147483647
+// signed_div(2147483647, 10)
+chess_report(int): 0x0ccccccc // 214748364
+chess_report(int): 0x00000007 // 7
+// unsigned_div(2147483647, 10)
+chess_report(unsigned): 0x0ccccccc // 214748364
+chess_report(unsigned): 0x00000007 // 7
+// signed_div(2147483647, -25)
+chess_report(int): 0xfae147af // -85899345
+chess_report(int): 0x00000016 // 22
+// unsigned_div(2147483647, 4294967271)
+chess_report(unsigned): 0x00000000 // 0
+chess_report(unsigned): 0x7fffffff // 2147483647
+// signed_div(2147483647, -122)
+chess_report(int): 0xfef368ec // -17602324
+chess_report(int): 0x00000077 // 119
+// unsigned_div(2147483647, 4294967174)
+chess_report(unsigned): 0x00000000 // 0
+chess_report(unsigned): 0x7fffffff // 2147483647
+// signed_div(2147483647, 134217727)
+chess_report(int): 0x00000010 // 16
+chess_report(int): 0x0000000f // 15
+// unsigned_div(2147483647, 134217727)
+chess_report(unsigned): 0x00000010 // 16
+chess_report(unsigned): 0x0000000f // 15
+// signed_div(2147483647, 134217727)
+chess_report(int): 0x00000010 // 16
+chess_report(int): 0x0000000f // 15
+// unsigned_div(2147483647, 134217727)
+chess_report(unsigned): 0x00000010 // 16
+chess_report(unsigned): 0x0000000f // 15
+// signed_div(2147483647, 117440512)
+chess_report(int): 0x00000012 // 18
+chess_report(int): 0x01ffffff // 33554431
+// unsigned_div(2147483647, 117440512)
+chess_report(unsigned): 0x00000012 // 18
+chess_report(unsigned): 0x01ffffff // 33554431
+// signed_div(2147483647, 117440511)
+chess_report(int): 0x00000012 // 18
+chess_report(int): 0x02000011 // 33554449
+// unsigned_div(2147483647, 117440511)
+chess_report(unsigned): 0x00000012 // 18
+chess_report(unsigned): 0x02000011 // 33554449
+// signed_div(2147483647, 67108864)
+chess_report(int): 0x0000001f // 31
+chess_report(int): 0x03ffffff // 67108863
+// unsigned_div(2147483647, 67108864)
+chess_report(unsigned): 0x0000001f // 31
+chess_report(unsigned): 0x03ffffff // 67108863
+// signed_div(2147483647, 67108863)
+chess_report(int): 0x00000020 // 32
+chess_report(int): 0x0000001f // 31
+// unsigned_div(2147483647, 67108863)
+chess_report(unsigned): 0x00000020 // 32
+chess_report(unsigned): 0x0000001f // 31
+// signed_div(2147483647, 50331648)
+chess_report(int): 0x0000002a // 42
+chess_report(int): 0x01ffffff // 33554431
+// unsigned_div(2147483647, 50331648)
+chess_report(unsigned): 0x0000002a // 42
+chess_report(unsigned): 0x01ffffff // 33554431
+// signed_div(2147483647, -2147483648)
+chess_report(int): 0x00000000 // 0
+chess_report(int): 0x7fffffff // 2147483647
+// unsigned_div(2147483647, 2147483648)
+chess_report(unsigned): 0x00000000 // 0
+chess_report(unsigned): 0x7fffffff // 2147483647
+// signed_div(2147483647, 2147483647)
+chess_report(int): 0x00000001 // 1
+chess_report(int): 0x00000000 // 0
+// unsigned_div(2147483647, 2147483647)
+chess_report(unsigned): 0x00000001 // 1
+chess_report(unsigned): 0x00000000 // 0
+// signed_div(2147483647, 2147483646)
+chess_report(int): 0x00000001 // 1
+chess_report(int): 0x00000001 // 1
+// unsigned_div(2147483647, 2147483646)
+chess_report(unsigned): 0x00000001 // 1
+chess_report(unsigned): 0x00000001 // 1
+// signed_div(2147483647, -1)
+chess_report(int): 0x80000001 // -2147483647
+chess_report(int): 0x00000000 // 0
+// unsigned_div(2147483647, 4294967295)
+chess_report(unsigned): 0x00000000 // 0
+chess_report(unsigned): 0x7fffffff // 2147483647
+// signed_div(2147483647, -2)
+chess_report(int): 0xc0000001 // -1073741823
+chess_report(int): 0x00000001 // 1
+// unsigned_div(2147483647, 4294967294)
+chess_report(unsigned): 0x00000000 // 0
+chess_report(unsigned): 0x7fffffff // 2147483647
+// signed_div(2147483647, 178956970)
+chess_report(int): 0x0000000c // 12
+chess_report(int): 0x00000007 // 7
+// unsigned_div(2147483647, 178956970)
+chess_report(unsigned): 0x0000000c // 12
+chess_report(unsigned): 0x00000007 // 7
+// signed_div(2147483646, 0)
+// unsigned_div(2147483646, 0)
+// signed_div(2147483646, 1)
+chess_report(int): 0x7ffffffe // 2147483646
+chess_report(int): 0x00000000 // 0
+// unsigned_div(2147483646, 1)
+chess_report(unsigned): 0x7ffffffe // 2147483646
+chess_report(unsigned): 0x00000000 // 0
+// signed_div(2147483646, -1)
+chess_report(int): 0x80000002 // -2147483646
+chess_report(int): 0x00000000 // 0
+// unsigned_div(2147483646, 4294967295)
+chess_report(unsigned): 0x00000000 // 0
+chess_report(unsigned): 0x7ffffffe // 2147483646
+// signed_div(2147483646, 10)
+chess_report(int): 0x0ccccccc // 214748364
+chess_report(int): 0x00000006 // 6
+// unsigned_div(2147483646, 10)
+chess_report(unsigned): 0x0ccccccc // 214748364
+chess_report(unsigned): 0x00000006 // 6
+// signed_div(2147483646, -25)
+chess_report(int): 0xfae147af // -85899345
+chess_report(int): 0x00000015 // 21
+// unsigned_div(2147483646, 4294967271)
+chess_report(unsigned): 0x00000000 // 0
+chess_report(unsigned): 0x7ffffffe // 2147483646
+// signed_div(2147483646, -122)
+chess_report(int): 0xfef368ec // -17602324
+chess_report(int): 0x00000076 // 118
+// unsigned_div(2147483646, 4294967174)
+chess_report(unsigned): 0x00000000 // 0
+chess_report(unsigned): 0x7ffffffe // 2147483646
+// signed_div(2147483646, 134217727)
+chess_report(int): 0x00000010 // 16
+chess_report(int): 0x0000000e // 14
+// unsigned_div(2147483646, 134217727)
+chess_report(unsigned): 0x00000010 // 16
+chess_report(unsigned): 0x0000000e // 14
+// signed_div(2147483646, 134217727)
+chess_report(int): 0x00000010 // 16
+chess_report(int): 0x0000000e // 14
+// unsigned_div(2147483646, 134217727)
+chess_report(unsigned): 0x00000010 // 16
+chess_report(unsigned): 0x0000000e // 14
+// signed_div(2147483646, 117440512)
+chess_report(int): 0x00000012 // 18
+chess_report(int): 0x01fffffe // 33554430
+// unsigned_div(2147483646, 117440512)
+chess_report(unsigned): 0x00000012 // 18
+chess_report(unsigned): 0x01fffffe // 33554430
+// signed_div(2147483646, 117440511)
+chess_report(int): 0x00000012 // 18
+chess_report(int): 0x02000010 // 33554448
+// unsigned_div(2147483646, 117440511)
+chess_report(unsigned): 0x00000012 // 18
+chess_report(unsigned): 0x02000010 // 33554448
+// signed_div(2147483646, 67108864)
+chess_report(int): 0x0000001f // 31
+chess_report(int): 0x03fffffe // 67108862
+// unsigned_div(2147483646, 67108864)
+chess_report(unsigned): 0x0000001f // 31
+chess_report(unsigned): 0x03fffffe // 67108862
+// signed_div(2147483646, 67108863)
+chess_report(int): 0x00000020 // 32
+chess_report(int): 0x0000001e // 30
+// unsigned_div(2147483646, 67108863)
+chess_report(unsigned): 0x00000020 // 32
+chess_report(unsigned): 0x0000001e // 30
+// signed_div(2147483646, 50331648)
+chess_report(int): 0x0000002a // 42
+chess_report(int): 0x01fffffe // 33554430
+// unsigned_div(2147483646, 50331648)
+chess_report(unsigned): 0x0000002a // 42
+chess_report(unsigned): 0x01fffffe // 33554430
+// signed_div(2147483646, -2147483648)
+chess_report(int): 0x00000000 // 0
+chess_report(int): 0x7ffffffe // 2147483646
+// unsigned_div(2147483646, 2147483648)
+chess_report(unsigned): 0x00000000 // 0
+chess_report(unsigned): 0x7ffffffe // 2147483646
+// signed_div(2147483646, 2147483647)
+chess_report(int): 0x00000000 // 0
+chess_report(int): 0x7ffffffe // 2147483646
+// unsigned_div(2147483646, 2147483647)
+chess_report(unsigned): 0x00000000 // 0
+chess_report(unsigned): 0x7ffffffe // 2147483646
+// signed_div(2147483646, 2147483646)
+chess_report(int): 0x00000001 // 1
+chess_report(int): 0x00000000 // 0
+// unsigned_div(2147483646, 2147483646)
+chess_report(unsigned): 0x00000001 // 1
+chess_report(unsigned): 0x00000000 // 0
+// signed_div(2147483646, -1)
+chess_report(int): 0x80000002 // -2147483646
+chess_report(int): 0x00000000 // 0
+// unsigned_div(2147483646, 4294967295)
+chess_report(unsigned): 0x00000000 // 0
+chess_report(unsigned): 0x7ffffffe // 2147483646
+// signed_div(2147483646, -2)
+chess_report(int): 0xc0000001 // -1073741823
+chess_report(int): 0x00000000 // 0
+// unsigned_div(2147483646, 4294967294)
+chess_report(unsigned): 0x00000000 // 0
+chess_report(unsigned): 0x7ffffffe // 2147483646
+// signed_div(2147483646, 178956970)
+chess_report(int): 0x0000000c // 12
+chess_report(int): 0x00000006 // 6
+// unsigned_div(2147483646, 178956970)
+chess_report(unsigned): 0x0000000c // 12
+chess_report(unsigned): 0x00000006 // 6
+// signed_div(-1, 0)
+// unsigned_div(4294967295, 0)
+// signed_div(-1, 1)
+chess_report(int): 0xffffffff // -1
+chess_report(int): 0x00000000 // 0
+// unsigned_div(4294967295, 1)
+chess_report(unsigned): 0xffffffff // 4294967295
+chess_report(unsigned): 0x00000000 // 0
+// signed_div(-1, -1)
+chess_report(int): 0x00000001 // 1
+chess_report(int): 0x00000000 // 0
+// unsigned_div(4294967295, 4294967295)
+chess_report(unsigned): 0x00000001 // 1
+chess_report(unsigned): 0x00000000 // 0
+// signed_div(-1, 10)
+chess_report(int): 0x00000000 // 0
+chess_report(int): 0xffffffff // -1
+// unsigned_div(4294967295, 10)
+chess_report(unsigned): 0x19999999 // 429496729
+chess_report(unsigned): 0x00000005 // 5
+// signed_div(-1, -25)
+chess_report(int): 0x00000000 // 0
+chess_report(int): 0xffffffff // -1
+// unsigned_div(4294967295, 4294967271)
+chess_report(unsigned): 0x00000001 // 1
+chess_report(unsigned): 0x00000018 // 24
+// signed_div(-1, -122)
+chess_report(int): 0x00000000 // 0
+chess_report(int): 0xffffffff // -1
+// unsigned_div(4294967295, 4294967174)
+chess_report(unsigned): 0x00000001 // 1
+chess_report(unsigned): 0x00000079 // 121
+// signed_div(-1, 134217727)
+chess_report(int): 0x00000000 // 0
+chess_report(int): 0xffffffff // -1
+// unsigned_div(4294967295, 134217727)
+chess_report(unsigned): 0x00000020 // 32
+chess_report(unsigned): 0x0000001f // 31
+// signed_div(-1, 134217727)
+chess_report(int): 0x00000000 // 0
+chess_report(int): 0xffffffff // -1
+// unsigned_div(4294967295, 134217727)
+chess_report(unsigned): 0x00000020 // 32
+chess_report(unsigned): 0x0000001f // 31
+// signed_div(-1, 117440512)
+chess_report(int): 0x00000000 // 0
+chess_report(int): 0xffffffff // -1
+// unsigned_div(4294967295, 117440512)
+chess_report(unsigned): 0x00000024 // 36
+chess_report(unsigned): 0x03ffffff // 67108863
+// signed_div(-1, 117440511)
+chess_report(int): 0x00000000 // 0
+chess_report(int): 0xffffffff // -1
+// unsigned_div(4294967295, 117440511)
+chess_report(unsigned): 0x00000024 // 36
+chess_report(unsigned): 0x04000023 // 67108899
+// signed_div(-1, 67108864)
+chess_report(int): 0x00000000 // 0
+chess_report(int): 0xffffffff // -1
+// unsigned_div(4294967295, 67108864)
+chess_report(unsigned): 0x0000003f // 63
+chess_report(unsigned): 0x03ffffff // 67108863
+// signed_div(-1, 67108863)
+chess_report(int): 0x00000000 // 0
+chess_report(int): 0xffffffff // -1
+// unsigned_div(4294967295, 67108863)
+chess_report(unsigned): 0x00000040 // 64
+chess_report(unsigned): 0x0000003f // 63
+// signed_div(-1, 50331648)
+chess_report(int): 0x00000000 // 0
+chess_report(int): 0xffffffff // -1
+// unsigned_div(4294967295, 50331648)
+chess_report(unsigned): 0x00000055 // 85
+chess_report(unsigned): 0x00ffffff // 16777215
+// signed_div(-1, -2147483648)
+chess_report(int): 0x00000000 // 0
+chess_report(int): 0xffffffff // -1
+// unsigned_div(4294967295, 2147483648)
+chess_report(unsigned): 0x00000001 // 1
+chess_report(unsigned): 0x7fffffff // 2147483647
+// signed_div(-1, 2147483647)
+chess_report(int): 0x00000000 // 0
+chess_report(int): 0xffffffff // -1
+// unsigned_div(4294967295, 2147483647)
+chess_report(unsigned): 0x00000002 // 2
+chess_report(unsigned): 0x00000001 // 1
+// signed_div(-1, 2147483646)
+chess_report(int): 0x00000000 // 0
+chess_report(int): 0xffffffff // -1
+// unsigned_div(4294967295, 2147483646)
+chess_report(unsigned): 0x00000002 // 2
+chess_report(unsigned): 0x00000003 // 3
+// signed_div(-1, -1)
+chess_report(int): 0x00000001 // 1
+chess_report(int): 0x00000000 // 0
+// unsigned_div(4294967295, 4294967295)
+chess_report(unsigned): 0x00000001 // 1
+chess_report(unsigned): 0x00000000 // 0
+// signed_div(-1, -2)
+chess_report(int): 0x00000000 // 0
+chess_report(int): 0xffffffff // -1
+// unsigned_div(4294967295, 4294967294)
+chess_report(unsigned): 0x00000001 // 1
+chess_report(unsigned): 0x00000001 // 1
+// signed_div(-1, 178956970)
+chess_report(int): 0x00000000 // 0
+chess_report(int): 0xffffffff // -1
+// unsigned_div(4294967295, 178956970)
+chess_report(unsigned): 0x00000018 // 24
+chess_report(unsigned): 0x0000000f // 15
+// signed_div(-2, 0)
+// unsigned_div(4294967294, 0)
+// signed_div(-2, 1)
+chess_report(int): 0xfffffffe // -2
+chess_report(int): 0x00000000 // 0
+// unsigned_div(4294967294, 1)
+chess_report(unsigned): 0xfffffffe // 4294967294
+chess_report(unsigned): 0x00000000 // 0
+// signed_div(-2, -1)
+chess_report(int): 0x00000002 // 2
+chess_report(int): 0x00000000 // 0
+// unsigned_div(4294967294, 4294967295)
+chess_report(unsigned): 0x00000000 // 0
+chess_report(unsigned): 0xfffffffe // 4294967294
+// signed_div(-2, 10)
+chess_report(int): 0x00000000 // 0
+chess_report(int): 0xfffffffe // -2
+// unsigned_div(4294967294, 10)
+chess_report(unsigned): 0x19999999 // 429496729
+chess_report(unsigned): 0x00000004 // 4
+// signed_div(-2, -25)
+chess_report(int): 0x00000000 // 0
+chess_report(int): 0xfffffffe // -2
+// unsigned_div(4294967294, 4294967271)
+chess_report(unsigned): 0x00000001 // 1
+chess_report(unsigned): 0x00000017 // 23
+// signed_div(-2, -122)
+chess_report(int): 0x00000000 // 0
+chess_report(int): 0xfffffffe // -2
+// unsigned_div(4294967294, 4294967174)
+chess_report(unsigned): 0x00000001 // 1
+chess_report(unsigned): 0x00000078 // 120
+// signed_div(-2, 134217727)
+chess_report(int): 0x00000000 // 0
+chess_report(int): 0xfffffffe // -2
+// unsigned_div(4294967294, 134217727)
+chess_report(unsigned): 0x00000020 // 32
+chess_report(unsigned): 0x0000001e // 30
+// signed_div(-2, 134217727)
+chess_report(int): 0x00000000 // 0
+chess_report(int): 0xfffffffe // -2
+// unsigned_div(4294967294, 134217727)
+chess_report(unsigned): 0x00000020 // 32
+chess_report(unsigned): 0x0000001e // 30
+// signed_div(-2, 117440512)
+chess_report(int): 0x00000000 // 0
+chess_report(int): 0xfffffffe // -2
+// unsigned_div(4294967294, 117440512)
+chess_report(unsigned): 0x00000024 // 36
+chess_report(unsigned): 0x03fffffe // 67108862
+// signed_div(-2, 117440511)
+chess_report(int): 0x00000000 // 0
+chess_report(int): 0xfffffffe // -2
+// unsigned_div(4294967294, 117440511)
+chess_report(unsigned): 0x00000024 // 36
+chess_report(unsigned): 0x04000022 // 67108898
+// signed_div(-2, 67108864)
+chess_report(int): 0x00000000 // 0
+chess_report(int): 0xfffffffe // -2
+// unsigned_div(4294967294, 67108864)
+chess_report(unsigned): 0x0000003f // 63
+chess_report(unsigned): 0x03fffffe // 67108862
+// signed_div(-2, 67108863)
+chess_report(int): 0x00000000 // 0
+chess_report(int): 0xfffffffe // -2
+// unsigned_div(4294967294, 67108863)
+chess_report(unsigned): 0x00000040 // 64
+chess_report(unsigned): 0x0000003e // 62
+// signed_div(-2, 50331648)
+chess_report(int): 0x00000000 // 0
+chess_report(int): 0xfffffffe // -2
+// unsigned_div(4294967294, 50331648)
+chess_report(unsigned): 0x00000055 // 85
+chess_report(unsigned): 0x00fffffe // 16777214
+// signed_div(-2, -2147483648)
+chess_report(int): 0x00000000 // 0
+chess_report(int): 0xfffffffe // -2
+// unsigned_div(4294967294, 2147483648)
+chess_report(unsigned): 0x00000001 // 1
+chess_report(unsigned): 0x7ffffffe // 2147483646
+// signed_div(-2, 2147483647)
+chess_report(int): 0x00000000 // 0
+chess_report(int): 0xfffffffe // -2
+// unsigned_div(4294967294, 2147483647)
+chess_report(unsigned): 0x00000002 // 2
+chess_report(unsigned): 0x00000000 // 0
+// signed_div(-2, 2147483646)
+chess_report(int): 0x00000000 // 0
+chess_report(int): 0xfffffffe // -2
+// unsigned_div(4294967294, 2147483646)
+chess_report(unsigned): 0x00000002 // 2
+chess_report(unsigned): 0x00000002 // 2
+// signed_div(-2, -1)
+chess_report(int): 0x00000002 // 2
+chess_report(int): 0x00000000 // 0
+// unsigned_div(4294967294, 4294967295)
+chess_report(unsigned): 0x00000000 // 0
+chess_report(unsigned): 0xfffffffe // 4294967294
+// signed_div(-2, -2)
+chess_report(int): 0x00000001 // 1
+chess_report(int): 0x00000000 // 0
+// unsigned_div(4294967294, 4294967294)
+chess_report(unsigned): 0x00000001 // 1
+chess_report(unsigned): 0x00000000 // 0
+// signed_div(-2, 178956970)
+chess_report(int): 0x00000000 // 0
+chess_report(int): 0xfffffffe // -2
+// unsigned_div(4294967294, 178956970)
+chess_report(unsigned): 0x00000018 // 24
+chess_report(unsigned): 0x0000000e // 14
+// signed_div(178956970, 0)
+// unsigned_div(178956970, 0)
+// signed_div(178956970, 1)
+chess_report(int): 0x0aaaaaaa // 178956970
+chess_report(int): 0x00000000 // 0
+// unsigned_div(178956970, 1)
+chess_report(unsigned): 0x0aaaaaaa // 178956970
+chess_report(unsigned): 0x00000000 // 0
+// signed_div(178956970, -1)
+chess_report(int): 0xf5555556 // -178956970
+chess_report(int): 0x00000000 // 0
+// unsigned_div(178956970, 4294967295)
+chess_report(unsigned): 0x00000000 // 0
+chess_report(unsigned): 0x0aaaaaaa // 178956970
+// signed_div(178956970, 10)
+chess_report(int): 0x01111111 // 17895697
+chess_report(int): 0x00000000 // 0
+// unsigned_div(178956970, 10)
+chess_report(unsigned): 0x01111111 // 17895697
+chess_report(unsigned): 0x00000000 // 0
+// signed_div(178956970, -25)
+chess_report(int): 0xff92c5fa // -7158278
+chess_report(int): 0x00000014 // 20
+// unsigned_div(178956970, 4294967271)
+chess_report(unsigned): 0x00000000 // 0
+chess_report(unsigned): 0x0aaaaaaa // 178956970
+// signed_div(178956970, -122)
+chess_report(int): 0xffe99e14 // -1466860
+chess_report(int): 0x00000032 // 50
+// unsigned_div(178956970, 4294967174)
+chess_report(unsigned): 0x00000000 // 0
+chess_report(unsigned): 0x0aaaaaaa // 178956970
+// signed_div(178956970, 134217727)
+chess_report(int): 0x00000001 // 1
+chess_report(int): 0x02aaaaab // 44739243
+// unsigned_div(178956970, 134217727)
+chess_report(unsigned): 0x00000001 // 1
+chess_report(unsigned): 0x02aaaaab // 44739243
+// signed_div(178956970, 134217727)
+chess_report(int): 0x00000001 // 1
+chess_report(int): 0x02aaaaab // 44739243
+// unsigned_div(178956970, 134217727)
+chess_report(unsigned): 0x00000001 // 1
+chess_report(unsigned): 0x02aaaaab // 44739243
+// signed_div(178956970, 117440512)
+chess_report(int): 0x00000001 // 1
+chess_report(int): 0x03aaaaaa // 61516458
+// unsigned_div(178956970, 117440512)
+chess_report(unsigned): 0x00000001 // 1
+chess_report(unsigned): 0x03aaaaaa // 61516458
+// signed_div(178956970, 117440511)
+chess_report(int): 0x00000001 // 1
+chess_report(int): 0x03aaaaab // 61516459
+// unsigned_div(178956970, 117440511)
+chess_report(unsigned): 0x00000001 // 1
+chess_report(unsigned): 0x03aaaaab // 61516459
+// signed_div(178956970, 67108864)
+chess_report(int): 0x00000002 // 2
+chess_report(int): 0x02aaaaaa // 44739242
+// unsigned_div(178956970, 67108864)
+chess_report(unsigned): 0x00000002 // 2
+chess_report(unsigned): 0x02aaaaaa // 44739242
+// signed_div(178956970, 67108863)
+chess_report(int): 0x00000002 // 2
+chess_report(int): 0x02aaaaac // 44739244
+// unsigned_div(178956970, 67108863)
+chess_report(unsigned): 0x00000002 // 2
+chess_report(unsigned): 0x02aaaaac // 44739244
+// signed_div(178956970, 50331648)
+chess_report(int): 0x00000003 // 3
+chess_report(int): 0x01aaaaaa // 27962026
+// unsigned_div(178956970, 50331648)
+chess_report(unsigned): 0x00000003 // 3
+chess_report(unsigned): 0x01aaaaaa // 27962026
+// signed_div(178956970, -2147483648)
+chess_report(int): 0x00000000 // 0
+chess_report(int): 0x0aaaaaaa // 178956970
+// unsigned_div(178956970, 2147483648)
+chess_report(unsigned): 0x00000000 // 0
+chess_report(unsigned): 0x0aaaaaaa // 178956970
+// signed_div(178956970, 2147483647)
+chess_report(int): 0x00000000 // 0
+chess_report(int): 0x0aaaaaaa // 178956970
+// unsigned_div(178956970, 2147483647)
+chess_report(unsigned): 0x00000000 // 0
+chess_report(unsigned): 0x0aaaaaaa // 178956970
+// signed_div(178956970, 2147483646)
+chess_report(int): 0x00000000 // 0
+chess_report(int): 0x0aaaaaaa // 178956970
+// unsigned_div(178956970, 2147483646)
+chess_report(unsigned): 0x00000000 // 0
+chess_report(unsigned): 0x0aaaaaaa // 178956970
+// signed_div(178956970, -1)
+chess_report(int): 0xf5555556 // -178956970
+chess_report(int): 0x00000000 // 0
+// unsigned_div(178956970, 4294967295)
+chess_report(unsigned): 0x00000000 // 0
+chess_report(unsigned): 0x0aaaaaaa // 178956970
+// signed_div(178956970, -2)
+chess_report(int): 0xfaaaaaab // -89478485
+chess_report(int): 0x00000000 // 0
+// unsigned_div(178956970, 4294967294)
+chess_report(unsigned): 0x00000000 // 0
+chess_report(unsigned): 0x0aaaaaaa // 178956970
+// signed_div(178956970, 178956970)
+chess_report(int): 0x00000001 // 1
+chess_report(int): 0x00000000 // 0
+// unsigned_div(178956970, 178956970)
+chess_report(unsigned): 0x00000001 // 1
+chess_report(unsigned): 0x00000000 // 0
+// signed_div_const(127)
+chess_report(int): 0x0000007f // 127
+chess_report(int): 0x00000000 // 0
+chess_report(int): 0x0000003f // 63
+chess_report(int): 0x00000001 // 1
+chess_report(int): 0x0000002a // 42
+chess_report(int): 0x00000001 // 1
+chess_report(int): 0x00000012 // 18
+chess_report(int): 0x00000001 // 1
+chess_report(int): 0x0000000f // 15
+chess_report(int): 0x00000007 // 7
+chess_report(int): 0xffffff81 // -127
+chess_report(int): 0x00000000 // 0
+chess_report(int): 0xffffffc1 // -63
+chess_report(int): 0x00000001 // 1
+chess_report(int): 0xffffffd6 // -42
+chess_report(int): 0x00000001 // 1
+chess_report(int): 0xffffffee // -18
+chess_report(int): 0x00000001 // 1
+chess_report(int): 0xfffffff1 // -15
+chess_report(int): 0x00000007 // 7
+// unsigned_div_const(127)
+chess_report(unsigned): 0x0000007f // 127
+chess_report(unsigned): 0x00000000 // 0
+chess_report(unsigned): 0x0000003f // 63
+chess_report(unsigned): 0x00000001 // 1
+chess_report(unsigned): 0x0000002a // 42
+chess_report(unsigned): 0x00000001 // 1
+chess_report(unsigned): 0x00000012 // 18
+chess_report(unsigned): 0x00000001 // 1
+chess_report(unsigned): 0x0000000f // 15
+chess_report(unsigned): 0x00000007 // 7
+// signed_div_const(-128)
+chess_report(int): 0xffffff80 // -128
+chess_report(int): 0x00000000 // 0
+chess_report(int): 0xffffffc0 // -64
+chess_report(int): 0x00000000 // 0
+chess_report(int): 0xffffffd6 // -42
+chess_report(int): 0xfffffffe // -2
+chess_report(int): 0xffffffee // -18
+chess_report(int): 0xfffffffe // -2
+chess_report(int): 0xfffffff0 // -16
+chess_report(int): 0x00000000 // 0
+chess_report(int): 0x00000080 // 128
+chess_report(int): 0x00000000 // 0
+chess_report(int): 0x00000040 // 64
+chess_report(int): 0x00000000 // 0
+chess_report(int): 0x0000002a // 42
+chess_report(int): 0xfffffffe // -2
+chess_report(int): 0x00000012 // 18
+chess_report(int): 0xfffffffe // -2
+chess_report(int): 0x00000010 // 16
+chess_report(int): 0x00000000 // 0
+// unsigned_div_const(4294967168)
+chess_report(unsigned): 0xffffff80 // 4294967168
+chess_report(unsigned): 0x00000000 // 0
+chess_report(unsigned): 0x7fffffc0 // 2147483584
+chess_report(unsigned): 0x00000000 // 0
+chess_report(unsigned): 0x5555552a // 1431655722
+chess_report(unsigned): 0x00000002 // 2
+chess_report(unsigned): 0x24924912 // 613566738
+chess_report(unsigned): 0x00000002 // 2
+chess_report(unsigned): 0x1ffffff0 // 536870896
+chess_report(unsigned): 0x00000000 // 0
+// signed_div_const(0)
+chess_report(int): 0x00000000 // 0
+chess_report(int): 0x00000000 // 0
+chess_report(int): 0x00000000 // 0
+chess_report(int): 0x00000000 // 0
+chess_report(int): 0x00000000 // 0
+chess_report(int): 0x00000000 // 0
+chess_report(int): 0x00000000 // 0
+chess_report(int): 0x00000000 // 0
+chess_report(int): 0x00000000 // 0
+chess_report(int): 0x00000000 // 0
+chess_report(int): 0x00000000 // 0
+chess_report(int): 0x00000000 // 0
+chess_report(int): 0x00000000 // 0
+chess_report(int): 0x00000000 // 0
+chess_report(int): 0x00000000 // 0
+chess_report(int): 0x00000000 // 0
+chess_report(int): 0x00000000 // 0
+chess_report(int): 0x00000000 // 0
+chess_report(int): 0x00000000 // 0
+chess_report(int): 0x00000000 // 0
+// unsigned_div_const(0)
+chess_report(unsigned): 0x00000000 // 0
+chess_report(unsigned): 0x00000000 // 0
+chess_report(unsigned): 0x00000000 // 0
+chess_report(unsigned): 0x00000000 // 0
+chess_report(unsigned): 0x00000000 // 0
+chess_report(unsigned): 0x00000000 // 0
+chess_report(unsigned): 0x00000000 // 0
+chess_report(unsigned): 0x00000000 // 0
+chess_report(unsigned): 0x00000000 // 0
+chess_report(unsigned): 0x00000000 // 0
+// signed_div_const(1)
+chess_report(int): 0x00000001 // 1
+chess_report(int): 0x00000000 // 0
+chess_report(int): 0x00000000 // 0
+chess_report(int): 0x00000001 // 1
+chess_report(int): 0x00000000 // 0
+chess_report(int): 0x00000001 // 1
+chess_report(int): 0x00000000 // 0
+chess_report(int): 0x00000001 // 1
+chess_report(int): 0x00000000 // 0
+chess_report(int): 0x00000001 // 1
+chess_report(int): 0xffffffff // -1
+chess_report(int): 0x00000000 // 0
+chess_report(int): 0x00000000 // 0
+chess_report(int): 0x00000001 // 1
+chess_report(int): 0x00000000 // 0
+chess_report(int): 0x00000001 // 1
+chess_report(int): 0x00000000 // 0
+chess_report(int): 0x00000001 // 1
+chess_report(int): 0x00000000 // 0
+chess_report(int): 0x00000001 // 1
+// unsigned_div_const(1)
+chess_report(unsigned): 0x00000001 // 1
+chess_report(unsigned): 0x00000000 // 0
+chess_report(unsigned): 0x00000000 // 0
+chess_report(unsigned): 0x00000001 // 1
+chess_report(unsigned): 0x00000000 // 0
+chess_report(unsigned): 0x00000001 // 1
+chess_report(unsigned): 0x00000000 // 0
+chess_report(unsigned): 0x00000001 // 1
+chess_report(unsigned): 0x00000000 // 0
+chess_report(unsigned): 0x00000001 // 1
+// signed_div_const(-1)
+chess_report(int): 0xffffffff // -1
+chess_report(int): 0x00000000 // 0
+chess_report(int): 0x00000000 // 0
+chess_report(int): 0xffffffff // -1
+chess_report(int): 0x00000000 // 0
+chess_report(int): 0xffffffff // -1
+chess_report(int): 0x00000000 // 0
+chess_report(int): 0xffffffff // -1
+chess_report(int): 0x00000000 // 0
+chess_report(int): 0xffffffff // -1
+chess_report(int): 0x00000001 // 1
+chess_report(int): 0x00000000 // 0
+chess_report(int): 0x00000000 // 0
+chess_report(int): 0xffffffff // -1
+chess_report(int): 0x00000000 // 0
+chess_report(int): 0xffffffff // -1
+chess_report(int): 0x00000000 // 0
+chess_report(int): 0xffffffff // -1
+chess_report(int): 0x00000000 // 0
+chess_report(int): 0xffffffff // -1
+// unsigned_div_const(4294967295)
+chess_report(unsigned): 0xffffffff // 4294967295
+chess_report(unsigned): 0x00000000 // 0
+chess_report(unsigned): 0x7fffffff // 2147483647
+chess_report(unsigned): 0x00000001 // 1
+chess_report(unsigned): 0x55555555 // 1431655765
+chess_report(unsigned): 0x00000000 // 0
+chess_report(unsigned): 0x24924924 // 613566756
+chess_report(unsigned): 0x00000003 // 3
+chess_report(unsigned): 0x1fffffff // 536870911
+chess_report(unsigned): 0x00000007 // 7
+// signed_div_const(10)
+chess_report(int): 0x0000000a // 10
+chess_report(int): 0x00000000 // 0
+chess_report(int): 0x00000005 // 5
+chess_report(int): 0x00000000 // 0
+chess_report(int): 0x00000003 // 3
+chess_report(int): 0x00000001 // 1
+chess_report(int): 0x00000001 // 1
+chess_report(int): 0x00000003 // 3
+chess_report(int): 0x00000001 // 1
+chess_report(int): 0x00000002 // 2
+chess_report(int): 0xfffffff6 // -10
+chess_report(int): 0x00000000 // 0
+chess_report(int): 0xfffffffb // -5
+chess_report(int): 0x00000000 // 0
+chess_report(int): 0xfffffffd // -3
+chess_report(int): 0x00000001 // 1
+chess_report(int): 0xffffffff // -1
+chess_report(int): 0x00000003 // 3
+chess_report(int): 0xffffffff // -1
+chess_report(int): 0x00000002 // 2
+// unsigned_div_const(10)
+chess_report(unsigned): 0x0000000a // 10
+chess_report(unsigned): 0x00000000 // 0
+chess_report(unsigned): 0x00000005 // 5
+chess_report(unsigned): 0x00000000 // 0
+chess_report(unsigned): 0x00000003 // 3
+chess_report(unsigned): 0x00000001 // 1
+chess_report(unsigned): 0x00000001 // 1
+chess_report(unsigned): 0x00000003 // 3
+chess_report(unsigned): 0x00000001 // 1
+chess_report(unsigned): 0x00000002 // 2
+// signed_div_const(-25)
+chess_report(int): 0xffffffe7 // -25
+chess_report(int): 0x00000000 // 0
+chess_report(int): 0xfffffff4 // -12
+chess_report(int): 0xffffffff // -1
+chess_report(int): 0xfffffff8 // -8
+chess_report(int): 0xffffffff // -1
+chess_report(int): 0xfffffffd // -3
+chess_report(int): 0xfffffffc // -4
+chess_report(int): 0xfffffffd // -3
+chess_report(int): 0xffffffff // -1
+chess_report(int): 0x00000019 // 25
+chess_report(int): 0x00000000 // 0
+chess_report(int): 0x0000000c // 12
+chess_report(int): 0xffffffff // -1
+chess_report(int): 0x00000008 // 8
+chess_report(int): 0xffffffff // -1
+chess_report(int): 0x00000003 // 3
+chess_report(int): 0xfffffffc // -4
+chess_report(int): 0x00000003 // 3
+chess_report(int): 0xffffffff // -1
+// unsigned_div_const(4294967271)
+chess_report(unsigned): 0xffffffe7 // 4294967271
+chess_report(unsigned): 0x00000000 // 0
+chess_report(unsigned): 0x7ffffff3 // 2147483635
+chess_report(unsigned): 0x00000001 // 1
+chess_report(unsigned): 0x5555554d // 1431655757
+chess_report(unsigned): 0x00000000 // 0
+chess_report(unsigned): 0x24924921 // 613566753
+chess_report(unsigned): 0x00000000 // 0
+chess_report(unsigned): 0x1ffffffc // 536870908
+chess_report(unsigned): 0x00000007 // 7
+// signed_div_const(-122)
+chess_report(int): 0xffffff86 // -122
+chess_report(int): 0x00000000 // 0
+chess_report(int): 0xffffffc3 // -61
+chess_report(int): 0x00000000 // 0
+chess_report(int): 0xffffffd8 // -40
+chess_report(int): 0xfffffffe // -2
+chess_report(int): 0xffffffef // -17
+chess_report(int): 0xfffffffd // -3
+chess_report(int): 0xfffffff1 // -15
+chess_report(int): 0xfffffffe // -2
+chess_report(int): 0x0000007a // 122
+chess_report(int): 0x00000000 // 0
+chess_report(int): 0x0000003d // 61
+chess_report(int): 0x00000000 // 0
+chess_report(int): 0x00000028 // 40
+chess_report(int): 0xfffffffe // -2
+chess_report(int): 0x00000011 // 17
+chess_report(int): 0xfffffffd // -3
+chess_report(int): 0x0000000f // 15
+chess_report(int): 0xfffffffe // -2
+// unsigned_div_const(4294967174)
+chess_report(unsigned): 0xffffff86 // 4294967174
+chess_report(unsigned): 0x00000000 // 0
+chess_report(unsigned): 0x7fffffc3 // 2147483587
+chess_report(unsigned): 0x00000000 // 0
+chess_report(unsigned): 0x5555552c // 1431655724
+chess_report(unsigned): 0x00000002 // 2
+chess_report(unsigned): 0x24924913 // 613566739
+chess_report(unsigned): 0x00000001 // 1
+chess_report(unsigned): 0x1ffffff0 // 536870896
+chess_report(unsigned): 0x00000006 // 6
+// signed_div_const(134217727)
+chess_report(int): 0x07ffffff // 134217727
+chess_report(int): 0x00000000 // 0
+chess_report(int): 0x03ffffff // 67108863
+chess_report(int): 0x00000001 // 1
+chess_report(int): 0x02aaaaaa // 44739242
+chess_report(int): 0x00000001 // 1
+chess_report(int): 0x01249249 // 19173961
+chess_report(int): 0x00000000 // 0
+chess_report(int): 0x00ffffff // 16777215
+chess_report(int): 0x00000007 // 7
+chess_report(int): 0xf8000001 // -134217727
+chess_report(int): 0x00000000 // 0
+chess_report(int): 0xfc000001 // -67108863
+chess_report(int): 0x00000001 // 1
+chess_report(int): 0xfd555556 // -44739242
+chess_report(int): 0x00000001 // 1
+chess_report(int): 0xfedb6db7 // -19173961
+chess_report(int): 0x00000000 // 0
+chess_report(int): 0xff000001 // -16777215
+chess_report(int): 0x00000007 // 7
+// unsigned_div_const(134217727)
+chess_report(unsigned): 0x07ffffff // 134217727
+chess_report(unsigned): 0x00000000 // 0
+chess_report(unsigned): 0x03ffffff // 67108863
+chess_report(unsigned): 0x00000001 // 1
+chess_report(unsigned): 0x02aaaaaa // 44739242
+chess_report(unsigned): 0x00000001 // 1
+chess_report(unsigned): 0x01249249 // 19173961
+chess_report(unsigned): 0x00000000 // 0
+chess_report(unsigned): 0x00ffffff // 16777215
+chess_report(unsigned): 0x00000007 // 7
+// signed_div_const(134217727)
+chess_report(int): 0x07ffffff // 134217727
+chess_report(int): 0x00000000 // 0
+chess_report(int): 0x03ffffff // 67108863
+chess_report(int): 0x00000001 // 1
+chess_report(int): 0x02aaaaaa // 44739242
+chess_report(int): 0x00000001 // 1
+chess_report(int): 0x01249249 // 19173961
+chess_report(int): 0x00000000 // 0
+chess_report(int): 0x00ffffff // 16777215
+chess_report(int): 0x00000007 // 7
+chess_report(int): 0xf8000001 // -134217727
+chess_report(int): 0x00000000 // 0
+chess_report(int): 0xfc000001 // -67108863
+chess_report(int): 0x00000001 // 1
+chess_report(int): 0xfd555556 // -44739242
+chess_report(int): 0x00000001 // 1
+chess_report(int): 0xfedb6db7 // -19173961
+chess_report(int): 0x00000000 // 0
+chess_report(int): 0xff000001 // -16777215
+chess_report(int): 0x00000007 // 7
+// unsigned_div_const(134217727)
+chess_report(unsigned): 0x07ffffff // 134217727
+chess_report(unsigned): 0x00000000 // 0
+chess_report(unsigned): 0x03ffffff // 67108863
+chess_report(unsigned): 0x00000001 // 1
+chess_report(unsigned): 0x02aaaaaa // 44739242
+chess_report(unsigned): 0x00000001 // 1
+chess_report(unsigned): 0x01249249 // 19173961
+chess_report(unsigned): 0x00000000 // 0
+chess_report(unsigned): 0x00ffffff // 16777215
+chess_report(unsigned): 0x00000007 // 7
+// signed_div_const(117440512)
+chess_report(int): 0x07000000 // 117440512
+chess_report(int): 0x00000000 // 0
+chess_report(int): 0x03800000 // 58720256
+chess_report(int): 0x00000000 // 0
+chess_report(int): 0x02555555 // 39146837
+chess_report(int): 0x00000001 // 1
+chess_report(int): 0x01000000 // 16777216
+chess_report(int): 0x00000000 // 0
+chess_report(int): 0x00e00000 // 14680064
+chess_report(int): 0x00000000 // 0
+chess_report(int): 0xf9000000 // -117440512
+chess_report(int): 0x00000000 // 0
+chess_report(int): 0xfc800000 // -58720256
+chess_report(int): 0x00000000 // 0
+chess_report(int): 0xfdaaaaab // -39146837
+chess_report(int): 0x00000001 // 1
+chess_report(int): 0xff000000 // -16777216
+chess_report(int): 0x00000000 // 0
+chess_report(int): 0xff200000 // -14680064
+chess_report(int): 0x00000000 // 0
+// unsigned_div_const(117440512)
+chess_report(unsigned): 0x07000000 // 117440512
+chess_report(unsigned): 0x00000000 // 0
+chess_report(unsigned): 0x03800000 // 58720256
+chess_report(unsigned): 0x00000000 // 0
+chess_report(unsigned): 0x02555555 // 39146837
+chess_report(unsigned): 0x00000001 // 1
+chess_report(unsigned): 0x01000000 // 16777216
+chess_report(unsigned): 0x00000000 // 0
+chess_report(unsigned): 0x00e00000 // 14680064
+chess_report(unsigned): 0x00000000 // 0
+// signed_div_const(117440511)
+chess_report(int): 0x06ffffff // 117440511
+chess_report(int): 0x00000000 // 0
+chess_report(int): 0x037fffff // 58720255
+chess_report(int): 0x00000001 // 1
+chess_report(int): 0x02555555 // 39146837
+chess_report(int): 0x00000000 // 0
+chess_report(int): 0x00ffffff // 16777215
+chess_report(int): 0x00000006 // 6
+chess_report(int): 0x00dfffff // 14680063
+chess_report(int): 0x00000007 // 7
+chess_report(int): 0xf9000001 // -117440511
+chess_report(int): 0x00000000 // 0
+chess_report(int): 0xfc800001 // -58720255
+chess_report(int): 0x00000001 // 1
+chess_report(int): 0xfdaaaaab // -39146837
+chess_report(int): 0x00000000 // 0
+chess_report(int): 0xff000001 // -16777215
+chess_report(int): 0x00000006 // 6
+chess_report(int): 0xff200001 // -14680063
+chess_report(int): 0x00000007 // 7
+// unsigned_div_const(117440511)
+chess_report(unsigned): 0x06ffffff // 117440511
+chess_report(unsigned): 0x00000000 // 0
+chess_report(unsigned): 0x037fffff // 58720255
+chess_report(unsigned): 0x00000001 // 1
+chess_report(unsigned): 0x02555555 // 39146837
+chess_report(unsigned): 0x00000000 // 0
+chess_report(unsigned): 0x00ffffff // 16777215
+chess_report(unsigned): 0x00000006 // 6
+chess_report(unsigned): 0x00dfffff // 14680063
+chess_report(unsigned): 0x00000007 // 7
+// signed_div_const(67108864)
+chess_report(int): 0x04000000 // 67108864
+chess_report(int): 0x00000000 // 0
+chess_report(int): 0x02000000 // 33554432
+chess_report(int): 0x00000000 // 0
+chess_report(int): 0x01555555 // 22369621
+chess_report(int): 0x00000001 // 1
+chess_report(int): 0x00924924 // 9586980
+chess_report(int): 0x00000004 // 4
+chess_report(int): 0x00800000 // 8388608
+chess_report(int): 0x00000000 // 0
+chess_report(int): 0xfc000000 // -67108864
+chess_report(int): 0x00000000 // 0
+chess_report(int): 0xfe000000 // -33554432
+chess_report(int): 0x00000000 // 0
+chess_report(int): 0xfeaaaaab // -22369621
+chess_report(int): 0x00000001 // 1
+chess_report(int): 0xff6db6dc // -9586980
+chess_report(int): 0x00000004 // 4
+chess_report(int): 0xff800000 // -8388608
+chess_report(int): 0x00000000 // 0
+// unsigned_div_const(67108864)
+chess_report(unsigned): 0x04000000 // 67108864
+chess_report(unsigned): 0x00000000 // 0
+chess_report(unsigned): 0x02000000 // 33554432
+chess_report(unsigned): 0x00000000 // 0
+chess_report(unsigned): 0x01555555 // 22369621
+chess_report(unsigned): 0x00000001 // 1
+chess_report(unsigned): 0x00924924 // 9586980
+chess_report(unsigned): 0x00000004 // 4
+chess_report(unsigned): 0x00800000 // 8388608
+chess_report(unsigned): 0x00000000 // 0
+// signed_div_const(67108863)
+chess_report(int): 0x03ffffff // 67108863
+chess_report(int): 0x00000000 // 0
+chess_report(int): 0x01ffffff // 33554431
+chess_report(int): 0x00000001 // 1
+chess_report(int): 0x01555555 // 22369621
+chess_report(int): 0x00000000 // 0
+chess_report(int): 0x00924924 // 9586980
+chess_report(int): 0x00000003 // 3
+chess_report(int): 0x007fffff // 8388607
+chess_report(int): 0x00000007 // 7
+chess_report(int): 0xfc000001 // -67108863
+chess_report(int): 0x00000000 // 0
+chess_report(int): 0xfe000001 // -33554431
+chess_report(int): 0x00000001 // 1
+chess_report(int): 0xfeaaaaab // -22369621
+chess_report(int): 0x00000000 // 0
+chess_report(int): 0xff6db6dc // -9586980
+chess_report(int): 0x00000003 // 3
+chess_report(int): 0xff800001 // -8388607
+chess_report(int): 0x00000007 // 7
+// unsigned_div_const(67108863)
+chess_report(unsigned): 0x03ffffff // 67108863
+chess_report(unsigned): 0x00000000 // 0
+chess_report(unsigned): 0x01ffffff // 33554431
+chess_report(unsigned): 0x00000001 // 1
+chess_report(unsigned): 0x01555555 // 22369621
+chess_report(unsigned): 0x00000000 // 0
+chess_report(unsigned): 0x00924924 // 9586980
+chess_report(unsigned): 0x00000003 // 3
+chess_report(unsigned): 0x007fffff // 8388607
+chess_report(unsigned): 0x00000007 // 7
+// signed_div_const(50331648)
+chess_report(int): 0x03000000 // 50331648
+chess_report(int): 0x00000000 // 0
+chess_report(int): 0x01800000 // 25165824
+chess_report(int): 0x00000000 // 0
+chess_report(int): 0x01000000 // 16777216
+chess_report(int): 0x00000000 // 0
+chess_report(int): 0x006db6db // 7190235
+chess_report(int): 0x00000003 // 3
+chess_report(int): 0x00600000 // 6291456
+chess_report(int): 0x00000000 // 0
+chess_report(int): 0xfd000000 // -50331648
+chess_report(int): 0x00000000 // 0
+chess_report(int): 0xfe800000 // -25165824
+chess_report(int): 0x00000000 // 0
+chess_report(int): 0xff000000 // -16777216
+chess_report(int): 0x00000000 // 0
+chess_report(int): 0xff924925 // -7190235
+chess_report(int): 0x00000003 // 3
+chess_report(int): 0xffa00000 // -6291456
+chess_report(int): 0x00000000 // 0
+// unsigned_div_const(50331648)
+chess_report(unsigned): 0x03000000 // 50331648
+chess_report(unsigned): 0x00000000 // 0
+chess_report(unsigned): 0x01800000 // 25165824
+chess_report(unsigned): 0x00000000 // 0
+chess_report(unsigned): 0x01000000 // 16777216
+chess_report(unsigned): 0x00000000 // 0
+chess_report(unsigned): 0x006db6db // 7190235
+chess_report(unsigned): 0x00000003 // 3
+chess_report(unsigned): 0x00600000 // 6291456
+chess_report(unsigned): 0x00000000 // 0
+// signed_div_const(-2147483648)
+chess_report(int): 0x80000000 // -2147483648
+chess_report(int): 0x00000000 // 0
+chess_report(int): 0xc0000000 // -1073741824
+chess_report(int): 0x00000000 // 0
+chess_report(int): 0xd5555556 // -715827882
+chess_report(int): 0xfffffffe // -2
+chess_report(int): 0xedb6db6e // -306783378
+chess_report(int): 0xfffffffe // -2
+chess_report(int): 0xf0000000 // -268435456
+chess_report(int): 0x00000000 // 0
+chess_report(int): 0x80000000 // -2147483648
+chess_report(int): 0x00000000 // 0
+chess_report(int): 0x40000000 // 1073741824
+chess_report(int): 0x00000000 // 0
+chess_report(int): 0x2aaaaaaa // 715827882
+chess_report(int): 0xfffffffe // -2
+chess_report(int): 0x12492492 // 306783378
+chess_report(int): 0xfffffffe // -2
+chess_report(int): 0x10000000 // 268435456
+chess_report(int): 0x00000000 // 0
+// unsigned_div_const(2147483648)
+chess_report(unsigned): 0x80000000 // 2147483648
+chess_report(unsigned): 0x00000000 // 0
+chess_report(unsigned): 0x40000000 // 1073741824
+chess_report(unsigned): 0x00000000 // 0
+chess_report(unsigned): 0x2aaaaaaa // 715827882
+chess_report(unsigned): 0x00000002 // 2
+chess_report(unsigned): 0x12492492 // 306783378
+chess_report(unsigned): 0x00000002 // 2
+chess_report(unsigned): 0x10000000 // 268435456
+chess_report(unsigned): 0x00000000 // 0
+// signed_div_const(2147483647)
+chess_report(int): 0x7fffffff // 2147483647
+chess_report(int): 0x00000000 // 0
+chess_report(int): 0x3fffffff // 1073741823
+chess_report(int): 0x00000001 // 1
+chess_report(int): 0x2aaaaaaa // 715827882
+chess_report(int): 0x00000001 // 1
+chess_report(int): 0x12492492 // 306783378
+chess_report(int): 0x00000001 // 1
+chess_report(int): 0x0fffffff // 268435455
+chess_report(int): 0x00000007 // 7
+chess_report(int): 0x80000001 // -2147483647
+chess_report(int): 0x00000000 // 0
+chess_report(int): 0xc0000001 // -1073741823
+chess_report(int): 0x00000001 // 1
+chess_report(int): 0xd5555556 // -715827882
+chess_report(int): 0x00000001 // 1
+chess_report(int): 0xedb6db6e // -306783378
+chess_report(int): 0x00000001 // 1
+chess_report(int): 0xf0000001 // -268435455
+chess_report(int): 0x00000007 // 7
+// unsigned_div_const(2147483647)
+chess_report(unsigned): 0x7fffffff // 2147483647
+chess_report(unsigned): 0x00000000 // 0
+chess_report(unsigned): 0x3fffffff // 1073741823
+chess_report(unsigned): 0x00000001 // 1
+chess_report(unsigned): 0x2aaaaaaa // 715827882
+chess_report(unsigned): 0x00000001 // 1
+chess_report(unsigned): 0x12492492 // 306783378
+chess_report(unsigned): 0x00000001 // 1
+chess_report(unsigned): 0x0fffffff // 268435455
+chess_report(unsigned): 0x00000007 // 7
+// signed_div_const(2147483646)
+chess_report(int): 0x7ffffffe // 2147483646
+chess_report(int): 0x00000000 // 0
+chess_report(int): 0x3fffffff // 1073741823
+chess_report(int): 0x00000000 // 0
+chess_report(int): 0x2aaaaaaa // 715827882
+chess_report(int): 0x00000000 // 0
+chess_report(int): 0x12492492 // 306783378
+chess_report(int): 0x00000000 // 0
+chess_report(int): 0x0fffffff // 268435455
+chess_report(int): 0x00000006 // 6
+chess_report(int): 0x80000002 // -2147483646
+chess_report(int): 0x00000000 // 0
+chess_report(int): 0xc0000001 // -1073741823
+chess_report(int): 0x00000000 // 0
+chess_report(int): 0xd5555556 // -715827882
+chess_report(int): 0x00000000 // 0
+chess_report(int): 0xedb6db6e // -306783378
+chess_report(int): 0x00000000 // 0
+chess_report(int): 0xf0000001 // -268435455
+chess_report(int): 0x00000006 // 6
+// unsigned_div_const(2147483646)
+chess_report(unsigned): 0x7ffffffe // 2147483646
+chess_report(unsigned): 0x00000000 // 0
+chess_report(unsigned): 0x3fffffff // 1073741823
+chess_report(unsigned): 0x00000000 // 0
+chess_report(unsigned): 0x2aaaaaaa // 715827882
+chess_report(unsigned): 0x00000000 // 0
+chess_report(unsigned): 0x12492492 // 306783378
+chess_report(unsigned): 0x00000000 // 0
+chess_report(unsigned): 0x0fffffff // 268435455
+chess_report(unsigned): 0x00000006 // 6
+// signed_div_const(-1)
+chess_report(int): 0xffffffff // -1
+chess_report(int): 0x00000000 // 0
+chess_report(int): 0x00000000 // 0
+chess_report(int): 0xffffffff // -1
+chess_report(int): 0x00000000 // 0
+chess_report(int): 0xffffffff // -1
+chess_report(int): 0x00000000 // 0
+chess_report(int): 0xffffffff // -1
+chess_report(int): 0x00000000 // 0
+chess_report(int): 0xffffffff // -1
+chess_report(int): 0x00000001 // 1
+chess_report(int): 0x00000000 // 0
+chess_report(int): 0x00000000 // 0
+chess_report(int): 0xffffffff // -1
+chess_report(int): 0x00000000 // 0
+chess_report(int): 0xffffffff // -1
+chess_report(int): 0x00000000 // 0
+chess_report(int): 0xffffffff // -1
+chess_report(int): 0x00000000 // 0
+chess_report(int): 0xffffffff // -1
+// unsigned_div_const(4294967295)
+chess_report(unsigned): 0xffffffff // 4294967295
+chess_report(unsigned): 0x00000000 // 0
+chess_report(unsigned): 0x7fffffff // 2147483647
+chess_report(unsigned): 0x00000001 // 1
+chess_report(unsigned): 0x55555555 // 1431655765
+chess_report(unsigned): 0x00000000 // 0
+chess_report(unsigned): 0x24924924 // 613566756
+chess_report(unsigned): 0x00000003 // 3
+chess_report(unsigned): 0x1fffffff // 536870911
+chess_report(unsigned): 0x00000007 // 7
+// signed_div_const(-2)
+chess_report(int): 0xfffffffe // -2
+chess_report(int): 0x00000000 // 0
+chess_report(int): 0xffffffff // -1
+chess_report(int): 0x00000000 // 0
+chess_report(int): 0x00000000 // 0
+chess_report(int): 0xfffffffe // -2
+chess_report(int): 0x00000000 // 0
+chess_report(int): 0xfffffffe // -2
+chess_report(int): 0x00000000 // 0
+chess_report(int): 0xfffffffe // -2
+chess_report(int): 0x00000002 // 2
+chess_report(int): 0x00000000 // 0
+chess_report(int): 0x00000001 // 1
+chess_report(int): 0x00000000 // 0
+chess_report(int): 0x00000000 // 0
+chess_report(int): 0xfffffffe // -2
+chess_report(int): 0x00000000 // 0
+chess_report(int): 0xfffffffe // -2
+chess_report(int): 0x00000000 // 0
+chess_report(int): 0xfffffffe // -2
+// unsigned_div_const(4294967294)
+chess_report(unsigned): 0xfffffffe // 4294967294
+chess_report(unsigned): 0x00000000 // 0
+chess_report(unsigned): 0x7fffffff // 2147483647
+chess_report(unsigned): 0x00000000 // 0
+chess_report(unsigned): 0x55555554 // 1431655764
+chess_report(unsigned): 0x00000002 // 2
+chess_report(unsigned): 0x24924924 // 613566756
+chess_report(unsigned): 0x00000002 // 2
+chess_report(unsigned): 0x1fffffff // 536870911
+chess_report(unsigned): 0x00000006 // 6
+// signed_div_const(178956970)
+chess_report(int): 0x0aaaaaaa // 178956970
+chess_report(int): 0x00000000 // 0
+chess_report(int): 0x05555555 // 89478485
+chess_report(int): 0x00000000 // 0
+chess_report(int): 0x038e38e3 // 59652323
+chess_report(int): 0x00000001 // 1
+chess_report(int): 0x01861861 // 25565281
+chess_report(int): 0x00000003 // 3
+chess_report(int): 0x01555555 // 22369621
+chess_report(int): 0x00000002 // 2
+chess_report(int): 0xf5555556 // -178956970
+chess_report(int): 0x00000000 // 0
+chess_report(int): 0xfaaaaaab // -89478485
+chess_report(int): 0x00000000 // 0
+chess_report(int): 0xfc71c71d // -59652323
+chess_report(int): 0x00000001 // 1
+chess_report(int): 0xfe79e79f // -25565281
+chess_report(int): 0x00000003 // 3
+chess_report(int): 0xfeaaaaab // -22369621
+chess_report(int): 0x00000002 // 2
+// unsigned_div_const(178956970)
+chess_report(unsigned): 0x0aaaaaaa // 178956970
+chess_report(unsigned): 0x00000000 // 0
+chess_report(unsigned): 0x05555555 // 89478485
+chess_report(unsigned): 0x00000000 // 0
+chess_report(unsigned): 0x038e38e3 // 59652323
+chess_report(unsigned): 0x00000001 // 1
+chess_report(unsigned): 0x01861861 // 25565281
+chess_report(unsigned): 0x00000003 // 3
+chess_report(unsigned): 0x01555555 // 22369621
+chess_report(unsigned): 0x00000002 // 2

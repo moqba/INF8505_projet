@@ -1,0 +1,42 @@
+#!/bin/sh
+
+PROC="tlx"
+
+which chessmk > /dev/null
+[ $? -ge 1 ] && exit 1
+
+WORKDIR="`dirname $0`"
+echo "workdir: $WORKDIR"
+
+chessmk -r $WORKDIR/model.prx
+chessmk -r $WORKDIR/debug_client/${PROC}_client.prx
+
+cd $WORKDIR/regression; ./domake virgin; cd -
+
+find $WORKDIR -name Release   | xargs rm -rf
+find $WORKDIR -name Debug     | xargs rm -rf
+find $WORKDIR -name Native    | xargs rm -rf
+find $WORKDIR -name \*.rpt    | xargs rm -rf
+find $WORKDIR -name \*.prxui  | xargs rm -rf
+find $WORKDIR -name \*.log    | xargs rm -rf
+find $WORKDIR -name \*_work   | xargs rm -rf
+
+/bin/rm -rf lib/*.a
+/bin/rm -rf lib/*.o
+/bin/rm -rf lib/*.o.lst
+/bin/rm -rf lib/isg
+/bin/rm -rf lib/chesswork
+/bin/rm -rf lib/oneliners
+/bin/rm -rf lib/Release
+/bin/rm -rf lib/Debug
+/bin/rm -rf lib/runtime/lib/*.a
+/bin/rm -rf lib/runtime/lib/*.o
+/bin/rm -rf lib/runtime/lib/*.o.lst
+/bin/rm -rf lib/runtime/lib/chesswork
+/bin/rm -rf lib/softfloat/lib/*.a
+/bin/rm -rf lib/softfloat/lib/*.o
+/bin/rm -rf lib/softfloat/lib/*.o.lst
+/bin/rm -rf lib/softfloat/lib/chesswork
+
+# cd regression; ./domake virgin; cd ..
+

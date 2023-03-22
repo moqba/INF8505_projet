@@ -1,0 +1,16 @@
+// foo
+chess_report(int): 0x00000014 // 20
+chess_report(int): 0x00000016 // 22
+chess_report(int): 0x0000001a // 26
+// foo
+chess_report(int): 0x00000046 // 70
+chess_report(int): 0x00000052 // 82
+chess_report(int): 0x0000016e // 366
+// large_foo
+chess_report(int): 0x00000028 // 40
+chess_report(int): 0x0000002e // 46
+chess_report(int): 0x00000072 // 114
+// large_foo
+chess_report(int): 0x0000005a // 90
+chess_report(int): 0x0000006a // 106
+chess_report(int): 0x00000266 // 614

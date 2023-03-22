@@ -1,0 +1,6 @@
+#ifndef _LIBCPP_CONFIG_LITE
+#define _LIBCPP_CONFIG_LITE
+
+#define _LIBCPP_LITE
+
+#endif

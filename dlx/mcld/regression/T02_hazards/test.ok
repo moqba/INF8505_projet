@@ -1,0 +1,19 @@
+chess_report(int): 0x0000000a // 10
+chess_report(int): 0x0000001a // 26
+chess_report(int): 0x0000002a // 42
+chess_report(int): 0x0000002b // 43
+chess_report(int): 0x0000000e // 14
+chess_report(vint_t): 0x00000004 0x00000003 0x00000002 0x00000001 // 4 3 2 1
+chess_report(vint_t): 0x0000000b 0x0000000b 0x0000000b 0x0000000b // 11 11 11 11
+chess_report(int): 0x0000002c // 44
+chess_report(vint_t): 0x0000000b 0x0000000b 0x0000000b 0x0000000b // 11 11 11 11
+chess_report(int): 0x0000002c // 44
+chess_report(vint_t): 0x00000004 0x00000003 0x00000002 0x00000001 // 4 3 2 1
+chess_report(vint_t): 0x00000008 0x00000007 0x00000006 0x00000005 // 8 7 6 5
+chess_report(vint_t): 0x00000001 0x0000000f 0x0000000e 0x0000000d // 1 15 14 13
+chess_report(vint_t): 0x0000000c 0x0000000b 0x0000000a 0x00000009 // 12 11 10 9
+chess_report(vint_t): 0x0000000c 0x0000000b 0x0000000a 0x00000009 // 12 11 10 9
+chess_report(vint_t): 0x00000004 0x00000003 0x00000002 0x00000001 // 4 3 2 1
+chess_report(vint_t): 0x0000000c 0x0000000b 0x0000000a 0x00000009 // 12 11 10 9
+chess_report(vint_t): 0x00000004 0x00000003 0x00000002 0x00000001 // 4 3 2 1
+chess_report(vint_t): 0x0000000c 0x0000000b 0x0000000a 0x00000009 // 12 11 10 9

@@ -1,0 +1,18 @@
+// test_U1
+chess_report(int): 0x00003b1d // 15133
+chess_report(int): 0x00000064 // 100
+chess_report(int): 0x00003aaf // 15023
+chess_report(int): 0x00003b1d // 15133
+chess_report(int): 0x00003b1d // 15133
+chess_report(int): 0x00000064 // 100
+chess_report(int): 0x00003aaf // 15023
+chess_report(int): 0x00003b1d // 15133
+// test_U2
+chess_report(int): 0x0000002c // 44
+chess_report(int): 0x0000260e // 9742
+chess_report(int): 0xffffff46 // -186
+chess_report(int): 0xffffffab // -85
+chess_report(int): 0x00000388 // 904
+chess_report(int): 0x000015b4 // 5556
+chess_report(int): 0x000001cc // 460
+chess_report(int): 0x000017df // 6111

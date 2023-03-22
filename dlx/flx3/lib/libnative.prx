@@ -1,0 +1,24 @@
+<project name="Project" processor="flx" lib="">
+    <configuration remove="1" parent="Release"/>
+    <configuration remove="1" parent="Debug"/>
+    <file type="c" name="flx_chess_opns.c" path="isg"/>
+    <file type="c" name="flx_chess_types.c" path="isg"/>
+    <file type="c" name="dw_fpu_primitives.cpp" path=""/>
+    <file type="c" name="Vfas.cpp" path="verilated_fpu_models"/>
+    <file type="c" name="Vfas__Syms.cpp" path="verilated_fpu_models"/>
+    <file type="c" name="Vfcp.cpp" path="verilated_fpu_models"/>
+    <file type="c" name="Vfcp__Syms.cpp" path="verilated_fpu_models"/>
+    <file type="c" name="Vffi.cpp" path="verilated_fpu_models"/>
+    <file type="c" name="Vffi__Syms.cpp" path="verilated_fpu_models"/>
+    <file type="c" name="Vfif.cpp" path="verilated_fpu_models"/>
+    <file type="c" name="Vfif__Syms.cpp" path="verilated_fpu_models"/>
+    <file type="c" name="Vfmp.cpp" path="verilated_fpu_models"/>
+    <file type="c" name="Vfmp__Syms.cpp" path="verilated_fpu_models"/>
+    <file type="c" name="verilated.cpp" path="&lt;VERILATOR_ROOT&gt;/include"/>
+    <file type="c" name="Vspdv24.cpp" path="verilated_fpu_models"/>
+    <file type="c" name="Vspdv24__Syms.cpp" path="verilated_fpu_models"/>
+    <file type="c" name="Vspsr24.cpp" path="verilated_fpu_models"/>
+    <file type="c" name="Vspsr24__Syms.cpp" path="verilated_fpu_models"/>
+    <option id="project.name" value="libnative.a"/>
+    <option id="project.type" value="arch"/>
+</project>

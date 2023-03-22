@@ -1,0 +1,10 @@
+// nested_loop(0)
+chess_report(int): 0x000003e8 // 1000
+// nested_loop(1)
+chess_report(int): 0x000003e9 // 1001
+// nested_loop(2)
+chess_report(int): 0x00000428 // 1064
+// nested_loop(3)
+chess_report(int): 0x000006c1 // 1729
+// nested_loop(4)
+chess_report(int): 0x000013e8 // 5096

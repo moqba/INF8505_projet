@@ -1,0 +1,9 @@
+<project name="Project" processor="dlx" lib="../lib">
+    <configuration remove="1" parent="Release"/>
+    <configuration remove="1" parent="Debug"/>
+    <file type="c" name="test.cpp" path=""/>
+    <option id="cpp.define" value="USE_STREAMS" inherit="1" cfg="Native"/>
+    <option id="llvm.xargs" value="-fno-exceptions" inherit="1"/>
+    <option id="project.name" value="test"/>
+    <option id="project.type" value="exe"/>
+</project>

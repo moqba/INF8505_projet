@@ -1,0 +1,24 @@
+// fac(0)
+chess_report(int): 0x00000001 // 1
+chess_report(int): 0x00000001 // 1
+// fac(1)
+chess_report(int): 0x00000001 // 1
+chess_report(int): 0x00000001 // 1
+// fac(2)
+chess_report(int): 0x00000002 // 2
+chess_report(int): 0x00000002 // 2
+// fac(3)
+chess_report(int): 0x00000006 // 6
+chess_report(int): 0x00000006 // 6
+// fac(4)
+chess_report(int): 0x00000018 // 24
+chess_report(int): 0x00000018 // 24
+// fac(5)
+chess_report(int): 0x00000078 // 120
+chess_report(int): 0x00000078 // 120
+// fac(6)
+chess_report(int): 0x000002d0 // 720
+chess_report(int): 0x000002d0 // 720
+// fac(7)
+chess_report(int): 0x000013b0 // 5040
+chess_report(int): 0x000013b0 // 5040

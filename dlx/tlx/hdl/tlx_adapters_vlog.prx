@@ -1,0 +1,7 @@
+<hdlgenerator name="HDL project" processor="tlx" lib="../lib">
+    <option id="cpp.define" value="TLX_HAS_ADAPTERS" inherit="1"/>
+    <option id="cpp.include" value="&lt;PROCDIR&gt;/../../../io_modules" inherit="1"/>
+    <option id="hdl.gcf" value="go_options.cfg"/>
+    <option id="hdl.lang" value="vlog"/>
+    <option id="hdl.outdir" value="tlx_adapters_vlog"/>
+</hdlgenerator>

@@ -1,0 +1,17 @@
+<project name="Project" processor="tlx" lib="../../lib">
+    <file type="c" name="core_list_join.c" path=""/>
+    <file type="c" name="core_main.c" path=""/>
+    <file type="c" name="core_matrix.c" path=""/>
+    <file type="c" name="core_state.c" path=""/>
+    <file type="c" name="core_util.c" path=""/>
+    <file type="c" name="core_portme.c" path="tlx"/>
+    <option id="cpp.define" value="CORE_DEBUG=1 ITERATIONS=1" inherit="1"/>
+    <option id="cpp.include" value="tlx ." inherit="1"/>
+    <option id="llvm.lang" value="c" cfg="Debug_LLVM"/>
+    <option id="llvm.lang" value="c" cfg="Release_LLVM"/>
+    <option id="noodle.cmode" value="on"/>
+    <option id="noodle.optim.nopld" value="on"/>
+    <option id="project.dir" value="CORE_DEBUG"/>
+    <option id="project.name" value="coremark"/>
+    <option id="project.type" value="exe"/>
+</project>

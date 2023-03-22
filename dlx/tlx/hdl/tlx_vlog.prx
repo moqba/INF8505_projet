@@ -1,0 +1,5 @@
+<hdlgenerator name="HDL project" processor="tlx" lib="../lib">
+    <option id="hdl.gcf" value="go_options.cfg"/>
+    <option id="hdl.lang" value="vlog"/>
+    <option id="hdl.outdir" value="tlx_vlog"/>
+</hdlgenerator>

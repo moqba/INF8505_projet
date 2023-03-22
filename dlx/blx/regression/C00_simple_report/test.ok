@@ -1,0 +1,2 @@
+chess_report(int): 0x0000000a // 10
+chess_report(int): 0xffffffff // -1

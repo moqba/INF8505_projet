@@ -1,0 +1,14 @@
+#!/usr/bin/sh
+
+chessmk lib/tlx.prx -r
+chessmk lib/tlx.prx
+chessmk -C Native  lib/libnative.prx
+chessmk -C Release lib/libtlx.prx
+chessmk -C Debug   lib/libtlx.prx
+chessmk -C Release lib/runtime/libc.prx
+chessmk -C Debug   lib/runtime/libc.prx
+chessmk -C Release lib/runtime/libm.prx
+chessmk -C Debug   lib/runtime/libm.prx
+chessmk -C Release lib/softfloat/softfloat.prx
+chessmk -C Debug   lib/softfloat/softfloat.prx
+chessmk iss/tlx_ca.prx

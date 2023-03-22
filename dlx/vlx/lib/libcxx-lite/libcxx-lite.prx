@@ -1,0 +1,6 @@
+<project name="Project" processor="vlx" lib="..">
+    <import path="../../../../libs/libcxx-9.0.0" name="libcxx-lite.prx"/>
+    <option id="project.dir" value="lib/&lt;CONFIG&gt;"/>
+    <option id="project.name" value="libc++lite.a"/>
+    <option id="project.type" value="arch"/>
+</project>

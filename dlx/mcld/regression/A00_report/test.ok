@@ -1,0 +1,3 @@
+// First test message
+chess_report(int): 0x00000065 // 101
+chess_report(int): 0x0000001e // 30

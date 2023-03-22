@@ -1,0 +1,24 @@
+// test_cld_local()
+chess_report(int): 0x00000001 // 1
+chess_report(int): 0x00000002 // 2
+// test_cld_global()
+chess_report(int): 0x0000006f // 111
+chess_report(int): 0x0000007b // 123
+// test_cld_static()
+chess_report(int): 0x000000dd // 221
+chess_report(int): 0x000000f3 // 243
+// test_inl_local()
+chess_report(int): 0x0000014b // 331
+chess_report(int): 0x0000016a // 362
+// test_inl_global()
+chess_report(int): 0x000001b9 // 441
+chess_report(int): 0x000001e3 // 483
+// test_inl_static()
+chess_report(int): 0x00000227 // 551
+chess_report(int): 0x0000025b // 603
+// test_string_lit()
+chess_report(int): 0x00000041 // 65
+// test_dup_static()
+chess_report(int): 0x00000391 // 913
+// test_dup_static()
+chess_report(int): 0x0000039d // 925

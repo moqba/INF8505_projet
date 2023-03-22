@@ -1,0 +1,41 @@
+#! armclang --target=arm-arm-none-eabi -mcpu=cortex-a5 -mfpu=none -E -x c
+/***************************************************************************
+ * Copyright 1996-2021 Synopsys, Inc.
+ *
+ * This Synopsys software and all associated documentation are proprietary
+ * to Synopsys, Inc. and may only be used pursuant to the terms and
+ * conditions of a written license agreement with Synopsys, Inc.
+ * All other use, reproduction, modification, or distribution of the
+ * Synopsys software or the associated documentation is strictly prohibited.
+ ***************************************************************************/
+
+#define CORE_REGION_BASE        0x10000000
+#define CORE_REGION_SIZE        0x01000000
+
+#define LIB_HEAP_SIZE           0x00010000
+#define USR_STACK_SIZE          0x00010000
+#define NON_USR_STACKS_SIZE     0x00002000
+
+COMMON_REGION 0x00000000
+{
+    EXEC_BOOT_REGION +0
+    {
+        boot_armv7a.o (common_lo_exception_handlers, +FIRST)
+    }
+}
+
+CORE_REGION  CORE_REGION_BASE  CORE_REGION_SIZE
+{
+    EXEC_CODE_REGION +0
+    {
+        boot_armv7a.o (core_exception_handlers, +FIRST)
+        * (+RO)
+    }
+    EXEC_DATA_REGION +0 ALIGN 0x1000
+    {
+        * (+ZI, +RW)
+    }
+    ARM_LIB_HEAP  +0 ALIGN 0x1000 EMPTY LIB_HEAP_SIZE {}
+    ARM_LIB_STACK +0 ALIGN 0x1000 EMPTY USR_STACK_SIZE {}
+    NON_USR_MODE_STACKS +0 ALIGN 0x1000 EMPTY NON_USR_STACKS_SIZE {}
+}

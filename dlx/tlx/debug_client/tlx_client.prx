@@ -1,0 +1,25 @@
+<simulator name="Simulator" processor="tlx" mode="db" lib="../lib">
+    <option id="checkers.ArgcArgv" value="on"/>
+    <option id="checkers.BreakpointType" value="all"/>
+    <option id="checkers.CheckAddresses" value="0"/>
+    <option id="checkers.CheckConflicts" value="0"/>
+    <option id="checkers.CheckReserved" value="0"/>
+    <option id="checkers.CheckStack" value="0"/>
+    <option id="checkers.CheckUninitialized" value="0"/>
+    <option id="checkers.DebugController" value="tlx_pdc_interface"/>
+    <option id="checkers.DebugControllerHeader" value="tlx_pdc_interface.h"/>
+    <option id="checkers.ExtraCFiles" value="pdc_init_bpwp_codes.c pdc_register_moves.c pdc_commands.c checkers_pdc_interface.c tlx_pdc_interface.c" inherit="1"/>
+    <option id="checkers.HostedClib" value="on"/>
+    <option id="checkers.InstructionCountSupported" value="off"/>
+    <option id="checkers.InstructionHistorySupported" value="off"/>
+    <option id="checkers.IssName" value="tlx_client"/>
+    <option id="checkers.MultiCoreDebugger" value="on"/>
+    <option id="checkers.PcHistorySupported" value="off"/>
+    <option id="checkers.PipelineInfoSupported" value="off"/>
+    <option id="checkers.SoftwareBreakpoints" value="on"/>
+    <option id="checkers.WatchpointStorages" value="DMb" inherit="1"/>
+    <option id="checkers.WatchpointType" value="mem"/>
+    <option id="checkers.WatchRange" value="2"/>
+    <option id="checkers.WatchRead" value="off"/>
+    <option id="checkers.WorkDir" value="tlx_client_work"/>
+</simulator>

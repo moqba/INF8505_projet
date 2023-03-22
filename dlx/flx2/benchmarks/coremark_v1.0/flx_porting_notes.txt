@@ -1,0 +1,85 @@
+
+Porting of coremark v1.0 benchmark program onto flx.
+
+* The archive coremark_v1.0.tgz is downloaded from coremark.org and is
+  extracted in flx/benchmarks.
+
+* Create a new platform directory coremark_v1.0/flx.  Copy from 'simple'
+  version and  adapt following settings.
+  
+  - In core_portme.h:
+
+    flx does not support time.h, so 
+    
+      #define HAS_TIME_H 0
+      #define USE_CLOCK 0
+
+    and comment out 
+    
+      // #include <time.h>
+    
+    Also represent CORE_TICKS as unsigned.
+
+      typedef unsigned CORE_TICKS;
+
+    Note: we will use chess_cycle_count() to measure time.  The return value 
+    is then unsigned long long.  In the coremark code, in time_in_secs(), a
+    conversion from CORE_TICKS to double is needed.  Since flx does not
+    support double(long long) it was decided to map CORE_TICKS onto
+    unsigned.  Since only a single iteration will be executed, the unsigned
+    range is sufficient to count execution cycles.
+
+    Finally, COMPILER_VERSION is defined based on the predefined macro
+    __tct_release__, and COMPILER_FLAGS is defined as an empty string.
+
+  - In core_portme.c:
+
+    Use chess_cycle_count ti measure time.
+
+      #define CORETIMETYPE CORE_TICKS 
+      #define GETMYTIME(_t)  *_t = chess_cycle_count() 
+
+    Assume the core runs at 1 MHz (1000000 CORE_TICKS per second)
+      
+      #define EE_TICKS_PER_SEC 1000000 // 1 MHz
+
+* Create a ChessDE project 'core_debug.prx' for compiling and executing 
+  the code with CORE_DEBUG=1.
+
+  - Add following source files
+
+      core_list_join.c
+      core_main.c
+      core_matrix.c
+      core_state.c
+      core_util.c
+      flx/core_portme.c
+
+  - Add include path '.'
+
+  - Add defined CORE_DEBUG=1 and ITERATIONS=1
+
+  - Specify strict C mode (Allow C constructs that are not C++: On)
+
+  - Set Target directory to CORE_DEBUG.
+
+
+  Build and simulate to check is benchmark code executes correctly.
+
+* Create a second ChessDE project 'performance_run.prx', for compiling and 
+  executing the code with PERFORMANCE_RUN=1.
+
+  - In PERFORMANCE_RUN mode parameters are such that all iterations are 
+    identical.  It suffices to simulate one iteration in the ISS, but this
+    triggers and error "Must execute for at least 10 secs for a valid
+    result".  The error is removed by commenting out test the following
+    code.
+    
+    #if !defined(PERFORMANCE_RUN)
+    if (time_in_secs(total_time) < 10) {
+        ee_printf("ERROR! Must execute for at least 10 secs for a ...
+        total_errors++;
+    }
+    #endif
+
+

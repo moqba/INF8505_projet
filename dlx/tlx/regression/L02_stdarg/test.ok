@@ -1,0 +1,20 @@
+// test_int
+chess_report(int): 0x00000009 // 9
+chess_report(int): 0x0000000a // 10
+chess_report(int): 0x0000000b // 11
+// test2
+chess_report(int): 0x00000005 // 5
+chess_report(int): 0x00000006 // 6
+chess_report(int): 0x00000007 // 7
+// test_short
+chess_report(int): 0x00000005 // 5
+chess_report(int): 0x00000006 // 6
+chess_report(int): 0x00000007 // 7
+// test_long
+chess_report(long): 0x00000005 // 5
+chess_report(int): 0x00000006 // 6
+chess_report(long): 0x00000007 // 7
+// test_llong
+chess_report(long long): 0x0000000000000005 // 5
+chess_report(int): 0x00000006 // 6
+chess_report(long long): 0x0000000000000007 // 7

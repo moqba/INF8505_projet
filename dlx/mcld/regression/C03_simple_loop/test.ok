@@ -1,0 +1,22 @@
+// do_5(0)
+chess_report(int): 0x0000000f // 15
+// do_5(1)
+chess_report(int): 0x0000001f // 31
+// do_5(2)
+chess_report(int): 0x00000030 // 48
+// do_5(3)
+chess_report(int): 0x00000042 // 66
+// do_5(4)
+chess_report(int): 0x00000055 // 85
+// do_n(4)
+chess_report(int): 0x00000032 // 50
+// do_n(8)
+chess_report(int): 0x0000005a // 90
+// do_n(255)
+chess_report(int): 0x00000a00 // 2560
+// do_n(260)
+chess_report(int): 0x00000a32 // 2610
+// do_n(0)
+chess_report(int): 0x0000000a // 10
+// do_x(100)
+chess_report(int): 0x0000008c // 140

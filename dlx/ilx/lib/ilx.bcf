@@ -1,0 +1,31 @@
+/*
+-- File : ilx.bcf
+-- Contents :  default linker configuration file.
+-- Copyright (c) 2014-2021 Synopsys Inc.
+*/
+
+_entry_point _main_init
+
+#ifndef USE_CRT0
+_symbol _start_basic _after _main_init
+#else
+_symbol _start _after _main_init
+#endif
+// crt0 is required for C++ (global constructors) and atexit() functionality.
+
+_symbol _main_init 0
+
+#ifndef UNIFIED_ADDRESS_SPACE
+_reserved DMb 0 4 // reserve location used by debug client (see  debug_client/pdc_data_address.h)
+#endif
+
+_stack DMb 0x8000 0x08000
+
+#ifdef UNIFIED_ADDRESS_SPACE
+_shared DMb 0 .. 0xFFFFF PMb 0 .. 0xFFFFF
+#endif
+
+_symbol __dso_handle 0            // Static linking
+_extern __dso_handle
+
+_always_include _main_argv_area   // Reserve space for main() arguments

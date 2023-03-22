@@ -1,0 +1,37 @@
+// allocate()
+chess_report(bool): 0x1 // 1
+chess_report(bool): 0x1 // 1
+chess_report(bool): 0x1 // 1
+chess_report(bool): 0x1 // 1
+chess_report(bool): 0x1 // 1
+chess_report(bool): 0x1 // 1
+chess_report(bool): 0x1 // 1
+chess_report(bool): 0x1 // 1
+chess_report(bool): 0x1 // 1
+chess_report(bool): 0x1 // 1
+chess_report(bool): 0x1 // 1
+chess_report(bool): 0x1 // 1
+chess_report(bool): 0x1 // 1
+chess_report(bool): 0x1 // 1
+chess_report(bool): 0x1 // 1
+chess_report(bool): 0x1 // 1
+chess_report(bool): 0x1 // 1
+chess_report(bool): 0x1 // 1
+chess_report(bool): 0x1 // 1
+chess_report(bool): 0x1 // 1
+chess_report(bool): 0x1 // 1
+// fill()
+// test()
+chess_report(int): 0x0000abcd // 43981
+chess_report(long): 0x9876abcd // -1737053235
+chess_report(int): 0xffffffff // -1
+chess_report(long): 0xfffffffe // -2
+chess_report(int): 0x0000000a // 10
+chess_report(int): 0x00000011 // 17
+chess_report(long): 0x00000064 // 100
+chess_report(long): 0x0000006b // 107
+chess_report(int): 0x000000c8 // 200
+chess_report(long): 0xaaaabbbb // -1431651397
+chess_report(int): 0x0000012c // 300
+chess_report(long): 0xccccdddd // -858989091
+// deallocate()

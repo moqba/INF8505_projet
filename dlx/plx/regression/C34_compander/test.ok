@@ -1,0 +1,200 @@
+// compander(1)  jmptab = 1
+chess_report(int): 0x00000006 // 6
+// compander(2)  jmptab = 6
+chess_report(int): 0x00000002 // 2
+// compander(3)  jmptab = 2
+chess_report(int): 0x00000bbf // 3007
+// compander(4)  jmptab = 7
+chess_report(int): 0x00001f43 // 8003
+// compander(5)  jmptab = 3
+chess_report(int): 0x00000008 // 8
+// compander(6)  jmptab = 8
+chess_report(int): 0x00000004 // 4
+// compander(7)  jmptab = 4
+chess_report(int): 0x00000009 // 9
+// compander(8)  jmptab = 9
+chess_report(int): 0x00000005 // 5
+// compander(9)  jmptab = 5
+chess_report(int): 0x0000000a // 10
+// compander(10)  jmptab = 10
+chess_report(int): 0x00000001 // 1
+// compander(11)  jmptab = 1
+chess_report(int): 0x00000006 // 6
+// compander(12)  jmptab = 6
+chess_report(int): 0x00000002 // 2
+// compander(13)  jmptab = 2
+chess_report(int): 0x000003ef // 1007
+// compander(14)  jmptab = 7
+chess_report(int): 0x00001773 // 6003
+// compander(15)  jmptab = 3
+chess_report(int): 0x00000008 // 8
+// compander(16)  jmptab = 8
+chess_report(int): 0x00000004 // 4
+// compander(17)  jmptab = 4
+chess_report(int): 0x00000009 // 9
+// compander(18)  jmptab = 9
+chess_report(int): 0x00000005 // 5
+// compander(19)  jmptab = 5
+chess_report(int): 0x0000000a // 10
+// compander(20)  jmptab = 10
+chess_report(int): 0x00000001 // 1
+// compander(21)  jmptab = 1
+chess_report(int): 0x00000006 // 6
+// compander(22)  jmptab = 6
+chess_report(int): 0x00000002 // 2
+// compander(23)  jmptab = 2
+chess_report(int): 0x00000bbf // 3007
+// compander(24)  jmptab = 7
+chess_report(int): 0x00001f43 // 8003
+// compander(25)  jmptab = 3
+chess_report(int): 0x00000008 // 8
+// compander(26)  jmptab = 8
+chess_report(int): 0x00000004 // 4
+// compander(27)  jmptab = 4
+chess_report(int): 0x00000009 // 9
+// compander(28)  jmptab = 9
+chess_report(int): 0x00000005 // 5
+// compander(29)  jmptab = 5
+chess_report(int): 0x0000000a // 10
+// compander(30)  jmptab = 10
+chess_report(int): 0x00000001 // 1
+// compander(31)  jmptab = 1
+chess_report(int): 0x00000006 // 6
+// compander(32)  jmptab = 6
+chess_report(int): 0x00000002 // 2
+// compander(33)  jmptab = 2
+chess_report(int): 0x000003ef // 1007
+// compander(34)  jmptab = 7
+chess_report(int): 0x00001773 // 6003
+// compander(35)  jmptab = 3
+chess_report(int): 0x00000008 // 8
+// compander(36)  jmptab = 8
+chess_report(int): 0x00000004 // 4
+// compander(37)  jmptab = 4
+chess_report(int): 0x00000009 // 9
+// compander(38)  jmptab = 9
+chess_report(int): 0x00000005 // 5
+// compander(39)  jmptab = 5
+chess_report(int): 0x0000000a // 10
+// compander(40)  jmptab = 10
+chess_report(int): 0x00000001 // 1
+// compander(41)  jmptab = 1
+chess_report(int): 0x00000006 // 6
+// compander(42)  jmptab = 6
+chess_report(int): 0x00000002 // 2
+// compander(43)  jmptab = 2
+chess_report(int): 0x00000bbf // 3007
+// compander(44)  jmptab = 7
+chess_report(int): 0x00001f43 // 8003
+// compander(45)  jmptab = 3
+chess_report(int): 0x00000008 // 8
+// compander(46)  jmptab = 8
+chess_report(int): 0x00000004 // 4
+// compander(47)  jmptab = 4
+chess_report(int): 0x00000009 // 9
+// compander(48)  jmptab = 9
+chess_report(int): 0x00000005 // 5
+// compander(49)  jmptab = 5
+chess_report(int): 0x0000000a // 10
+// compander(50)  jmptab = 10
+chess_report(int): 0x00000001 // 1
+// compander(51)  jmptab = 1
+chess_report(int): 0x00000006 // 6
+// compander(52)  jmptab = 6
+chess_report(int): 0x00000002 // 2
+// compander(53)  jmptab = 2
+chess_report(int): 0x000003ef // 1007
+// compander(54)  jmptab = 7
+chess_report(int): 0x00001773 // 6003
+// compander(55)  jmptab = 3
+chess_report(int): 0x00000008 // 8
+// compander(56)  jmptab = 8
+chess_report(int): 0x00000004 // 4
+// compander(57)  jmptab = 4
+chess_report(int): 0x00000009 // 9
+// compander(58)  jmptab = 9
+chess_report(int): 0x00000005 // 5
+// compander(59)  jmptab = 5
+chess_report(int): 0x0000000a // 10
+// compander(60)  jmptab = 10
+chess_report(int): 0x00000001 // 1
+// compander(61)  jmptab = 1
+chess_report(int): 0x00000006 // 6
+// compander(62)  jmptab = 6
+chess_report(int): 0x00000002 // 2
+// compander(63)  jmptab = 2
+chess_report(int): 0x00000bbf // 3007
+// compander(64)  jmptab = 7
+chess_report(int): 0x00001f43 // 8003
+// compander(65)  jmptab = 3
+chess_report(int): 0x00000008 // 8
+// compander(66)  jmptab = 8
+chess_report(int): 0x00000004 // 4
+// compander(67)  jmptab = 4
+chess_report(int): 0x00000009 // 9
+// compander(68)  jmptab = 9
+chess_report(int): 0x00000005 // 5
+// compander(69)  jmptab = 5
+chess_report(int): 0x0000000a // 10
+// compander(70)  jmptab = 10
+chess_report(int): 0x00000001 // 1
+// compander(71)  jmptab = 1
+chess_report(int): 0x00000006 // 6
+// compander(72)  jmptab = 6
+chess_report(int): 0x00000002 // 2
+// compander(73)  jmptab = 2
+chess_report(int): 0x000003ef // 1007
+// compander(74)  jmptab = 7
+chess_report(int): 0x00001773 // 6003
+// compander(75)  jmptab = 3
+chess_report(int): 0x00000008 // 8
+// compander(76)  jmptab = 8
+chess_report(int): 0x00000004 // 4
+// compander(77)  jmptab = 4
+chess_report(int): 0x00000009 // 9
+// compander(78)  jmptab = 9
+chess_report(int): 0x00000005 // 5
+// compander(79)  jmptab = 5
+chess_report(int): 0x0000000a // 10
+// compander(80)  jmptab = 10
+chess_report(int): 0x00000001 // 1
+// compander(81)  jmptab = 1
+chess_report(int): 0x00000006 // 6
+// compander(82)  jmptab = 6
+chess_report(int): 0x00000002 // 2
+// compander(83)  jmptab = 2
+chess_report(int): 0x00000bbf // 3007
+// compander(84)  jmptab = 7
+chess_report(int): 0x00001f43 // 8003
+// compander(85)  jmptab = 3
+chess_report(int): 0x00000008 // 8
+// compander(86)  jmptab = 8
+chess_report(int): 0x00000004 // 4
+// compander(87)  jmptab = 4
+chess_report(int): 0x00000009 // 9
+// compander(88)  jmptab = 9
+chess_report(int): 0x00000005 // 5
+// compander(89)  jmptab = 5
+chess_report(int): 0x0000000a // 10
+// compander(90)  jmptab = 10
+chess_report(int): 0x00000001 // 1
+// compander(91)  jmptab = 1
+chess_report(int): 0x00000006 // 6
+// compander(92)  jmptab = 6
+chess_report(int): 0x00000002 // 2
+// compander(93)  jmptab = 2
+chess_report(int): 0x000003ef // 1007
+// compander(94)  jmptab = 7
+chess_report(int): 0x00001773 // 6003
+// compander(95)  jmptab = 3
+chess_report(int): 0x00000008 // 8
+// compander(96)  jmptab = 8
+chess_report(int): 0x00000004 // 4
+// compander(97)  jmptab = 4
+chess_report(int): 0x00000009 // 9
+// compander(98)  jmptab = 9
+chess_report(int): 0x00000005 // 5
+// compander(99)  jmptab = 5
+chess_report(int): 0x0000000a // 10
+// compander(100)  jmptab = 10
+chess_report(int): 0x00000001 // 1

@@ -1,0 +1,392 @@
+
+DLX:
+  JAL, J    delay_slots(1)
+  JALR, JR  delay_slots(2)
+  BR        delay_slots(2)
+  DO, DOI   delay_slots(2)
+  swbrk     cycles(2)
+
+  no SW breakpoints
+   * on last instruction of zero-overhead loop (=end of loop)
+
+  no breakpoints (HW/SW)
+   * in delay slots
+
+
+Control flow instr. at ID stage
+
+  e.g. JAL
+
+    delay_slots(1)
+
+      Cycle    :   0     1     2     3     4     5     6
+      ---------:----------------------------------------
+      JAL      :   IF    ID    EX    ME    WB
+      +1       :         IF    ID    ...
+      +off     :               IF    ID    ...
+
+    cycles(2) - Not in DLX
+
+      Cycle    :   0     1     2     3     4     5     6
+      ---------:----------------------------------------
+      JAL      :   IF    ID    EX    ME    WB
+      +1       :         IF    << don't issue
+      +off     :               IF    ID    ...
+      issue_sig:   1     0     1     ...
+
+
+
+Control flow instr. @ EX stage
+
+  e.g. JALR
+
+    delay_slots(2)
+
+      Cycle    :   0     1     2     3     4     5     6
+      ---------:----------------------------------------
+      JALR     :   IF    ID    EX    ME    WB
+      +1       :         IF    ID    ...
+      +2       :               IF    ID    ...
+      trgt     :                     IF    ID    ...
+
+    cycles(3), always fetching - Not in DLX
+
+      Cycle    :   0     1     2     3     4     5     6
+      ---------:----------------------------------------
+      JALR     :   IF    ID    EX    ME    WB
+      +1       :         IF    << don't issue
+      +1 (rep) :               IF    << don't issue
+      trgt     :                     IF    ID    ...
+      issue_sig:   1     0     0     1     ...
+
+
+    cycles(3), don't fetch - Not in DLX
+
+      Cycle    :   0     1     2     3     4     5     6
+      ---------:----------------------------------------
+      JALR     :   IF    ID    EX    ME    WB
+      +1       :         IF    << don't issue
+      trgt     :                     IF    ID    ...
+      issue_sig:   1     0     0     1     ...
+                         ^^ don't issue, don't fetch
+                               ^^ fetch again
+
+
+
+Conditional Branch @ EX stage
+
+  Taken
+
+    delay_slots(2)
+
+      Cycle    :   0     1     2     3     4     5     6
+      ---------:----------------------------------------
+      BNCH     :   IF    ID    EX    ME    WB
+      +1       :         IF    ID    ...
+      +2       :               IF    ID    ...
+      +off     :                     IF    ID    ...
+                               ^^ decision known
+
+    cycles(3|1) - Not in DLX
+
+      Cycle    :   0     1     2     3     4     5     6
+      ---------:----------------------------------------
+      BNCH     :   IF    ID    EX    ME    WB
+      +1       :         IF    ID    << kill
+      +2       :               IF    << dont issue
+      +off     :                     IF    ID    ...
+                               ^^ decision known
+
+  NOT taken
+
+    delay_slots(2)
+
+      Cycle    :   0     1     2     3     4     5     6
+      ---------:----------------------------------------
+      BNCH     :   IF    ID    EX    ME    WB
+      +1       :         IF    ID    ...
+      +2       :               IF    ID    ...
+      +3       :                     IF    ID    ...
+                               ^^ decision known
+
+    cycles(3|1) - Not in DLX
+
+      Cycle    :   0     1     2     3     4     5     6
+      ---------:----------------------------------------
+      BNCH     :   IF    ID    EX    ME    WB
+      +1       :         IF    ID    ...
+      +2       :               IF    ID    ...
+                               ^^ decision known
+
+
+
+Delayed jump, when hw_stall in delay slot occurs
+
+  delay_slots(2)
+
+    hw_stall in second delay slot
+
+      Cycle    :   0     1     2     3     4     5     6
+      ---------:----------------------------------------
+      JALR     :   IF    ID    EX    ME    WB    << does not stall!
+      +1 (ds1) :         IF    ID*   ID    ...
+      +2 (ds2) :               IF*   IF    ID    << don't issue @ cycle 2
+      tgt      :                           IF    ID    ...
+      ---------:----------------------------------------
+      issue_sig:   1     1     1     1     ...
+      hw_stall :               1
+      PC       :   4     8     12    12    tgt
+      stalltgt :               tgt   tgt
+      deljmp   :                     1
+                                     ^^ delayed jump: nextpc=stalltgt
+
+    NOTE hw_stall rules only apply to instructions @ ID
+
+
+currently: only div instr could cause hw stall
+other hazard rules: 1 cycle distance
+
+
+DO, DOI loops
+
+  delay_slots(2)
+
+      Cycle    :   0     1     2     3     4     5     6
+      ---------:----------------------------------------
+      DOI 2,4  :   IF    ID    EX    ...
+                               ^^ setup loop regs
+      +1 (ds1) :         IF    ID    ...
+      +2 (ds2) :               IF    ID    ...
+      +3 (i=0) :                     IF    ID
+      +3 (i=1) :                           IF    ID
+      +4       :                                 IF    ID
+      ---------:----------------------------------------
+      PC       :   0     4     8     12    16    20    24
+                               ^^ LE = PC + offs(=4)
+                                  LS = lnk_pf = PC + 4
+
+Z-loops
+
+  Hazards
+
+    Setup done before loop end check in PCU (PC@IF used)
+
+      Cycle    :   0     1     2     3     4     5     6
+      ---------:----------------------------------------
+      mv zc,#c :   ID    EX
+      mv zs,#s :   IF    ID    EX
+      mv ze,#e :         IF    ID    EX
+                                     ^^ last write to zloop regs
+      +1       :               IF    ..
+      +2       :                     IF    ...
+      +3 EOL   :                           IF    << earliest loop end
+                                           ^^ first loop end check that observes
+                                              all zloop register updates
+
+    setup ZS/ZE in first delay slot
+
+      Cycle    :   0     1     2     3     4     5     6
+      ---------:----------------------------------------
+      JALR     :   IF    ID    EX    ME    WB
+      mv ze,#4 :         IF    ID    EX
+                               ^^ reads PC = 8 -> OK
+      +2 (ds2) :               IF    ID    EX
+      trgt     :                     IF    ...
+      ---------:----------------------------------------
+      PC       :   0     4     8     trgt  t+4
+
+    setup ZS/ZE in second delay slot
+
+      Cycle    :   0     1     2     3     4     5     6
+      ---------:----------------------------------------
+      JALR     :   IF    ID    EX    ME    WB
+      +1 (ds1) :         IF    ID    ...
+      mv ze,#4 :               IF    ID    EX
+                                     ^^ reads PC = trgt -> hazard
+      trgt     :                     IF    ...
+      ---------:----------------------------------------
+      PC       :   0     4     8     trgt  t+4
+
+
+Instructions with cycles(N) annotation
+
+  e.g. cycles(3) - not in DLX
+
+      Cycle    :   0     1     2     3     4     5     6
+      ---------:----------------------------------------
+      instr    :   IF    ID    EX    ME    WB
+      +1       :         IF    << don't issue
+      +1       :               IF    << don't issue
+      +1       :                     IF    ID ...
+      ---------:----------------------------------------
+      issue_sig:   1     0     0     1     ...
+      PC       :   4     8     8     8     12
+
+  NOTE: DLX PCU change needed, add issue_sig() to dlx::user_issue()
+
+
+
+OCD Software Break
+
+    Breakpoint at address 4
+
+      Cycle    :   0     1     2     3     4     5     6
+      ---------:----------------------------------------
+      swbrk    :   IF    ID    EX    ...
+      +1       :         IF    << don't issue
+      ---------:----------------------------------------
+      issuesig :   1     0     1     ...
+                         ^^ cycles(2)
+      ocd_swbrk:         1
+      ocd_req  :         1     1     ...
+      dbgmode  :         1     1     ...
+                         ^^ don't issue
+      PC       :   4     8     8     ...
+
+
+
+OCD Change PC
+
+    Breakpoint at address 4
+    Stopped when PC = 8 (software break instr @ ID)
+    Objective: Change PC to 4 - use jr r1
+
+      Cycle    :   0     1     2     3     4     5     6
+      ---------:----------------------------------------
+      JR r1    :               ID    EX    ...
+                               ^^ issued from ocd_instr
+                                     ^^ JR sets next_pc=4
+      --------------------------------------------------
+      ocdreq   :   1     1     1     1     1     ...
+      dbgmode  :   1     1     1     1     1     ...
+      ocdexe   :         1
+      r1ocdexe :               1
+      r2ocdexe :                     1
+                                     ^^ allow JR to write to PC
+      PC       :   8     8     8     8     4     ...
+
+
+    Old behavior, before 2019-02-22
+    debug mode left due to ds1, ds2 signals
+
+      Cycle    :   0     1     2     3     4     5     6
+      ---------:----------------------------------------
+      JR r1    :               ID    EX    ...
+                               ^^ issued from ocd_instr
+                                     ^^ JR sets next_pc=4
+      Instr@8  :                     IF    << should not be issued
+      Instr@4  :                           IF
+      ---------:----------------------------------------
+      ocdreq   :   1     1     1     1     1     ...
+      ds       :               ds1   ds2
+      ocdexe   :         1
+      dbgmode  :   1     1     0*    0*    1     ...
+                         ^^ leave          ^^ enter again
+      rdbgmode :   1     1     1     0     0     1
+      fetch    :               1     1
+                               ^^ fetch again
+                                     ^^ fetch Instr@4
+      PC       :   8     8     8     8     4     ...
+
+
+OCD Step for instructions w/o delay slots
+
+    Breakpoint at address 4
+    Stopped when PC = 8 (software break instr @ ID)
+    OCD changed PC to 4 again
+
+      Cycle    :   0     1     2     3     4     5     6
+      ---------:----------------------------------------
+      instr@4  :               IF    ID    EX    ...
+      instr@4  :                     IF    << don't issue
+      ---------:----------------------------------------
+      dbgmode  :   1     0     0     1     1     ...
+                   ^^ leave          ^^ enter again = don't issue
+      rdbgmode :   1     1     0     0     1
+                         ^^ don't issue, don't update PC
+      fetch    :         1     1
+                         ^^ fetch instr@4
+                               ^^ fetch Instr@4
+      PC       :   4     4     4     8     8     ...
+
+
+OCD Step on DOI
+
+    Breakpoint at address 4
+    Stopped when PC = 8 (software break instr @ ID)
+    OCD changed PC to 4 again
+
+      Cycle    :   0     1     2     3     4     5     6
+      ---------:----------------------------------------
+      DOI 2,4  :               IF    ID    EX    ...
+                                           ^^ setup loop regs
+      +1 (ds1) :                     IF    ID    ...
+      +2 (ds2) :                           IF    ID    ...
+      +3 (i=0) :                                 IF    << don't issue
+      ---------:----------------------------------------
+      ds       :                     ds1   ds2
+      dbgmode  :   1     0     0     0*    0*    1     ...
+               :   ^^ leave          ^^ delayed  ^^ enter debug mode
+      PC       :   4     4     4     8     12    16    16 ...
+                                           ^^ LE = PC + offs(=4) = 16
+                                              LS = lnk_pf = PC + 4 = 16
+
+OCD Step on JR/JALR
+
+    Breakpoint at address 4
+    Stopped when PC = 8 (software break instr @ ID)
+    OCD changed PC to 4 again
+
+      Cycle    :   0     1     2     3     4     5     6
+      ---------:----------------------------------------
+      JR r1    :               IF    ID    EX    ...
+                                           ^^ next_pc = r1
+      +1 (ds1) :                     IF    ID    ...
+      +2 (ds2) :                           IF    ID    ...
+      r1       :                                 IF    << don't issue
+      ---------:----------------------------------------
+      ds       :                     ds1   ds2
+      dbgmode  :   1     0     0     0*    0*    1     ...
+               :   ^^ leave          ^^ delayed  ^^ enter debug mode
+      PC       :   4     4     4     8     12    r1    r1 ...
+
+
+OCD Step on J/JAL
+
+    Breakpoint at address 4
+    Stopped when PC = 8 (software break instr @ ID)
+    OCD changed PC to 4 again
+
+      Cycle    :   0     1     2     3     4     5     6
+      ---------:----------------------------------------
+      J #12    :               IF    ID    EX    ...
+                                     ^^ next_pc = PC + 12
+      +1 (ds1) :                     IF    ID    ...
+      20       :                           IF    << don't issue
+      ---------:----------------------------------------
+      ds       :                     ds1
+      dbgmode  :   1     0     0     0*    1     ...
+               :   ^^ leave          ^^del ^^ enter debug mode
+      PC       :   4     4     4     8     20    20 ...
+
+
+OCD Request in delayed jump, when hw_stall in delay slot occurs
+
+  Old behavior before XX-02-2019
+
+      Cycle    :   0     1     2     3     4     5     6
+      ---------:----------------------------------------
+      JALR     :   IF    ID    EX    ME    WB    << does not stall!
+      +1 (ds1) :         IF    ID*   ID    ...
+      +2 (ds2) :               IF*   IF    << don't issue due to dbg mode
+      ---------:----------------------------------------
+      ocdreq   :         1     1     1     ...
+               :         ^^ ext. request to enter dbg mode
+      ds       :         ds1   ds2
+      dbgmode  :   0     0*    0*    1     ...
+               :         ^^ delay    ^^ enter, don't issue, don't update PC
+      hw_stall :               1
+      PC       :   4     8     12    12    12
+      stalltgt :               tgt   tgt
+      deljmp   :                     1
+                                     ^^ clears reg stalltgt

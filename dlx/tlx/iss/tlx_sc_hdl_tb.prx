@@ -1,0 +1,34 @@
+<simulator name="Simulator" processor="tlx" mode="ca" lib="../lib">
+    <option id="checkers.ArgcArgv" value="on"/>
+    <option id="checkers.BreakpointType" value="src"/>
+    <option id="checkers.CC_ext" value="cpp"/>
+    <option id="checkers.ColorStorageReadsWrites" value="all"/>
+    <option id="checkers.FileInputType" value="all"/>
+    <option id="checkers.FileOutputType" value="all"/>
+    <option id="checkers.GenerateSystemCInterface" value="on"/>
+    <option id="checkers.HostedClib" value="on"/>
+    <option id="checkers.ISSLinkType" value="lib"/>
+    <option id="checkers.IssName" value="tlx_sc_hdl_tb"/>
+    <option id="checkers.nMLMemoryInterfaceSelectStorages" value="all"/>
+    <option id="checkers.NoMain" value="on"/>
+    <option id="checkers.NoTclTuiLibs" value="on"/>
+    <option id="checkers.PipelineDepth" value="10"/>
+    <option id="checkers.Profile" value="on"/>
+    <option id="checkers.ProfileFunctions" value="on"/>
+    <option id="checkers.ProfileHazards" value="on"/>
+    <option id="checkers.ProfileOperations" value="on"/>
+    <option id="checkers.SystemCCompile" value="off"/>
+    <option id="checkers.SystemCRegisterMonitoring" value="on"/>
+    <option id="checkers.TemplateBasedFlow" value="off"/>
+    <option id="checkers.TraceExecution" value="on"/>
+    <option id="checkers.VhdlVerilogComparison" value="on"/>
+    <option id="checkers.WatchpointType" value="all"/>
+    <option id="checkers.WorkDir" value="work/tlx_sc_hdl_tb"/>
+    <option id="checkers.xargs" inherit="1">DelayedMarkWrites=1
+SystemCAsyncReset=1
+ExternalModule=insert_ack_dm
+ExternalModule=split_dm
+ExternalModule=insert_ack_pm
+InitAllRegistersAtReset=1
+</option>
+</simulator>

@@ -1,0 +1,196 @@
+// forward(0)
+chess_report(int): 0x00000005 // 5
+// forward(1)
+chess_report(int): 0x00000003 // 3
+// backward(0)
+chess_report(int): 0x00000005 // 5
+// backward(1)
+chess_report(int): 0x00000005 // 5
+// nested_forward(0)
+chess_report(int): 0x00000278 // 632
+// nested_forward(1)
+chess_report(int): 0x000001fe // 510
+// nested_backward(0)
+chess_report(int): 0x00000258 // 600
+// nested_backward(1)
+chess_report(int): 0x00000258 // 600
+// conditional_nested_forward(0, 0)
+chess_report(int): 0x00000003 // 3
+// conditional_nested_forward(0, 1)
+chess_report(int): 0x00000bbb // 3003
+// conditional_nested_forward(1, 0)
+chess_report(int): 0x00000834 // 2100
+// conditional_nested_forward(1, 1)
+chess_report(int): 0x00000834 // 2100
+// conditional_nested_backward(0, 1)
+chess_report(int): 0x00000000 // 0
+// conditional_nested_backward(1, 1)
+chess_report(int): 0x0000012c // 300
+// conditional_nested_backward(0, 4)
+chess_report(int): 0x00000e10 // 3600
+// conditional_nested_backward(1, 4)
+chess_report(int): 0x00000f3c // 3900
+// out_then(0)
+chess_report(int): 0x000001bd // 445
+// out_then(1)
+chess_report(int): 0x00000064 // 100
+// in_then(0, 0)
+chess_report(int): 0x000000cf // 207
+// in_then(0, 1)
+chess_report(int): 0x0000004d // 77
+// in_then(1, 0)
+chess_report(int): 0x0000002d // 45
+// in_then(1, 1)
+chess_report(int): 0x0000002d // 45
+// out_double_then(0, 0)
+chess_report(int): 0x00000bbf // 3007
+// out_double_then(0, 1)
+chess_report(int): 0x00000bbf // 3007
+// out_double_then(1, 0)
+chess_report(int): 0x000000cf // 207
+// out_double_then(1, 1)
+chess_report(int): 0x00000069 // 105
+// in_double_then(0, 0, 1)
+chess_report(int): 0x00000197 // 407
+// in_double_then(0, 0, 0)
+chess_report(int): 0x00000197 // 407
+// in_double_then(0, 1, 1)
+chess_report(int): 0x00000133 // 307
+// in_double_then(0, 1, 1)
+chess_report(int): 0x00000133 // 307
+// in_double_then(1, 0, 0)
+chess_report(int): 0x000000cd // 205
+// in_double_then(1, 0, 1)
+chess_report(int): 0x000000cd // 205
+// in_double_then(1, 1, 0)
+chess_report(int): 0x000000cd // 205
+// in_double_then(1, 1, 1)
+chess_report(int): 0x000000cd // 205
+// out_else(0, 0)
+chess_report(int): 0x000001b1 // 433
+// out_else(0, 1)
+chess_report(int): 0x00000064 // 100
+// out_else(1, 0)
+chess_report(int): 0x000001bd // 445
+// out_else(1, 1)
+chess_report(int): 0x000001bd // 445
+// in_else(0, 0)
+chess_report(int): 0x000001fb // 507
+// in_else(0, 1)
+chess_report(int): 0x0000006b // 107
+// in_else(1, 0)
+chess_report(int): 0x00000131 // 305
+// in_else(1, 1)
+chess_report(int): 0x00000131 // 305
+// out_double_else(0, 0)
+chess_report(int): 0x00000133 // 307
+// out_double_else(0, 1)
+chess_report(int): 0x000000cd // 205
+// out_double_else(1, 0)
+chess_report(int): 0x0000001b // 27
+// out_double_else(1, 1)
+chess_report(int): 0x0000001b // 27
+// in_double_else(0, 0, 0)
+chess_report(int): 0x000001fb // 507
+// in_double_else(0, 0, 1)
+chess_report(int): 0x0000006b // 107
+// in_double_else(0, 1, 0)
+chess_report(int): 0x0000001b // 27
+// in_double_else(0, 1, 1)
+chess_report(int): 0x0000001b // 27
+// in_double_else(1, 0, 0)
+chess_report(int): 0x00000131 // 305
+// in_double_else(1, 0, 1)
+chess_report(int): 0x00000131 // 305
+// in_double_else(1, 1, 0)
+chess_report(int): 0x00000131 // 305
+// in_double_else(1, 1, 1)
+chess_report(int): 0x00000131 // 305
+// four_way(0, 0)
+chess_report(int): 0x00000131 // 305
+// four_way(0, 1)
+chess_report(int): 0x00000403 // 1027
+// four_way(1, 0)
+chess_report(int): 0x00000205 // 517
+// four_way(1, 1)
+chess_report(int): 0x00000075 // 117
+// then_else(0, 0)
+chess_report(int): 0x000002c1 // 705
+// then_else(0, 1)
+chess_report(int): 0x000002c1 // 705
+// then_else(1, 0)
+chess_report(int): 0x00000023 // 35
+// then_else(1, 1)
+chess_report(int): 0x0000019f // 415
+// else_then(0, 1)
+chess_report(int): 0x0000007d // 125
+// else_then(1, 1)
+chess_report(int): 0x00000023 // 35
+// else_then(0, 4)
+chess_report(int): 0x0000007d // 125
+// else_then(1, 4)
+chess_report(int): 0x00000023 // 35
+// out_do(0, 0)
+chess_report(int): 0x00000134 // 308
+// out_do(1, 0)
+chess_report(int): 0x00000069 // 105
+// out_do(0, 4)
+chess_report(int): 0x000005e4 // 1508
+// out_do(1, 4)
+chess_report(int): 0x00000069 // 105
+// forward(1, 1)
+chess_report(int): 0x00000091 // 145
+// forward(1, 4)
+chess_report(int): 0x00000109 // 265
+// forward(5, 1)
+chess_report(int): 0x00000339 // 825
+// forward(5, 4)
+chess_report(int): 0x000003b1 // 945
+// out_while(0, 0)
+chess_report(int): 0x00000069 // 105
+// out_while(1, 0)
+chess_report(int): 0x00000069 // 105
+// out_while(0, 4)
+chess_report(int): 0x00000131 // 305
+// out_while(1, 4)
+chess_report(int): 0x0000000f // 15
+// in_while(1, 1)
+chess_report(int): 0x00000087 // 135
+// in_while(1, 4)
+chess_report(int): 0x000000e1 // 225
+// in_while(5, 1)
+chess_report(int): 0x000002df // 735
+// in_while(5, 4)
+chess_report(int): 0x00000339 // 825
+// alternating_gotos(1, 0, 0, 0, 0, 0)
+chess_report(int): 0x00000500 // 1280
+// alternating_gotos(0, 1, 0, 0, 0, 0)
+chess_report(int): 0x00000401 // 1025
+// alternating_gotos(0, 0, 1, 0, 0, 0)
+chess_report(int): 0x00000503 // 1283
+// alternating_gotos(0, 0, 0, 1, 0, 0)
+chess_report(int): 0x00000407 // 1031
+// alternating_gotos(0, 0, 0, 0, 1, 0)
+chess_report(int): 0x0000050f // 1295
+// alternating_gotos(0, 0, 0, 0, 0, 1)
+chess_report(int): 0x0000041f // 1055
+// alternating_gotos(0, 0, 0, 0, 0, 0)
+chess_report(int): 0x0000053f // 1343
+// alternating_gotos(0, 1, 0, 0, 1, 0)
+chess_report(int): 0x00000401 // 1025
+// multiple_gotos(0, 1)
+chess_report(int): 0x00000c71 // 3185
+// multiple_gotos(1, 1)
+chess_report(int): 0x0000000f // 15
+// multiple_gotos(0, 4)
+chess_report(int): 0x000030c5 // 12485
+// multiple_gotos(1, 4)
+chess_report(int): 0x0000000f // 15
+// goto_loop(0, 0)
+chess_report(int): 0x00000087 // 135
+// goto_loop(0, 4)
+chess_report(int): 0x00000217 // 535
+// goto_loop(1, 0)
+chess_report(int): 0x00000073 // 115
+// goto_loop(1, 4)
+chess_report(int): 0x00000203 // 515

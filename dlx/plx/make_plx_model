@@ -1,0 +1,55 @@
+#!/bin/sh -e
+
+proc=plx
+
+iss_st=1
+
+cd `dirname $0`
+
+### generate single-threaded ISS
+
+if [ $iss_st -eq 1 ]; then
+    echo "#define _ISS_ST" > lib/iss_defines.h
+    chessmk lib/${proc}
+    chessmk +P4 iss/${proc}_st
+fi
+
+echo ""                > lib/iss_defines.h
+chessmk lib/${proc}
+
+
+### timestamp of ST ISS exe
+
+if [ $iss_st -eq 1 ]; then
+    touch iss/${proc}_st
+fi
+
+
+### generate multi-threaded ISS
+
+chessmk +P4 -m iss/${proc}_ca
+
+
+### generate HTML documentation
+
+cd lib; nmlview -d ${proc}; cd -
+
+
+### generate RTL
+
+chessmk +e hdl/${proc}_vlog
+chessmk +e hdl/${proc}_vhdl
+
+
+### generate debug client
+
+cd debug_client; make -f makefile.ins; cd -
+chessmk +P4 debug_client/${proc}_client
+
+
+### generate libraries
+
+chessmk +P4 model
+
+
+

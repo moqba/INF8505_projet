@@ -1,0 +1,8 @@
+<project name="Project" processor="vlx" lib="">
+    <active cfg="Native"/>
+    <file type="c" name="vlx_native.c" path="."/>
+    <file type="c" name="vlx_chess_opns.c" path="isg"/>
+    <file type="c" name="vlx_chess_types.c" path="isg"/>
+    <option id="project.name" value="libnative.a"/>
+    <option id="project.type" value="arch"/>
+</project>

@@ -1,0 +1,20 @@
+Configuration: Native
+Run/debug configuration: <None>
+/slowfs/de02asip01/ebrockme/chess/designs/example_cores/tmicro/regression/M02_pm_access/Native/test
+chess_report(int): 0x0014 // 20
+chess_report(int): 0x004f // 79
+chess_report(int): 0x003d // 61
+chess_report(int): 0x0032 // 50
+chess_report(int): 0x0031 // 49
+chess_report(int): 0x0031 // 49
+chess_report(int): 0x0031 // 49
+chess_report(int): 0x007b // 123
+chess_report(int): 0x009c // 156
+chess_report(int): 0x00be // 190
+chess_report(int): 0x00c5 // 197
+chess_report(int): 0x00b9 // 185
+chess_report(int): 0x00b9 // 185
+chess_report(int): 0x00b3 // 179
+chess_report(int): 0x00b3 // 179
+chess_report(int): 0x00b3 // 179
+chess_report(int): 0x00ad // 173

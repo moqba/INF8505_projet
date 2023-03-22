@@ -1,0 +1,14 @@
+#!/bin/sh
+
+PROC="plx"
+
+PRF_FILES=`find . -name "*.ipr"`
+#echo $PRF_FILES
+
+for i in $PRF_FILES; do
+  CMD="$CMD -c $i"
+done
+
+risk -I../lib $CMD $PROC
+
+mv report.cov cov_iss.rpt

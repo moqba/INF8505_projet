@@ -1,0 +1,8 @@
+// test_U1
+chess_report(int): 0x0000000a // 10
+chess_report(int): 0x00000064 // 100
+chess_report(int): 0x000003e8 // 1000
+chess_report(int): 0x0000038e // 910
+// test_U2
+chess_report(int): 0x00000021 // 33
+chess_report(int): 0x00002146 // 8518

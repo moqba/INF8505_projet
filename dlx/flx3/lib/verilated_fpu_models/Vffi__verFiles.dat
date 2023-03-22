@@ -1,0 +1,13 @@
+# DESCRIPTION: Verilator output: Timestamp data for --skip-identical.  Delete at will.
+C "-DVERILATOR_COMBINATORIAL_VIEW -cc --Mdir verilated_fpu_models ../hdl/designware_vlog/ffi.v /global/apps/syn_2019.03-SP2/dw/sim_ver/DW_fp_flt2i.v --Wno-fatal --Wno-lint -O3"
+S      1560 2422738559  1560255513   986002000  1558956800   295248000 "../hdl/designware_vlog/ffi.v"
+S     11562 61561785  1560104955    90764000  1556768369           0 "/global/apps/syn_2019.03-SP2/dw/sim_ver/DW_fp_flt2i.v"
+S   5138976 12661331  1553598520   699714370  1553598520   699714370 "/localdev/dominik/LGE/verilator/verilator-4.010/bin/verilator_bin"
+T     26086 2420835787  1560256438   804951000  1560256438   804951000 "verilated_fpu_models/Vffi.cpp"
+T      3595 2420835786  1560256438   802944000  1560256438   802944000 "verilated_fpu_models/Vffi.h"
+T      1444 2420835789  1560256438   807949000  1560256438   807949000 "verilated_fpu_models/Vffi.mk"
+T       515 2420835785  1560256438   800954000  1560256438   800954000 "verilated_fpu_models/Vffi__Syms.cpp"
+T       696 2420835784  1560256438   799942000  1560256438   799942000 "verilated_fpu_models/Vffi__Syms.h"
+T       448 2420463170  1560256438   809941000  1560256438   809941000 "verilated_fpu_models/Vffi__ver.d"
+T         0        0  1560256438   813951000  1560256438   813951000 "verilated_fpu_models/Vffi__verFiles.dat"
+T      1150 2420835788  1560256438   805962000  1560256438   805962000 "verilated_fpu_models/Vffi_classes.mk"

@@ -1,0 +1,25 @@
+include: |
+    #ifdef CWR_SYSTEMC_IMPORT
+    [% if { [$iss get parallel_mode] } { %]
+    #include "guarded_initiator_socket.h"
+    [% } else { %]
+    #include "scml2/initiator_socket.h"
+    [% } %]
+    #else
+    #include "adapters/tlm2_lt_shared_memory_adapter.h"
+    #endif
+
+declare: |
+    [% if { [$iss get parallel_mode] } { %]
+    nCheckers::guarded_initiator_socket<[=$mem get data_width=]> p_[=$mem get name=];
+    [% } else { %]
+    scml2::initiator_socket<[=$mem get data_width=]> p_[=$mem get name=];
+    [% } %]
+
+construct: |
+    mdl->m_[=$mem get name=] = new TLM2_LT_Shared_Memory_Adapter<[=$mem get data_width=]>("m_[=$mem get name=]", &p_[=$mem get name=], this);
+
+initialize: |
+    , p_[=$mem get name=]("p_[=$mem get name=]")
+
+end_of_elab: |

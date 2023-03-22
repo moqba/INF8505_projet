@@ -1,0 +1,26 @@
+<simulator name="Simulator" processor="dlx" mode="ca" lib="../lib">
+    <option id="checkers.ArgcArgv" value="on"/>
+    <option id="checkers.BreakpointType" value="src"/>
+    <option id="checkers.ColorStorageReadsWrites" value="all"/>
+    <option id="checkers.ExtraCFiles" value="&lt;VERILATOR_ROOT&gt;/share/verilator/include/verilated.cpp &lt;PROCDIR&gt;/../iss/verilator/user_hdl.cpp &lt;PROCDIR&gt;/verilated_hdl_models/Vuser_div.cpp &lt;PROCDIR&gt;/verilated_hdl_models/Vuser_div__Syms.cpp &lt;PROCDIR&gt;/verilated_hdl_models/Vuser_div__Slow.cpp" inherit="1"/>
+    <option id="checkers.ExtraHeaders" value="&lt;VERILATOR_ROOT&gt;/share/verilator/include/verilated.h &lt;PROCDIR&gt;/../iss/verilator/user_hdl.h &lt;PROCDIR&gt;/verilated_hdl_models/Vuser_div.h" inherit="1"/>
+    <option id="checkers.ExtraIncDirs" value="&lt;VERILATOR_ROOT&gt;/share/verilator/include" inherit="1"/>
+    <option id="checkers.FileInputType" value="all"/>
+    <option id="checkers.FileOutputType" value="off"/>
+    <option id="checkers.FiniFunction" value="verilator_fini"/>
+    <option id="checkers.HostedClib" value="on"/>
+    <option id="checkers.IssName" value="dlx_ca"/>
+    <option id="checkers.PipelineDepth" value="10"/>
+    <option id="checkers.Profile" value="on"/>
+    <option id="checkers.ProfileFunctions" value="on"/>
+    <option id="checkers.ProfileHazards" value="on"/>
+    <option id="checkers.ProfileOperations" value="on"/>
+    <option id="checkers.ProfileStorageType" value="off"/>
+    <option id="checkers.TestbenchInputDump" value="on"/>
+    <option id="checkers.TraceExecution" value="on"/>
+    <option id="checkers.UserPublicMembers" value="&lt;PROCDIR&gt;/../iss/verilator/dlx_user_hdl_members.h"/>
+    <option id="checkers.VhdlVerilogComparison" value="off"/>
+    <option id="checkers.WatchpointType" value="all"/>
+    <option id="checkers.WorkDir" value="work/dlx_ca"/>
+    <option id="checkers.xargs" inherit="1">DelayedMarkWrites=1</option>
+</simulator>

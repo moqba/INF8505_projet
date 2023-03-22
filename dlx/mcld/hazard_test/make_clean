@@ -1,0 +1,33 @@
+#!/bin/sh
+
+PROC="mcld"
+
+which chessmk > /dev/null
+[ $? -ge 1 ] && exit 1
+
+WORKDIR="`dirname $0`"
+echo "workdir: $WORKDIR"
+
+chessmk -r $WORKDIR/test.prx
+
+find $WORKDIR -name Release      | xargs rm -rf
+find $WORKDIR -name Native       | xargs rm -rf
+find $WORKDIR -name \*.rpt       | xargs rm -rf
+find $WORKDIR -name \*.prxui     | xargs rm -rf
+find $WORKDIR -name \*.log       | xargs rm -rf
+find $WORKDIR -name \*_work      | xargs rm -rf
+
+
+/bin/rm -f hfunctions.c
+/bin/rm -f hfunctions.h
+/bin/rm -f hglobals.h
+/bin/rm -f htest.c
+/bin/rm -f hazards_report.txt
+/bin/rm -f test.ok
+/bin/rm -f test.gcc
+/bin/rm -f test.diff
+/bin/rm -f test.rtldiff
+/bin/rm -f test.mem
+/bin/rm -f test.mem.native
+/bin/rm -f ucli.key
+

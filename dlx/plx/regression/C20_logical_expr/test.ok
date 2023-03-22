@@ -1,0 +1,51 @@
+// test_AND_3
+chess_report(int): 0x00000000 // 0
+chess_report(int): 0x00000000 // 0
+chess_report(int): 0x00000000 // 0
+chess_report(int): 0x00000000 // 0
+chess_report(int): 0x00000000 // 0
+chess_report(int): 0x00000000 // 0
+chess_report(int): 0x00000000 // 0
+chess_report(int): 0x00000001 // 1
+// test_OR_3
+chess_report(int): 0x00000000 // 0
+chess_report(int): 0x00000001 // 1
+chess_report(int): 0x00000001 // 1
+chess_report(int): 0x00000001 // 1
+chess_report(int): 0x00000001 // 1
+chess_report(int): 0x00000001 // 1
+chess_report(int): 0x00000001 // 1
+chess_report(int): 0x00000001 // 1
+// test_AND_OR_3
+chess_report(int): 0x000000aa // 170
+chess_report(int): 0x000000a9 // 169
+chess_report(int): 0x000000aa // 170
+chess_report(int): 0x00000095 // 149
+chess_report(int): 0x000000a6 // 166
+chess_report(int): 0x00000055 // 85
+chess_report(int): 0x00000065 // 101
+chess_report(int): 0x00000055 // 85
+// test_nested
+chess_report(int): 0x00000000 // 0
+chess_report(int): 0x00000040 // 64
+chess_report(int): 0x00000020 // 32
+chess_report(int): 0x00000060 // 96
+chess_report(int): 0x00000010 // 16
+chess_report(int): 0x00000050 // 80
+chess_report(int): 0x00000030 // 48
+chess_report(int): 0x00000001 // 1
+// test_side_effect_1
+chess_report(int): 0x000003ec // 1004
+chess_report(int): 0x000003ea // 1002
+chess_report(int): 0x000003ed // 1005
+chess_report(int): 0x000007cf // 1999
+chess_report(int): 0x000007d1 // 2001
+chess_report(int): 0x000007d2 // 2002
+chess_report(int): 0x000003ef // 1007
+// test_side_effect_2
+chess_report(int): 0x000003e9 // 1001
+chess_report(int): 0x00000407 // 1031
+chess_report(int): 0x000007db // 2011
+chess_report(int): 0x000008ba // 2234
+chess_report(int): 0x000007dc // 2012
+chess_report(int): 0x000004d3 // 1235

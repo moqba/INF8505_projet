@@ -1,0 +1,18 @@
+<simulator name="Simulator" processor="flx" mode="ia" lib="../lib">
+    <option id="checkers.AlignAddresses" value="off"/>
+    <option id="checkers.BreakpointType" value="all"/>
+    <option id="checkers.CheckAddresses" value="0"/>
+    <option id="checkers.CheckConflicts" value="0"/>
+    <option id="checkers.CheckStack" value="0"/>
+    <option id="checkers.CheckUninitialized" value="0"/>
+    <option id="checkers.DynamicBlockHotCount" value="0"/>
+    <option id="checkers.DynamicPcHotCount" value="0"/>
+    <option id="checkers.GenerateDynamicCode" value="on"/>
+    <option id="checkers.HostedClib" value="on"/>
+    <option id="checkers.IssName" value="flx_ia_jit"/>
+    <option id="checkers.SourceSteppingSupported" value="off"/>
+    <option id="checkers.TraceExecution" value="off"/>
+    <option id="checkers.WatchpointStorages" value="R" inherit="1"/>
+    <option id="checkers.WatchpointType" value="selected"/>
+    <option id="checkers.WorkDir" value="work/flx_ia_jit"/>
+</simulator>

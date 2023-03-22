@@ -1,0 +1,22 @@
+// test_BF1
+chess_report(int): 0x00000008 // 8
+chess_report(int): 0x00000002 // 2
+chess_report(int): 0x0000000f // 15
+chess_report(int): 0xfffffff0 // -16
+chess_report(int): 0x00000003 // 3
+chess_report(int): 0xfffffffc // -4
+chess_report(int): 0xfffffff0 // -16
+chess_report(int): 0x00000000 // 0
+chess_report(int): 0xfffffff0 // -16
+// test_BF2
+chess_report(int): 0x00000005 // 5
+chess_report(int): 0x00000003 // 3
+chess_report(int): 0x0000000a // 10
+chess_report(int): 0x00000026 // 38
+chess_report(int): 0x00000026 // 38
+// test_BF3
+chess_report(int): 0x00000025 // 37
+chess_report(int): 0x00000025 // 37
+chess_report(int): 0x00000025 // 37
+// test_SS
+chess_report(int): 0x00000124 // 292

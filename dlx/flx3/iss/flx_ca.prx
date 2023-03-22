@@ -1,0 +1,19 @@
+<simulator name="Simulator" processor="flx" mode="ca" lib="../lib">
+    <option id="checkers.AlignAddresses" value="off"/>
+    <option id="checkers.ArgcArgv" value="off"/>
+    <option id="checkers.BreakpointType" value="mic"/>
+    <option id="checkers.CheckAddresses" value="0"/>
+    <option id="checkers.CheckConflicts" value="0"/>
+    <option id="checkers.CheckReserved" value="0"/>
+    <option id="checkers.CheckStack" value="0"/>
+    <option id="checkers.CheckUninitialized" value="0"/>
+    <option id="checkers.ColorStorageReadsWrites" value="off"/>
+    <option id="checkers.HostedClib" value="on"/>
+    <option id="checkers.IssName" value="flx_ca"/>
+    <option id="checkers.PipelineDepth" value="10"/>
+    <option id="checkers.ReportWAWHazards" value="off"/>
+    <option id="checkers.TestbenchInputDump" value="on"/>
+    <option id="checkers.TraceExecution" value="off"/>
+    <option id="checkers.WorkDir" value="work/flx_ca"/>
+    <option id="checkers.xargs" inherit="1">DelayedMarkWrites=1</option>
+</simulator>

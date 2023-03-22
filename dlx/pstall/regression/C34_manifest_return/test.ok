@@ -1,0 +1,57 @@
+// manifest_ret
+chess_report(int): 0x0000000a // 10
+chess_report(int): 0x0000000a // 10
+// following_ret
+chess_report(int): 0x00000014 // 20
+chess_report(int): 0x00000014 // 20
+// following_manifest_ret
+chess_report(int): 0x0000001e // 30
+chess_report(int): 0x0000001e // 30
+// following_if_both_ret
+chess_report(int): 0x00000029 // 41
+chess_report(int): 0x00000029 // 41
+// following_if_both_ret
+chess_report(int): 0x0000002a // 42
+chess_report(int): 0x0000002a // 42
+// following_if_manifest_ret
+chess_report(int): 0x00000033 // 51
+chess_report(int): 0x00000033 // 51
+// following_if_manifest_ret
+chess_report(int): 0x00000034 // 52
+chess_report(int): 0x00000034 // 52
+// do_ret
+chess_report(int): 0x0000003c // 60
+chess_report(int): 0x0000003c // 60
+// do_ret
+chess_report(int): 0x0000003c // 60
+chess_report(int): 0x0000003c // 60
+// do_manifest_ret
+chess_report(int): 0x00000046 // 70
+chess_report(int): 0x00000046 // 70
+// do_manifest_ret
+chess_report(int): 0x00000046 // 70
+chess_report(int): 0x00000046 // 70
+// while_ret
+chess_report(int): 0x00000059 // 89
+chess_report(int): 0x00000059 // 89
+// while_ret
+chess_report(int): 0x00000050 // 80
+chess_report(int): 0x00000050 // 80
+// while_manifest_ret
+chess_report(int): 0x00000063 // 99
+chess_report(int): 0x00000063 // 99
+// while_manifest_ret
+chess_report(int): 0x0000005a // 90
+chess_report(int): 0x0000005a // 90
+// broken_if
+chess_report(int): 0x00000065 // 101
+chess_report(int): 0x00000065 // 101
+// broken_if
+chess_report(int): 0x00000066 // 102
+chess_report(int): 0x00000066 // 102
+// manifest_broken_if
+chess_report(int): 0x0000006f // 111
+chess_report(int): 0x0000006f // 111
+// manifest_broken_if
+chess_report(int): 0x0000006f // 111
+chess_report(int): 0x0000006f // 111

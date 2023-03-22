@@ -1,0 +1,149 @@
+/*
+-- File : tlx.n
+--
+-- Contents : nML model for the TLX processor.
+--
+-- Copyright (c) 2014-2021 Synopsys, Inc. This Synopsys processor model
+-- captures an ASIP Designer Design Technique. The model and all associated
+-- documentation are proprietary to Synopsys, Inc. and may only be used
+-- pursuant to the terms and conditions of a written license agreement with
+-- Synopsys, Inc.  All other use, reproduction, modification, or distribution
+-- of the Synopsys processor model or the associated  documentation is
+-- strictly prohibited.
+*/
+
+#include "tlx_define.h"
+
+
+enum stage_names {IF,   // Instruction Fetch
+                  ID,   // Instruction Decode
+                  EX};  // EXecute
+
+// memories
+
+def pm_size=2**PM_SIZE_NBIT;
+mem PM[pm_size] <iword,addr> access {
+   pm_ld : pm_rd `1` = PM[pm_ad] `1`;
+   pm_st : PM[pm_ad] = pm_wr;
+};
+
+def dm_size=2**DM_SIZE_NBIT;
+mem DMb [dm_size,1]<w08,addr> access {
+    dmb_ld: dmb_rd `1` = DMb[dm_ad `0`] `1`;
+    dmb_st: DMb[dm_ad] = dmb_wr;
+};
+
+mem DMh [dm_size,2]<w16,addr> alias DMb access {
+    dmh_ld: dmh_rd `1` = DMh[dm_ad `0`] `1`;
+    dmh_st: DMh[dm_ad] = dmh_wr;
+};
+
+mem DMw [dm_size,4]<w32,addr> alias DMb access {
+    dmw_ld: dmw_rd `1` = DMw[dm_ad `0`] `1`;
+    dmw_st: DMw[dm_ad] = dmw_wr;
+};
+
+// subrange used to store static data with efficient 15 bit direct addressing.
+
+mem DMb_stat [2**15,1]<w08,addr> alias DMb[0] access {};
+mem DMh_stat [2**15,2]<w16,addr> alias DMb_stat access {};
+mem DMw_stat [2**15,4]<w32,addr> alias DMb_stat access {};
+
+property unconnected : DMb_stat, DMh_stat, DMw_stat;
+
+// registers
+
+reg R[16]<w32,uint4> syntax ("R") read(r0 r1 r2)  write(w0 w1 w2);
+
+reg SP <w32> alias R[1]  read(spr) write(spw);    // stack pointer
+reg LR <w32> alias R[15] read(lrr) write(lrw);    // link register
+reg PC <w32> read(pcr) write(pcw);                // program counter
+
+reg PL <w32> alias R[12] read(plr) write(plw);    // low product
+reg PH <w32> alias R[13] read(phr) write(phw);    // high product
+
+reg MC <uint1>;                                   // MSB/Carry bit
+
+reg IE<uint1> read(ier)  write(iew);                 // interrupt enable flag
+hw_init IE = 0;
+reg SRdummy<uint14>;                                 // unused status bits
+reg IM<uint16> read(imr) write (imw);                // interrupt mask
+reg SR<w32> { IM; IE; MC; SRdummy; };
+
+reg ILR<w32>;
+reg ISR<w32>;
+
+inport  ireq_pcu_inp<uint16>;                        // from interrupt io_interface to PCU
+outport iack_pcu_out<uint16>;                        // from PCU to interrupt io_interface
+outport halted_out<uint1>;
+
+reg LF        <uint2> read(lfr lfra) write(lfw);  // loop flag
+reg LS[2]<addr,uint2> read(lsr) write(lsw);       // loop start address
+reg LE[2]<addr,uint2> read(ler) write(lew);       // loop end address
+reg LC[2]<w32 ,uint2> read(lcr) write(lcw);       // loop count
+property unconnected : LF, LS, LE, LC;
+hw_init LF = 3;                                   // no hardware loops active
+
+cst c10u  <uint10>;
+
+// zloop registers
+
+reg ZC <w32>  read(zcr) write(zcw);               // loop count
+#ifndef __programmers_view__
+reg ZD <w32>  read(zdr) write(zcw);               // loop count shadow (zloop_count_invariant), shared write trn
+#endif
+reg ZS <addr> read(zsr) write(zsw);               // loop start address
+reg ZE <addr> read(zer) write(zew);               // loop end address
+property unconnected : ZC, ZS, ZE;
+hw_init ZE = 0xfffffff;
+
+// constants
+
+cst c4u   <uint4>;
+cst c5s   <int5>;
+cst c5u   <uint5>;
+cst c5u_s2 <uint5s2>;
+cst c16s  <int16>;
+cst c16u  <uint16>;
+cst c16p  <int16p>;
+cst c26s  <int26>;
+
+
+// properties
+
+properties {
+    program_counter     : PC;
+    program_memory      : PM;
+    endianness          : little;
+    decode_stage        : ID;
+    unconnected         : SP;
+    chess_pc_offset     : instructions;
+    hdl_coverpoint_join : "__";
+}
+
+// start of instruction set grammar
+
+start tlx;
+
+opn tlx( alu_instr
+       | load_store_instr
+       | control_instr
+       | div_instr );
+
+#if defined(__go__)
+opn always (ocd: ocd_if) { action { ocd; } }
+#endif
+
+
+#include "opcode.n"
+#include "regfile.n"
+#include "alu.n"
+#include "ldst.n"
+#include "control.n"
+#include "div.n"
+
+#include "ocd_if.n"
+
+#include "hazards.n"
+
+

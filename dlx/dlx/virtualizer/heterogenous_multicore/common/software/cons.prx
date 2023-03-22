@@ -1,0 +1,10 @@
+<project name="Project" processor="dlx" lib="../../../../lib">
+    <file type="c" name="cons.c" path=""/>
+    <option id="bridge.cfg" value="cons.bcf"/>
+    <option id="project.name" value="cons"/>
+    <option id="project.type" value="exe"/>
+    <option id="simrun.getccbp" value="on"/>
+    <option id="simrun.owwrn" value="off"/>
+    <option id="simrun.profilebp" value="on"/>
+    <option id="simrun.serverport" value="5456"/>
+</project>

@@ -1,0 +1,24 @@
+// test_char26
+chess_report(int): 0x00000133 // 307
+// test_short26
+chess_report(int): 0x00000132 // 306
+// test_int26
+chess_report(int): 0x00000131 // 305
+// test_long26
+chess_report(int): 0x00000130 // 304
+// test_llong26
+chess_report(int): 0x0000012f // 303
+// test_ptr26
+chess_report(int): 0x00000131 // 305
+// test_mixed_int_ptr
+chess_report(int): 0x00000967 // 2407
+// test_int26
+chess_report(long): 0x00000414 // 1044
+// test_gint14
+chess_report(int): 0x00000133 // 307
+// test_gshort14
+chess_report(short): 0x0132 // 306
+// test_gptr6
+chess_report(int): 0x00000131 // 305
+// test_gmixed
+chess_report(short): 0x0967 // 2407

@@ -1,0 +1,106 @@
+// test_clb()
+chess_report(int): 0x00000020 // 32
+chess_report(int): 0x0000001f // 31
+chess_report(int): 0x00000020 // 32
+// new T
+chess_report(unsigned long long): 0x0000000008000000 // 134217728
+chess_report(int): 0x00000004 // 4
+chess_report(unsigned): 0x00000004 // 4
+chess_report(int): 0x00000024 // 36
+chess_report(int): 0x00000024 // 36
+// new T
+chess_report(unsigned long long): 0x0000000000800900 // 8390912
+chess_report(int): 0x00000008 // 8
+chess_report(unsigned): 0x00000008 // 8
+chess_report(int): 0x00000028 // 40
+chess_report(int): 0x00000028 // 40
+// new T
+chess_report(unsigned long long): 0x0000000070800900 // 1887439104
+chess_report(int): 0x00000001 // 1
+chess_report(unsigned): 0x00000001 // 1
+chess_report(int): 0x00000021 // 33
+chess_report(int): 0x00000021 // 33
+// new T
+chess_report(unsigned long long): 0x0000000080800900 // 2155874560
+chess_report(int): 0x00000001 // 1
+chess_report(unsigned): 0x00000001 // 1
+chess_report(int): 0x00000020 // 32
+chess_report(int): 0x00000020 // 32
+// new T
+chess_report(unsigned long long): 0x0000000100800900 // 4303358208
+chess_report(int): 0x00000008 // 8
+chess_report(unsigned): 0x00000008 // 8
+chess_report(int): 0x0000001f // 31
+chess_report(int): 0x0000001f // 31
+// new T
+chess_report(unsigned long long): 0x00000000f0800900 // 4034922752
+chess_report(int): 0x00000004 // 4
+chess_report(unsigned): 0x00000004 // 4
+chess_report(int): 0x00000020 // 32
+chess_report(int): 0x00000020 // 32
+// new T
+chess_report(unsigned long long): 0x00000000fc800900 // 4236249344
+chess_report(int): 0x00000006 // 6
+chess_report(unsigned): 0x00000006 // 6
+chess_report(int): 0x00000020 // 32
+chess_report(int): 0x00000020 // 32
+// new T
+chess_report(unsigned long long): 0x0f0000003c800900 // 1080863911583942912
+chess_report(int): 0x00000002 // 2
+chess_report(unsigned): 0x00000002 // 2
+chess_report(int): 0x00000004 // 4
+chess_report(int): 0x00000004 // 4
+// new T
+chess_report(unsigned long long): 0x0000000000000000 // 0
+chess_report(int): 0x00000020 // 32
+chess_report(unsigned): 0x00000020 // 32
+chess_report(int): 0x00000040 // 64
+chess_report(int): 0x00000040 // 64
+// new T
+chess_report(unsigned long long): 0xffffffffffffffff // 18446744073709551615
+chess_report(int): 0x00000020 // 32
+chess_report(unsigned): 0x00000020 // 32
+chess_report(int): 0x00000040 // 64
+chess_report(int): 0x00000040 // 64
+// new T
+chess_report(unsigned long long): 0x8000000000000000 // 9223372036854775808
+chess_report(int): 0x00000020 // 32
+chess_report(unsigned): 0x00000020 // 32
+chess_report(int): 0x00000001 // 1
+chess_report(int): 0x00000001 // 1
+// new T
+chess_report(unsigned long long): 0x1000000000004000 // 1152921504606863360
+chess_report(int): 0x00000011 // 17
+chess_report(unsigned): 0x00000011 // 17
+chess_report(int): 0x00000003 // 3
+chess_report(int): 0x00000003 // 3
+// new T
+chess_report(unsigned long long): 0xf0000000f0800900 // 17293822573137627392
+chess_report(int): 0x00000004 // 4
+chess_report(unsigned): 0x00000004 // 4
+chess_report(int): 0x00000004 // 4
+chess_report(int): 0x00000004 // 4
+// new T
+chess_report(unsigned long long): 0xffc0000000000900 // 18428729675200071936
+chess_report(int): 0x00000014 // 20
+chess_report(unsigned): 0x00000014 // 20
+chess_report(int): 0x0000000a // 10
+chess_report(int): 0x0000000a // 10
+// new T
+chess_report(unsigned long long): 0xfffffffe00000000 // 18446744065119617024
+chess_report(int): 0x00000020 // 32
+chess_report(unsigned): 0x00000020 // 32
+chess_report(int): 0x0000001f // 31
+chess_report(int): 0x0000001f // 31
+// new T
+chess_report(unsigned long long): 0xffffffff00000000 // 18446744069414584320
+chess_report(int): 0x00000020 // 32
+chess_report(unsigned): 0x00000020 // 32
+chess_report(int): 0x00000020 // 32
+chess_report(int): 0x00000020 // 32
+// new T
+chess_report(unsigned long long): 0xffffffff80000000 // 18446744071562067968
+chess_report(int): 0x00000001 // 1
+chess_report(unsigned): 0x00000001 // 1
+chess_report(int): 0x00000021 // 33
+chess_report(int): 0x00000021 // 33

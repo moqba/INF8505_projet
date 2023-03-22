@@ -1,0 +1,121 @@
+/*
+-- File : opcode.n
+--
+-- Contents : nML model for the DLX processor -- OP code enums.
+--
+-- Copyright (c) 2014-2021 Synopsys, Inc. This Synopsys processor model
+-- captures an ASIP Designer Design Technique. The model and all associated
+-- documentation are proprietary to Synopsys, Inc. and may only be used
+-- pursuant to the terms and conditions of a written license agreement with
+-- Synopsys, Inc.  All other use, reproduction, modification, or distribution
+-- of the Synopsys processor model or the associated  documentation is
+-- strictly prohibited.
+*/
+
+
+
+enum opcode {
+    function  = 0x00,
+    addi      = 0x02,
+    addui     = 0x03,
+    andi      = 0x04,
+    beqz      = 0x05,
+    bfpf      = 0x06,
+    bfpt      = 0x07,
+    bnez      = 0x08,
+    j         = 0x09,
+    jal       = 0x0a,
+    jalr      = 0x0b,
+    jr        = 0x0c,
+    lb        = 0x0d,
+    lbu       = 0x0e,
+    addix     = 0x0f,
+    adduix    = 0x10,
+    lh        = 0x11,
+    lhi       = 0x12,
+    lhu       = 0x13,
+    lw        = 0x14,
+    ori       = 0x15,
+    rfe       = 0x16,
+    sb        = 0x17,
+    subuix    = 0x18,
+    seqi      = 0x19,
+    subix     = 0x1a,
+    sgei      = 0x1b,
+    sgeui     = 0x1c,
+    sgti      = 0x1d,
+    sgtui     = 0x1e,
+    sh        = 0x1f,
+    slei      = 0x20,
+    sleui     = 0x21,
+    slli      = 0x22,
+    slti      = 0x23,
+    sltui     = 0x24,
+    snei      = 0x25,
+    srai      = 0x26,
+    srli      = 0x27,
+    subi      = 0x28,
+    subui     = 0x29,
+    sw        = 0x2a,
+    trap      = 0x2b,
+    xori      = 0x2c,
+    xtdi      = 0x2d,
+    do        = 0x30,
+    doi       = 0x31,
+    zlp       = 0x32,
+    irq       = 0x3f,
+    swbrk     = 0x3f
+};
+
+enum function_code {
+    nop       = 0x00,
+    add       = 0x01,
+    addx      = 0x02,
+    and       = 0x03,
+    or        = 0x0a,
+    seq       = 0x0b,
+    sge       = 0x0c,
+    sgeu      = 0x0d,
+    sgt       = 0x0e,
+    sgtu      = 0x0f,
+    sle       = 0x10,
+    sleu      = 0x11,
+    sll       = 0x12,
+    slt       = 0x13,
+    sltu      = 0x14,
+    sne       = 0x15,
+    sra       = 0x16,
+    srl       = 0x17,
+    sub       = 0x18,
+    subx      = 0x19,
+    xor       = 0x1a,
+    xtd       = 0x1b,
+    div       = 0x1c,
+    mul       = 0x20,
+    lmulss,
+    lmulsu,
+    lmuluu,
+    clb,
+
+    lb        = 0x30, // load/store with post modify
+    lbu,
+    lh,
+    lhu,
+    lw,
+    sb,
+    sh,
+    sw,
+    dbg       = 0x7ff // 0x7ff forces 11 bit code
+};
+
+
+enum irq_code {
+    rti       = 0x0,
+    jti       = 0x1,
+    halt      = 0x2,
+    ei        = 0x4,
+    di        = 0x5,
+    rto       = 0x7,
+    tor       = 0x8,
+    swbrk     = 0xf  /* reserved */
+};

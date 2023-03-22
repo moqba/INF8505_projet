@@ -1,0 +1,8 @@
+<project name="Project" processor="ilx" lib=".">
+    <file type="c" name="ilx_div_longlong.c" path="&lt;PROCDIR&gt;"/>
+    <file type="a" name="ilx_init.s" path=""/>
+    <file type="c" name="ilx_basic.c" path=""/>
+    <option id="llvm.clang" value="off"/>
+    <option id="project.name" value="libilx.a"/>
+    <option id="project.type" value="arch"/>
+</project>

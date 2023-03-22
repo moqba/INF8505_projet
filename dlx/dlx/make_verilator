@@ -1,0 +1,14 @@
+#!/bin/sh -e
+
+USER_RTL_DIR=hdl/user_hdl
+USER_RTL=user_div.v
+VERILATOR_BUILD_DIR=lib/verilated_hdl_models
+
+if [[ -z "${VERILATOR_ROOT}" ]]; then
+  echo "VERILATOR_ROOT environment variable not set...."
+  echo "Set the variable and rerun"
+  exit 1
+fi
+
+#Run verilator on user RTL
+$VERILATOR_ROOT/bin/verilator -cc --clk clock --Mdir $VERILATOR_BUILD_DIR -y $USER_RTL_DIR --Wno-fatal --Wno-lint -O3 $USER_RTL

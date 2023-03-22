@@ -1,0 +1,134 @@
+/*
+-- File : ldst.n
+--
+-- Contents : nML model for the TLX processor -- load/store instructions.
+--
+-- Copyright (c) 2014-2021 Synopsys, Inc. This Synopsys processor model
+-- captures an ASIP Designer Design Technique. The model and all associated
+-- documentation are proprietary to Synopsys, Inc. and may only be used
+-- pursuant to the terms and conditions of a written license agreement with
+-- Synopsys, Inc.  All other use, reproduction, modification, or distribution
+-- of the Synopsys processor model or the associated  documentation is
+-- strictly prohibited.
+*/
+
+
+
+opn load_store_instr(load | store | load_pm | store_pm);
+
+fu  agu; // address generation unit
+trn aguA<w32>;
+trn aguB<w32>;
+trn aguC<w32>;
+
+pipe p_addr<addr>;
+
+fu  lx;  // load extend unit
+trn lxB<w08>;
+trn lxH<w16>;
+trn lxC<w32>;
+
+fu  sx;  // store extract unit
+trn sxB<w08>;
+trn sxH<w16>;
+trn sxW<w32>;
+
+opn load(op: opcode, d1: mR1, s0: mR0, i: c16s)
+{
+    action {
+    stage ID:
+        dm_ad = aguC = add(aguA=s0,aguB=i) @agu;
+    stage ID..EX:
+        switch (op) {
+        case lb : stage ID..EX: dmb_rd`EX` = DMb[dm_ad`ID`]`EX`;
+                  stage EX:     d1 = lxC = extend_sign(lxB=dmb_rd) @lx;
+        case lbu: stage ID..EX: dmb_rd`EX` = DMb[dm_ad`ID`]`EX`;
+                  stage EX:     d1 = lxC = extend_zero(lxB=dmb_rd) @lx;
+        case lh : stage ID..EX: dmh_rd`EX` = DMh[dm_ad`ID`]`EX`;
+                  stage EX:     d1 = lxC = extend_sign(lxH=dmh_rd) @lx;
+        case lhu: stage ID..EX: dmh_rd`EX` = DMh[dm_ad`ID`]`EX`;
+                  stage EX:     d1 = lxC = extend_zero(lxH=dmh_rd) @lx;
+        case lw : stage ID..EX: dmw_rd`EX` = DMw[dm_ad`ID`]`EX`;
+                  stage EX:     d1 = lxC = dmw_rd;
+        }
+    }
+    syntax: op " " d1 "," i "(" s0 ")";
+    image : op::s0::d1::i;
+}
+
+opn store(op: opcode, s2: mR2, s0: mR0, i: c16s)
+{
+    action {
+    stage ID:
+        p_addr = aguC = add(aguA=s0,aguB=i) @agu;
+    stage EX:
+        dm_ad = p_addr;
+        switch (op) {
+        case sb: dmb_wr = sxB = extract_w08(sxW=s2) @sx;
+                 DMb[dm_ad] = dmb_wr;
+        case sh: dmh_wr = sxH = extract_w16(sxW=s2) @sx;
+                 DMh[dm_ad] = dmh_wr;
+        case sw: dmw_wr = s2;
+                 DMw[dm_ad] = dmw_wr;
+       }
+    }
+    syntax : op " " s2 "," i "(" s0 ")";
+    image  : op::s0::s2::i;
+}
+
+chess_view () {  // indirect addressing
+    aguC = add(aguA,aguB=0);
+} -> {
+    aguC = aguA;
+}
+
+chess_view () {  // direct addressing
+    aguC = add(aguA=R[0],aguB);
+} -> {
+    aguC = aguB;
+}
+
+opn load_pm(op: function_code, d1: mR1, sd0: mR0, m: c5s)
+{
+    action {
+    stage ID:
+        sd0 = aguC = add(aguA=sd0,aguB=m) @agu;
+        dm_ad = aguA;
+    stage ID..EX:
+        switch (op) {
+        case lb : stage ID..EX: dmb_rd`EX` = DMb[dm_ad`ID`]`EX`;
+                  stage EX:     d1 = lxC = extend_sign(lxB=dmb_rd) @lx;
+        case lbu: stage ID..EX: dmb_rd`EX` = DMb[dm_ad`ID`]`EX`;
+                  stage EX:     d1 = lxC = extend_zero(lxB=dmb_rd) @lx;
+        case lh : stage ID..EX: dmh_rd`EX` = DMh[dm_ad`ID`]`EX`;
+                  stage EX:     d1 = lxC = extend_sign(lxH=dmh_rd) @lx;
+        case lhu: stage ID..EX: dmh_rd`EX` = DMh[dm_ad`ID`]`EX`;
+                  stage EX:     d1 = lxC = extend_zero(lxH=dmh_rd) @lx;
+        case lw : stage ID..EX: dmw_rd`EX` = DMw[dm_ad`ID`]`EX`;
+                  stage EX:     d1 = lxC = dmw_rd;
+        }
+    }
+    syntax: op " " d1 ",(" sd0 "+=" m ")";
+    image : opcode.function::sd0::d1::m::op, class(ldstpm);
+}
+
+opn store_pm(op: function_code, s2: mR2, sd0: mR0, m: c5s)
+{
+    action {
+    stage ID:
+        sd0 = aguC = add(aguA=sd0,aguB=m) @agu;
+        p_addr = aguA;
+    stage EX:
+        dm_ad = p_addr;
+        switch (op) {
+        case sb: dmb_wr = sxB = extract_w08(sxW=s2) @sx;
+                 DMb[dm_ad] = dmb_wr;
+        case sh: dmh_wr = sxH = extract_w16(sxW=s2) @sx;
+                 DMh[dm_ad] = dmh_wr;
+        case sw: dmw_wr = s2;
+                 DMw[dm_ad] = dmw_wr;
+       }
+    }
+    syntax : op " " s2 ",(" sd0 "+=" m ")";
+    image : opcode.function::sd0::s2::m::op, class(ldstpm);
+}

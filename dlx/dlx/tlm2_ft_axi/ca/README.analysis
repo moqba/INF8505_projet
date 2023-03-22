@@ -1,0 +1,25 @@
+Software Analysis
+================
+Software analysis is enabled inside the SystemC wrapper project i.e. dlx_ca_tlm2_ft.prx
+It can be seen inside VPExplorer when analysis collection is turned ON in the corresponding
+VP config. Following analysis are currently available:
+- Register trace
+- Function trace
+- Instruction trace
+- Memory access
+
+Bus transaction trace can be seen by enabling the TLM port trace on the memory socket of
+DLX wrapper (i.e. p_DMb_ft) OR directly on the bus
+
+Hardware Analysis
+================
+Hardware statistics of the bus like the throughput, bus utilization etc. can be seen if the
+environment of PA-MCO is sourced and Bus Analysis is turned ON in the VP config with-in
+VPExplorer.
+
+For PA-Ultra
+============
+
+The script simple_platform_ultra.tcl can be opened inside the PA-Ultra GUI,and then after
+setting the initial_image, a simulation can be build and run there. Also, the various analysis
+settings available in the PA-Ultra can be turned ON, and later the results can be viewed there

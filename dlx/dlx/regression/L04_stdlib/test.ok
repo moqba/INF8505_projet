@@ -1,0 +1,54 @@
+// test_strtol()
+chess_report(long): 0x000001f5 // 501
+chess_report(int): 0x00000000 // 0
+chess_report(long): 0x0000007b // 123
+chess_report(int): 0x00000000 // 0
+chess_report(long): 0x7fffffff // 2147483647
+chess_report(int): 0x00000000 // 0
+chess_report(long): 0x80000000 // -2147483648
+chess_report(int): 0x00000000 // 0
+chess_report(long): 0x0000babe // 47806
+chess_report(int): 0x00000000 // 0
+chess_report(long): 0x7fffffff // 2147483647
+chess_report(int): 0x00000022 // 34
+chess_report(long): 0x80000000 // -2147483648
+chess_report(int): 0x00000022 // 34
+chess_report(long): 0x7fffffff // 2147483647
+chess_report(int): 0x00000022 // 34
+chess_report(long): 0xfffffc25 // -987
+chess_report(int): 0x00000000 // 0
+chess_report(char): 0x69 // 105
+chess_report(long): 0x7fffffff // 2147483647
+chess_report(int): 0x00000022 // 34
+// test_strtoul()
+chess_report(unsigned long): 0x000001f5 // 501
+chess_report(int): 0x00000000 // 0
+chess_report(unsigned long): 0x0000007b // 123
+chess_report(int): 0x00000000 // 0
+chess_report(unsigned long): 0x7fffffff // 2147483647
+chess_report(int): 0x00000000 // 0
+chess_report(unsigned long): 0x80000000 // 2147483648
+chess_report(int): 0x00000000 // 0
+chess_report(unsigned long): 0xffffffff // 4294967295
+chess_report(int): 0x00000000 // 0
+chess_report(unsigned long): 0x0000babe // 47806
+chess_report(int): 0x00000000 // 0
+chess_report(unsigned long): 0xffffffff // 4294967295
+chess_report(int): 0x00000022 // 34
+chess_report(unsigned long): 0xffffffff // 4294967295
+chess_report(int): 0x00000022 // 34
+chess_report(unsigned long): 0x000003db // 987
+chess_report(int): 0x00000000 // 0
+chess_report(char): 0x69 // 105
+chess_report(unsigned long): 0xffffffbe // 4294967230
+chess_report(int): 0x00000000 // 0
+chess_report(unsigned long): 0xffffffff // 4294967295
+chess_report(int): 0x00000022 // 34
+// test_atoi()
+chess_report(int): 0x0000007b // 123
+chess_report(int): 0xfffffd03 // -765
+chess_report(int): 0x00007fff // 32767
+chess_report(int): 0xffff8000 // -32768
+// test_atol()
+chess_report(long): 0x075bcd15 // 123456789
+chess_report(long): 0xc521974f // -987654321

@@ -1,0 +1,10 @@
+<batch name="Batch project" processor="ilx" lib="lib">
+    <prj name="libilx.prx" path="lib" configuration="Release"/>
+    <prj name="softfloat.prx" path="lib/softfloat" configuration="Release"/>
+    <prj name="libc.prx" path="lib/runtime" configuration="Release"/>
+    <prj name="libm.prx" path="lib/runtime" configuration="Release"/>
+    <prj name="ilx_ca.prx" path="iss"/>
+    <prj name="ilx_ia.prx" path="iss"/>
+    <prj name="libnative.prx" path="lib" configuration="Native"/>
+    <prj name="ilx_vlog.prx" path="hdl"/>
+</batch>

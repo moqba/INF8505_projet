@@ -1,0 +1,14 @@
+chess_report(int): 0x00000002 // 2
+// test_chasing_ptr
+chess_report(int): 0x00000003 // 3
+// test_chain_building
+chess_report(int): 0x00000004 // 4
+// test_sum_iv
+chess_report(int): 0x000001ef // 495
+chess_report(int): 0x000003de // 990
+chess_report(int): 0x000005cd // 1485
+chess_report(int): 0x000007bc // 1980
+// test_hetero_sum_iv_int_ptr
+chess_report(int): 0x00000064 // 100
+// test_hetero_sum_iv_ptr_int
+chess_report(int): 0x00000064 // 100

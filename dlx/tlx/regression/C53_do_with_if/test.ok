@@ -1,0 +1,63 @@
+// for_if(30, 10, 20)
+chess_report(int): 0x0000001e // 30
+chess_report(int): 0x0000001e // 30
+// for2_if(5, 5, 10, 20)
+chess_report(int): 0x0000001b // 27
+chess_report(int): 0x0000001c // 28
+// for3_if(5, 5, 5, 10, 20)
+chess_report(int): 0x0000004d // 77
+chess_report(int): 0x0000004e // 78
+// for_do(4, 0)
+chess_report(int): 0x00000004 // 4
+chess_report(int): 0x00000004 // 4
+chess_report(int): 0x00000004 // 4
+chess_report(int): 0x00000004 // 4
+chess_report(int): 0x00000004 // 4
+// for_do(4, 1)
+chess_report(int): 0x00000004 // 4
+chess_report(int): 0x00000003 // 3
+chess_report(int): 0x00000002 // 2
+chess_report(int): 0x00000001 // 1
+chess_report(int): 0x00000004 // 4
+chess_report(int): 0x00000003 // 3
+chess_report(int): 0x00000002 // 2
+chess_report(int): 0x00000001 // 1
+chess_report(int): 0x00000004 // 4
+chess_report(int): 0x00000003 // 3
+chess_report(int): 0x00000002 // 2
+chess_report(int): 0x00000001 // 1
+chess_report(int): 0x00000004 // 4
+chess_report(int): 0x00000003 // 3
+chess_report(int): 0x00000002 // 2
+chess_report(int): 0x00000001 // 1
+chess_report(int): 0x00000004 // 4
+chess_report(int): 0x00000003 // 3
+chess_report(int): 0x00000002 // 2
+chess_report(int): 0x00000001 // 1
+// for_do_toggle(0)
+chess_report(int): 0x0000000a // 10
+// for_do_toggle(-1)
+chess_report(int): 0x00000009 // 9
+// while1_break
+chess_report(int): 0x00000003 // 3
+// while1_return
+chess_report(int): 0x00000002 // 2
+// if_while1_return(0)
+chess_report(int): 0x00000001 // 1
+// if_while1_return(1)
+chess_report(int): 0x00000003 // 3
+// one_forloop_output(2)
+chess_report(int): 0xffffffd8 // -40
+// one_forloop_output(5)
+chess_report(int): 0xfffffffb // -5
+// one_forloop_output(7)
+chess_report(int): 0x00000096 // 150
+// two_forloop_outputs(2)
+chess_report(int): 0xffffffda // -38
+chess_report(int): 0xffffffd0 // -48
+// two_forloop_outputs(5)
+chess_report(int): 0x00000000 // 0
+chess_report(int): 0x00000019 // 25
+// two_forloop_outputs(7)
+chess_report(int): 0x0000009d // 157
+chess_report(int): 0x00000039 // 57

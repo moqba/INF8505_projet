@@ -1,0 +1,13 @@
+<project name="Project" processor="tlx" lib="../../lib">
+    <file type="c" name="test.c" path=""/>
+    <file type="c" name="counter_isr.c" path="../utils"/>
+    <file type="a" name="isr_init.s" path="../utils"/>
+    <option id="bridge.cfg" value="../utils/test_irq.bcf"/>
+    <option id="cpp.define" value="IRQ_TEST" inherit="1"/>
+    <option id="cpp.include" value=".." inherit="1"/>
+    <option id="noodle.alwinc" value="../regression.h" inherit="1"/>
+    <option id="llvm.alwinc" value="../regression.h" inherit="1"/>
+    <option id="project.name" value="test_irq"/>
+    <option id="project.type" value="exe"/>
+    <option id="simrun.simscript" value="&lt;PROCDIR&gt;/../bin/iss_rcd.tcl"/>
+</project>

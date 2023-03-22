@@ -1,0 +1,118 @@
+// while_fb(4)
+chess_report(int): 0x00000004 // 4
+chess_report(int): 0x0000002c // 44
+chess_report(int): 0x000001bc // 444
+// while_fb(5)
+chess_report(int): 0x00000005 // 5
+chess_report(int): 0x00000037 // 55
+chess_report(int): 0x0000022b // 555
+// while_brk_cnt(5, 0)
+chess_report(int): 0x0000000c // 12
+chess_report(int): 0x00000016 // 22
+chess_report(int): 0x00000022 // 34
+chess_report(int): 0x0000002c // 44
+chess_report(int): 0x00000038 // 56
+chess_report(int): 0x00000042 // 66
+// while_brk_cnt(5, 1)
+chess_report(int): 0x0000000c // 12
+chess_report(int): 0x00000016 // 22
+chess_report(int): 0x00000017 // 23
+chess_report(int): 0x00000018 // 24
+chess_report(int): 0x0000001e // 30
+chess_report(int): 0x00000023 // 35
+// while_brk_cnt(6, 0)
+chess_report(int): 0x0000000e // 14
+chess_report(int): 0x0000001a // 26
+chess_report(int): 0x00000028 // 40
+chess_report(int): 0x00000034 // 52
+chess_report(int): 0x00000042 // 66
+chess_report(int): 0x0000004e // 78
+// while_brk_cnt(6, 1)
+chess_report(int): 0x0000000e // 14
+chess_report(int): 0x0000001a // 26
+chess_report(int): 0x0000001b // 27
+chess_report(int): 0x0000001c // 28
+chess_report(int): 0x00000023 // 35
+chess_report(int): 0x00000029 // 41
+// while_brk_cnt(1, 0)
+chess_report(int): 0x00000004 // 4
+chess_report(int): 0x00000006 // 6
+chess_report(int): 0x0000000a // 10
+chess_report(int): 0x0000000c // 12
+chess_report(int): 0x00000010 // 16
+chess_report(int): 0x00000012 // 18
+// while_brk_cnt(1, 1)
+chess_report(int): 0x00000004 // 4
+chess_report(int): 0x00000006 // 6
+chess_report(int): 0x00000007 // 7
+chess_report(int): 0x00000008 // 8
+chess_report(int): 0x0000000a // 10
+chess_report(int): 0x0000000b // 11
+// while_brk_cnt(0, 0)
+chess_report(int): 0x00000002 // 2
+chess_report(int): 0x00000002 // 2
+chess_report(int): 0x00000004 // 4
+chess_report(int): 0x00000004 // 4
+chess_report(int): 0x00000006 // 6
+chess_report(int): 0x00000006 // 6
+// while_brk_cnt(0, 1)
+chess_report(int): 0x00000002 // 2
+chess_report(int): 0x00000002 // 2
+chess_report(int): 0x00000003 // 3
+chess_report(int): 0x00000003 // 3
+chess_report(int): 0x00000004 // 4
+chess_report(int): 0x00000004 // 4
+// for_brk_cnt(5, 0)
+chess_report(int): 0x0000000a // 10
+chess_report(int): 0x00000014 // 20
+chess_report(int): 0x0000001e // 30
+// for_brk_cnt(5, 1)
+chess_report(int): 0x0000000a // 10
+chess_report(int): 0x0000000b // 11
+chess_report(int): 0x00000010 // 16
+// for_brk_cnt(6, 0)
+chess_report(int): 0x0000000c // 12
+chess_report(int): 0x00000018 // 24
+chess_report(int): 0x00000024 // 36
+// for_brk_cnt(6, 1)
+chess_report(int): 0x0000000c // 12
+chess_report(int): 0x0000000d // 13
+chess_report(int): 0x00000013 // 19
+// for_brk_cnt(1, 0)
+chess_report(int): 0x00000002 // 2
+chess_report(int): 0x00000004 // 4
+chess_report(int): 0x00000006 // 6
+// for_brk_cnt(1, 1)
+chess_report(int): 0x00000002 // 2
+chess_report(int): 0x00000003 // 3
+chess_report(int): 0x00000004 // 4
+// for_brk_cnt(0, 0)
+chess_report(int): 0x00000000 // 0
+chess_report(int): 0x00000000 // 0
+chess_report(int): 0x00000000 // 0
+// for_brk_cnt(0, 1)
+chess_report(int): 0x00000000 // 0
+chess_report(int): 0x00000000 // 0
+chess_report(int): 0x00000000 // 0
+// while_brk_cnt_2(4, 0, 0)
+chess_report(int): 0x0000022b // 555
+// while_brk_cnt_2(4, 0, 1)
+chess_report(int): 0x00000037 // 55
+// while_brk_cnt_2(4, 1, 0)
+chess_report(int): 0x00000001 // 1
+// while_brk_cnt_2(4, 1, 1)
+chess_report(int): 0x00000001 // 1
+// for_nested_1(7, 0)
+chess_report(int): 0x000017e5 // 6117
+// for_nested_1(8, 0)
+chess_report(int): 0x00001bce // 7118
+// for_nested_1(7, 1)
+chess_report(int): 0x00001781 // 6017
+// for_nested_1(8, 1)
+chess_report(int): 0x00001b6a // 7018
+// for_nested_2(3, 0)
+chess_report(int): 0x00000003 // 3
+chess_report(int): 0x00000042 // 66
+// for_nested_2(3, 1)
+chess_report(int): 0x00000003 // 3
+chess_report(int): 0x00000bbb // 3003

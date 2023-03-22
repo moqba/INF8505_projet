@@ -1,0 +1,40 @@
+// ack(0, 0)
+chess_report(int): 0x00000001 // 1
+// ack(0, 1)
+chess_report(int): 0x00000002 // 2
+// ack(0, 2)
+chess_report(int): 0x00000003 // 3
+// ack(0, 3)
+chess_report(int): 0x00000004 // 4
+// ack(0, 4)
+chess_report(int): 0x00000005 // 5
+// ack(1, 0)
+chess_report(int): 0x00000002 // 2
+// ack(1, 1)
+chess_report(int): 0x00000003 // 3
+// ack(1, 2)
+chess_report(int): 0x00000004 // 4
+// ack(1, 3)
+chess_report(int): 0x00000005 // 5
+// ack(1, 4)
+chess_report(int): 0x00000006 // 6
+// ack(2, 0)
+chess_report(int): 0x00000003 // 3
+// ack(2, 1)
+chess_report(int): 0x00000005 // 5
+// ack(2, 2)
+chess_report(int): 0x00000007 // 7
+// ack(2, 3)
+chess_report(int): 0x00000009 // 9
+// ack(2, 4)
+chess_report(int): 0x0000000b // 11
+// ack(3, 0)
+chess_report(int): 0x00000005 // 5
+// ack(3, 1)
+chess_report(int): 0x0000000d // 13
+// ack(3, 2)
+chess_report(int): 0x0000001d // 29
+// ack(3, 3)
+chess_report(int): 0x0000003d // 61
+// ack(3, 4)
+chess_report(int): 0x0000007d // 125

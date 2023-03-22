@@ -1,0 +1,8 @@
+<project name="Project" processor="vlx" lib="..">
+    <file type="c" name="math.c" path="src"/>
+    <file type="c" name="mlib_inline.c" path="src"/>
+    <option id="llvm.lang" value="ext"/>
+    <option id="project.dir" value="lib/&lt;CONFIG&gt;"/>
+    <option id="project.name" value="libm.a"/>
+    <option id="project.type" value="arch"/>
+</project>

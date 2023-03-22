@@ -1,0 +1,93 @@
+<processor name="Processor">
+    <compilation name="Compilation">
+        <library name="Processor model">
+            <option id="cpp.wundef" value="off"/>
+            <option id="noodle.alwinc" value="" inherit="0"/>
+            <option id="noodle.debug.osps" value="off"/>
+            <option id="noodle.debug.sa" value="none"/>
+            <option id="noodle.debug.sca" value="off"/>
+            <view in="1" type="c" name="Compilation"/>
+            <view in="1" type="a" name="Linking and (dis)assembling"/>
+            <view in="1" type="s" name="Simulation"/>
+            <view in="1" type="h" name="HDL generation"/>
+        </library>
+        <option id="backend.amnesia.clustrerout" value="2"/>
+        <option id="backend.amnesia.clustrout" value="4"/>
+        <option id="backend.cosel.fse" value="all"/>
+        <option id="backend.cosel.move" value="on"/>
+        <option id="backend.cosel.status" value="on"/>
+        <option id="backend.mist2.debug" value="on" cfg="Debug"/>
+        <option id="backend.mist2.nops" value="on"/>
+        <option id="backend.showcolor.greedy" value="on"/>
+        <option id="bridge.cfg" value="&lt;PROCDIR&gt;/plx.bcf"/>
+        <option id="bridge.libpath" value="&lt;PROCDIR&gt;/&lt;CONFIG&gt; &lt;PROCDIR&gt;/runtime/lib/&lt;CONFIG&gt; &lt;PROCDIR&gt;/softfloat/lib/&lt;CONFIG&gt;" inherit="1" cfg="Debug"/>
+        <option id="bridge.libpath" value="&lt;PROCDIR&gt;/&lt;CONFIG&gt;" inherit="1" cfg="Native"/>
+        <option id="bridge.libpath" value="&lt;PROCDIR&gt;/&lt;CONFIG&gt; &lt;PROCDIR&gt;/runtime/lib/&lt;CONFIG&gt; &lt;PROCDIR&gt;/softfloat/lib/&lt;CONFIG&gt;" inherit="1" cfg="Release"/>
+        <option id="bridge.llibs" value="plx c softfloat m" inherit="1" cfg="Debug"/>
+        <option id="bridge.llibs" value="native" inherit="1" cfg="Native"/>
+        <option id="bridge.llibs" value="plx c softfloat m" inherit="1" cfg="Release"/>
+        <option id="bridge.map.call" value="on"/>
+        <option id="bridge.map.calltree" value="on"/>
+        <option id="bridge.map.file" value="on"/>
+        <option id="bridge.map.radix" value="hex"/>
+        <option id="bridge.map.ref" value="on"/>
+        <option id="bridge.map.sdr" value="on"/>
+        <option id="bridge.symtab" value="on"/>
+        <option id="cpp.include" value="&lt;PROCDIR&gt;/runtime/include" inherit="1" cfg="Debug"/>
+        <option id="cpp.include" value="&lt;PROCDIR&gt;/runtime/include" inherit="1" cfg="Release"/>
+        <option id="darts.dis.format" value="lst"/>
+        <option id="darts.dis.iradix" value="hex"/>
+        <option id="native.lnxcomp" value="-m32" inherit="1"/>
+        <option id="native.lnxlink" value="-m32" inherit="1"/>
+        <option id="native.native" value="on" cfg="Native"/>
+        <option id="noodle.alwinc" value="plx_chess.h" inherit="1" cfg="Debug"/>
+        <option id="noodle.alwinc" value="plx_native.h" inherit="1" cfg="Native"/>
+        <option id="noodle.alwinc" value="plx_chess.h" inherit="1" cfg="Release"/>
+        <option id="noodle.debug.osps" value="on" cfg="Debug"/>
+        <option id="noodle.debug.sa" value="sal" cfg="Debug"/>
+        <option id="noodle.debug.sca" value="on" cfg="Debug"/>
+        <option id="noodle.optim.norle" value="on" cfg="Debug"/>
+        <option id="noodle.optim.notcr" value="on" cfg="Debug"/>
+        <option id="noodle.optim.rlt" value="no"/>
+        <option id="project.dasobj" value="on"/>
+        <option id="project.dastgt" value="on"/>
+        <option id="project.dwarf" value="on"/>
+        <option id="simrun.dbgopts" value="{-u server=localhost} {-u core = 1}" inherit="1"/>
+        <option id="simrun.eombp" value="on"/>
+        <option id="simrun.hdlprx" value="&lt;PROCDIR&gt;/../hdl/plx_vlog.prx &lt;PROCDIR&gt;/../hdl/plx_vhdl.prx" inherit="1"/>
+        <option id="simrun.issca" value="&lt;PROCDIR&gt;/../iss/plx_ca &lt;PROCDIR&gt;/../iss/plx_st" inherit="1"/>
+        <option id="simrun.issdb" value="&lt;PROCDIR&gt;/../debug_client/plx_client" inherit="1"/>
+        <option id="simrun.loadpc" value="off"/>
+        <option id="simrun.loadsp" value="off"/>
+        <option id="simrun.simscript" value="&lt;PROCDIR&gt;/../bin/iss.tcl"/>
+    </compilation>
+    <configuration name="Release"/>
+    <configuration name="Debug"/>
+    <configuration name="Native"/>
+    <hdlgeneration name="HDL generation">
+        <option id="hdl.usepcu" value="on"/>
+        <option id="hdl.usepdg" value="on"/>
+    </hdlgeneration>
+    <option id="animal.printhaz" value="on"/>
+    <reglayout> &lt;label&gt;  Registers &lt;empty&gt;  {{PC SP LR PL PH MC} {R0 R1 R2 R3 R4 R5 R6 R7} {R8 R9 R10 R11 R12 R13 R14 R15}}
+ &lt;empty&gt;  &lt;label&gt;  {Pipe regs}
+ &lt;empty&gt;  {{ {__pS1_r __pS2_r} {__pD1_r __pD2_r} {__pE1_r __pE2_r}} }
+ &lt;empty&gt;  &lt;label&gt;  {Non-threaded Registers}
+ &lt;empty&gt;  { EN TK ACK AP }
+ &lt;empty&gt;  &lt;label&gt;  {CMD Interface}
+ {host_SP host_PC}
+ {host_CTX host_CMD}</reglayout>
+    <simulation name="Simulator generation" mode="top">
+        <option id="checkers.UsePCU" value="on"/>
+        <option id="checkers.UsePDG" value="on"/>
+        <sim name="Cycle accurate" mode="ca"/>
+        <sim name="Instruction accurate" mode="ia">
+            <option id="checkers.ControllerHeader" value="&lt;PROCDIR&gt;/plx_iapcu.h"/>
+            <option id="checkers.InstructionAccurateNextInstructionPCStorages" value="lnk" inherit="1"/>
+            <option id="checkers.UsePDG" value="on"/>
+        </sim>
+        <sim name="Debug client" mode="db">
+            <option id="checkers.UsePDG" value="on"/>
+        </sim>
+    </simulation>
+</processor>

@@ -1,0 +1,6 @@
+ // test_jal
+chess_report(int): 0x0000006b // 107
+chess_report(int): 0x0000006f // 111
+ // test_jalr
+chess_report(int): 0x000000d9 // 217
+chess_report(int): 0x000000dd // 221

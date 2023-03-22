@@ -1,0 +1,8 @@
+// test_int26
+chess_report(int): 0x00000133 // 307
+// test_long26
+chess_report(long long): 0x000000000000003e // 62
+// test_ptr26
+chess_report(int): 0x00000131 // 305
+// test_mixed
+chess_report(long long): 0x0000000000000967 // 2407

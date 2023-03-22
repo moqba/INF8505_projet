@@ -1,0 +1,23 @@
+#!/bin/sh -e
+
+./make_verilator
+
+chessmk lib/dlx.prx -r
+chessmk lib/dlx.prx
+chessmk -C Native       lib/libnative.prx
+chessmk -C Release      lib/libdlx.prx
+#chessmk -C Debug        lib/libdlx.prx
+#chessmk -C Release_LLVM lib/compiler-rt/compiler_rt.prx
+#chessmk -C Debug_LLVM   lib/compiler-rt/compiler_rt.prx
+chessmk -C Release      lib/runtime/libc.prx
+#chessmk -C Release_LLVM lib/runtime/libc.prx
+#chessmk -C Debug        lib/runtime/libc.prx
+#chessmk -C Debug_LLVM   lib/runtime/libc.prx
+chessmk -C Release      lib/runtime/libm.prx
+#chessmk -C Release_LLVM lib/runtime/libm.prx
+#chessmk -C Debug        lib/runtime/libm.prx
+#chessmk -C Debug_LLVM   lib/runtime/libm.prx
+chessmk -C Release      lib/softfloat/softfloat.prx
+#chessmk -C Debug        lib/softfloat/softfloat.prx
+chessmk iss/dlx_ca_verilator.prx
+

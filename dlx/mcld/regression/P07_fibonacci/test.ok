@@ -1,0 +1,33 @@
+// fib(0)
+chess_report(int): 0x00000001 // 1
+chess_report(int): 0x00000001 // 1
+// fib(1)
+chess_report(int): 0x00000001 // 1
+chess_report(int): 0x00000001 // 1
+// fib(2)
+chess_report(int): 0x00000002 // 2
+chess_report(int): 0x00000002 // 2
+// fib(3)
+chess_report(int): 0x00000003 // 3
+chess_report(int): 0x00000003 // 3
+// fib(4)
+chess_report(int): 0x00000005 // 5
+chess_report(int): 0x00000005 // 5
+// fib(5)
+chess_report(int): 0x00000008 // 8
+chess_report(int): 0x00000008 // 8
+// fib(6)
+chess_report(int): 0x0000000d // 13
+chess_report(int): 0x0000000d // 13
+// fib(7)
+chess_report(int): 0x00000015 // 21
+chess_report(int): 0x00000015 // 21
+// fib(8)
+chess_report(int): 0x00000022 // 34
+chess_report(int): 0x00000022 // 34
+// fib(9)
+chess_report(int): 0x00000037 // 55
+chess_report(int): 0x00000037 // 55
+// fib(10)
+chess_report(int): 0x00000059 // 89
+chess_report(int): 0x00000059 // 89

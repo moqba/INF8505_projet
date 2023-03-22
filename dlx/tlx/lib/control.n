@@ -1,0 +1,345 @@
+/*
+-- File : control.n
+--
+-- Contents : nML model for the TLX processor -- control instructions.
+--
+-- Copyright (c) 2014-2021 Synopsys, Inc. This Synopsys processor model
+-- captures an ASIP Designer Design Technique. The model and all associated
+-- documentation are proprietary to Synopsys, Inc. and may only be used
+-- pursuant to the terms and conditions of a written license agreement with
+-- Synopsys, Inc.  All other use, reproduction, modification, or distribution
+-- of the Synopsys processor model or the associated  documentation is
+-- strictly prohibited.
+*/
+
+
+
+opn control_instr( br_instr | j_instr | jal_instr | jalr_instr | jr_instr
+                 | jti_instr | rti_instr | halt | mv_to_r | mv_r_to | ei | di
+                 | do_instr | doi_instr
+                 | zloop_instr
+                 | nop_instr | swbrk_instr );
+
+// Jump pipeline for j and jal
+//
+// i   : j    : IF  ID  EX
+// i+1 : ds1  :     IF  ID  EX
+// i+2 : t1   :         IF  ID  EX
+
+// Jump pipeline for jalr, jar, beqz-taken and bnez-taken
+// Branch not taken pipeline: beqz-not-taken and bnez-not-taken
+//
+// i   : beqz : IF  ID  EX
+// i+1 : ds1  :     IF  ID  EX
+// i+2 : ds2  :         IF  ID  EX
+// i+3 : n1   :             IF  ID  EX
+
+trn cnd<bool>;
+trn of16<int16>;
+trn of26<int26>;
+trn trgt<w32>;
+trn lnk<w32>;
+
+trn tid_lnk<w32>;   hw_init tid_lnk = 0; // link to the instruction in the pre-fetch stage (PC+1)
+trn tex_lnk<w32>;   hw_init tex_lnk = 0; // link to the instruction in the pre-fetch stage (PC+1)
+
+#ifdef __programmers_view__
+#define DS1
+#define DS2
+#else
+trn ds1<uint1>;    hw_init ds1 = 0;
+trn ds2<uint1>;    hw_init ds2 = 0;
+#define DS1 stage ID: ds1=1;
+#define DS2 stage EX: ds2=1;
+#endif
+
+fu eq;   // test beqz or bnez
+trn eqA<w32>;
+
+fu pca;
+trn pcaA<w32>;
+trn pcaB<w32>;
+trn pcaC<w32>;
+
+trn lnk_if<w32>;
+hw_init lnk_if = 0;
+
+opn br_instr(op: opcode, a: mR1, i: c16s)
+{
+    action { DS1 DS2
+    stage EX:
+        switch (op) {
+        case beqz: cnd = eqz(eqA=a) @eq;
+        case bnez: cnd = nez(eqA=a) @eq;
+        }
+        br(cnd,of16=i);
+    }
+    syntax : op " " a ",#" i;
+    image  : op::a::"00000"::i, delay_slots(2), chess_pc_offset(2), class(jump_ex);
+}
+
+opn j_instr(i: c26s)
+{
+    action { DS1
+    stage ID:
+        j(of26=i);
+    }
+    syntax : "j #" i;
+    image  : opcode.j::i, delay_slots(1), chess_pc_offset(1), class(jump_id);
+}
+
+opn jal_instr(lr: mLR, i: c26s)
+{
+    action { DS1
+    stage ID:
+        lr = tid_lnk = jal(of26=i);
+    }
+    syntax : "jal #" dec i;
+    dummy_syntax : lr;
+    image  : opcode.jal::i, delay_slots(1), chess_pc_offset(1), class(jump_id);
+}
+
+opn jalr_instr(lr: mLR, b: mR2)
+{
+    action { DS1 DS2
+    stage EX:
+        lr = tex_lnk = jalr(trgt=b);
+    }
+    syntax : "jalr " b;
+    dummy_syntax : lr;
+    image  : opcode.jalr::b::"00000"::"0000000000000000", delay_slots(2),class(jump_ex);
+}
+
+opn jr_instr(a: mR1)
+{
+    action { DS1 DS2
+    stage EX:
+        jr(trgt=a);
+    }
+    syntax : "jr " a;
+    image  : opcode.jr::a::"00000"::"0000000000000000", delay_slots(2),class(jump_ex);
+}
+
+opn nop_instr()
+{
+    action { stage ID: nop(); }
+    syntax : "nop";
+    image  : opcode.function::"00000"::"00000"::"00000"::function_code.nop;
+}
+
+mode mSR()  { value : SR;  syntax : "sr"; }
+mode mISR() { value : ISR; syntax : "isr"; }
+mode mILR() { value : ILR; syntax : "ilr"; }
+mode mIM()  { value : IM read(imr) write (imw);  syntax : "im"; }
+mode mSpecial(mSR|mISR|mILR|mIM) { image : "00"::mSR|"01"::mISR|"10"::mILR|"11"::mIM; }
+
+opn jti_instr(tg: c5u_s2)
+{
+    action { DS1 DS2
+    stage ID:
+        ILR = lnk_if = jti(trgt=tg);
+    stage EX:
+        IE = iew = 0;
+        ISR = movR = movA = SR;
+    }
+    syntax : "jti " dec tg;
+    image  : opcode.irq::"00000"::"000000000000"::tg::irq_code.jti,cycles(2), class(jump_id), pdg_encoding(tg);
+}
+
+opn rti_instr()
+{
+    action {
+    stage ID:
+        rti(trgt=ILR);
+#if !defined(__programmers_view__)
+    stage EX:
+        SR = movR = movA = ISR;
+#endif
+    }
+    syntax : "rti" ;
+    image  : opcode.irq::"00000"::"00000000000000000"::irq_code.rti, cycles(2);
+}
+
+opn halt()
+{
+    action { DS1 DS2
+    stage ID:
+        halt();
+    }
+    syntax : "halt" ;
+    image  : opcode.irq::"00000"::"00000000000000000"::irq_code.halt,cycles(2);
+}
+
+trn movA<w32>;
+trn movR<w32>;
+opn mv_r_to(d:mSpecial, s: mR1)
+{
+    action {
+    stage ID..EX:
+        movA = s`EX`;
+    stage EX:
+        d    = movA;
+    }
+    syntax : "mv " d"," s;
+    image  : opcode.irq::s::"xxxxx"::"xxx"::d::"xxxxxxx"::irq_code.rto;
+}
+
+opn mv_to_r(d: mR1, s:mSpecial)
+{
+    action {
+    stage ID..EX:
+        movR = s`EX`;
+    stage EX:
+        d    =w1= movR`EX`;
+    }
+    syntax : "mv " d"," s;
+    image  : opcode.irq::"xxx"::s::"xxxxx"::d::"xxxxxxx"::irq_code.tor;
+}
+
+opn ei() // enable irq
+{
+    action { stage EX: IE = iew = 1; }
+    syntax : "ei";
+    image  : opcode.irq::"00000"::"00000000000000000"::irq_code.ei;
+}
+
+opn di() // disable irq
+{
+    action { DS1 DS2
+        stage EX:
+            IE = iew = 0;
+    }
+    syntax : "di";
+    image  : opcode.irq::"00000"::"00000000000000000"::irq_code.di;
+}
+
+
+trn le_offs<int16>;
+
+opn loop(last: c16s)
+{
+    action { DS1 DS2
+    stage EX:
+        le_offs = last rsrc(pcaC);
+        hwdo(lcw,le_offs);
+#if !defined(__programmers_view__)
+        LF = lfw = incr(lfr=LF);
+        pcaB = le_offs;
+        pcaC = pcadd(pcaA=pcr=PC,pcaB) @pca;
+        LE[lfw] = lew = pcaC;
+        LS[lfw] = lsw = tex_lnk;
+        LC[lfw] = lcw;
+#endif
+    }
+    syntax : last;
+    image : last, delay_slots(2), chess_pc_offset(2);
+}
+
+opn do_instr(a: mR1, l: loop)
+{
+    action {
+    stage EX:
+        lcw = a;
+    stage ID..EX:
+        l;
+    }
+    syntax : "do " a "," l;
+    image : opcode.do::a::"xxxxx"::l;
+}
+
+opn doi_instr(count: c10u, l: loop)
+{
+    action {
+    stage EX:
+        lcw = count;
+    stage ID..EX:
+        l;
+    }
+    syntax : "doi " dec count "," l;
+    image : opcode.doi::count::l;
+}
+
+
+
+// zloop
+
+opn zloop_instr(zloop_s_instr|zloop_e_instr|zloop_cr_instr|zloop_ci_instr);
+
+cst c24u  <uint24>;
+
+trn tzc<w32>;
+trn tzs<w32>;
+trn tze<w32>;
+
+// Instructions
+// * mv zs, int       : offset int16
+// * mv ze, int       : offset int16
+// * mv zc, int       : uint24
+// * mv zc, reg       : w32
+
+// mv zs, imm
+opn zloop_s_instr(s: c16s, zs: mZS) {
+  action { DS1 DS2
+    stage EX: zs = tzs; tzs = le_offs = s;
+  }
+  syntax : "mv zs," s;
+  image  : opcode.zlp :: "xxxxx" :: "00xxx" :: s, chess_pc_offset(2);
+}
+
+// mv ze, imm
+opn zloop_e_instr(e: c16s, ze: mZE) {
+  action { DS1 DS2
+    stage EX: ze = tze; tze = le_offs = e;
+  }
+  syntax : "mv ze," e;
+  image  : opcode.zlp :: "xxxxx" :: "01xxx" :: e, chess_pc_offset(2);
+}
+
+// mv zc, reg
+opn zloop_cr_instr(c: mR1, zc: mZC) {
+  action {
+    stage EX: zc = tzc = c;
+  }
+  syntax : "mv zc," c;
+  image  : opcode.zlp :: c :: "10xxx" :: "xxxxxxxxxxxxxxxx";
+}
+
+// mv zc, imm
+opn zloop_ci_instr(c: c24u, zc: mZC) {
+  action {
+    stage EX: zc = tzc = c;
+  }
+  syntax : "mv zc," c;
+  image  : opcode.zlp :: c[23..19] :: "11":: c[18..0];
+}
+
+
+// read/write ZS/ZE
+chess_view () { pcaC = pcadd(pcaA=pcr=PC,pcaB); } -> { pcaC=pcaB; }
+mode mZS() {
+  write_value : stage EX: pcaB;
+  write_action {
+    stage EX: pcaC = pcadd(pcaA=pcr=PC,pcaB) @pca;
+              ZS = zsw = pcaC;
+  }
+}
+
+mode mZE() {
+  write_value : stage EX: pcaB;
+  write_action {
+    stage EX: pcaC = pcadd(pcaA=pcr=PC,pcaB) @pca;
+              ZE = zew = pcaC;
+  }
+}
+
+// read/write ZC
+mode mZC() {
+  write_value : stage EX: zcw;
+  write_action {
+    stage EX: ZC = zcw;
+#ifndef __programmers_view__
+    stage EX: ZD = zcw; // zloop_count_invariant
+#endif
+  }
+}
+

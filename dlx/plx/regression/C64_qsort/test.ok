@@ -1,0 +1,22 @@
+// test1()
+chess_report(int): 0xffffd8f1 // -9999
+chess_report(int): 0xffffff22 // -222
+chess_report(int): 0xffffffec // -20
+chess_report(int): 0xfffffff7 // -9
+chess_report(int): 0x00000003 // 3
+chess_report(int): 0x00000005 // 5
+chess_report(int): 0x0000000a // 10
+chess_report(int): 0x00000064 // 100
+chess_report(int): 0x000004d2 // 1234
+chess_report(int): 0x0000162e // 5678
+// test2()
+chess_report(int): 0x0000000a // 10
+chess_report(int): 0x00000004 // 4
+chess_report(int): 0x00000002 // 2
+chess_report(int): 0x00000007 // 7
+chess_report(int): 0x00000005 // 5
+chess_report(int): 0x00000006 // 6
+chess_report(int): 0x00000001 // 1
+chess_report(int): 0x00000003 // 3
+chess_report(int): 0x00000008 // 8
+chess_report(int): 0x00000009 // 9

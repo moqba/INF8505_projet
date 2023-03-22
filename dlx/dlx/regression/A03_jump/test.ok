@@ -1,0 +1,4 @@
+ // test_j
+chess_report(int): 0x00000072 // 114
+ // test_jr
+chess_report(int): 0x000000d9 // 217

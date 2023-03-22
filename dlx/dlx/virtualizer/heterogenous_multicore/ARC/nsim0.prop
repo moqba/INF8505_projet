@@ -1,0 +1,4 @@
+nsim_mem-dev=sc_bridge,start=0x00000000,end=0xFFFFFFFF
+nsim_hostlink=1
+nsim_use_one_based_arcnum=0
+nsim_cpunum0=0

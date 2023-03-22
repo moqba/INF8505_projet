@@ -1,0 +1,14 @@
+include: |
+    #include "adapters/var_latency_mem_ia_tlm2_ft_axi_adapter.h"
+
+declare: |
+    scml2::ft_initiator_socket<8> p_DMb_ft;
+    
+construct: |
+    mdl->m_DMb = new VarLatency_IA_TLM2_FT_AXI_Adapter<8>("m_DMb", &p_DMb_ft, this, this->mdl);
+
+initialize: |
+    , p_DMb_ft("p_DMb_ft")
+
+end_of_elab: |
+    (*(((VarLatency_IA_TLM2_FT_AXI_Adapter<8>*)mdl->m_DMb)->mSocketAdapter))(scml2::get_scml_clock([=$iss get clock=]));

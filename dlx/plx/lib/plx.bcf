@@ -1,0 +1,13 @@
+/*
+-- File : plx.bcf
+-- Contents :  default linker configuration file.
+-- Copyright (c) 2014 Synopsys Inc.
+*/
+
+_entry_point _main_init
+_symbol _main _after _main_init
+_symbol _main_init 0
+
+_reserved DMb 0 4 // reserve location used by debug client (see  debug_client/pdc_data_address.h)
+
+_stack DMb 0x8000 0x08000

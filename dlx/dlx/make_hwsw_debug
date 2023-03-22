@@ -1,0 +1,14 @@
+#!/bin/sh -e
+
+#build model, libraries and ISS
+chessmk -m +P 12 model.prx
+
+#Generate HDL
+chessmk hdl/dlx_vlog_hwsw.prx
+
+#build sort example
+chessmk sort/sort.prx
+
+#run sort on ISS
+chessmk -S sort/sort.prx -sim-script ../bin/iss_rcd.tcl
+

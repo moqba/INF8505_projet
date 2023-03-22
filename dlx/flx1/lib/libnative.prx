@@ -1,0 +1,7 @@
+<project name="Project" processor="flx" lib="">
+    <active cfg="Native"/>
+    <file type="c" name="flx_chess_opns.c" path="isg"/>
+    <file type="c" name="flx_chess_types.c" path="isg"/>
+    <option id="project.name" value="libnative.a"/>
+    <option id="project.type" value="arch"/>
+</project>

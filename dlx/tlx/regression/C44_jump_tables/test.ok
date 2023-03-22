@@ -1,0 +1,44 @@
+// switch_closed_annotated(0)
+chess_report(int): 0x0000003e // 62
+// switch_closed_annotated(1)
+chess_report(int): 0x00000011 // 17
+// switch_closed_annotated(2)
+chess_report(int): 0xfffffffb // -5
+// switch_closed_annotated(3)
+chess_report(int): 0x00000004 // 4
+// switch_closed_annotated(4)
+chess_report(int): 0x0000002e // 46
+// switch_closed_auto(0)
+chess_report(int): 0x00000048 // 72
+// switch_closed_auto(1)
+chess_report(int): 0x00000007 // 7
+// switch_closed_auto(2)
+chess_report(int): 0xfffffff1 // -15
+// switch_closed_auto(3)
+chess_report(int): 0x0000000e // 14
+// switch_closed_auto(4)
+chess_report(int): 0x00000038 // 56
+// switch_open_annotated(0)
+chess_report(int): 0x0000003e // 62
+// switch_open_annotated(1)
+chess_report(int): 0x00000011 // 17
+// switch_open_annotated(2)
+chess_report(int): 0xfffffffb // -5
+// switch_open_annotated(3)
+chess_report(int): 0x00000004 // 4
+// switch_open_annotated(4)
+chess_report(int): 0x0000002e // 46
+// switch_open_annotated(7)
+chess_report(int): 0x0000004f // 79
+// switch_open_auto(0)
+chess_report(int): 0x00000048 // 72
+// switch_open_auto(1)
+chess_report(int): 0x00000007 // 7
+// switch_open_auto(2)
+chess_report(int): 0xfffffff1 // -15
+// switch_open_auto(3)
+chess_report(int): 0x0000000e // 14
+// switch_open_auto(4)
+chess_report(int): 0x00000038 // 56
+// switch_open_auto(7)
+chess_report(int): 0x00000059 // 89

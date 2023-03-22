@@ -1,0 +1,60 @@
+
+                  The FLX Processor 
+                        README 
+                   _TCTCLIB_VERSION_
+
+
+   Copyright (c) 2014-2021 Synopsys, Inc.  These Synopsys processor models 
+   capture an ASIP Designer Design Technique. The models and all associated 
+   documentation are proprietary to Synopsys, Inc. and may only be used 
+   pursuant to the terms and conditions of a written license agreement with 
+   Synopsys, Inc.  All other use, reproduction, modification, or distribution 
+   of the Synopsys processor model or the associated  documentation is 
+   strictly prohibited.
+
+
+The FLX example core demonstrates how to model floating point instructions in 
+the ASIP Designer tools. FLX implements the same instruction set as DLX, 
+but adds floating point instructions to it.  FLX also uses the 5 stage 
+pipeline of DLX.
+
+The following floating point operations will be implemented on regular
+functional units, with a throughput of one operation per cycle:
+  - addition and subtraction,
+  - multiplication,
+  - the comparisons less than, less than or equal and equal, and
+  - type conversions between int and float and rounding.
+The floating point operations division and square root are also supported and
+are implemented on multi-cycle functional units.
+
+This directory contains three alternative implementations for the floating 
+point units.
+
+- FLX1: Implements IEEE-754 single precision floating point operations with a 
+  PDG based implementation for the floating point primitive functions.
+
+- FLX2: Implements IEEE-754 single precision floating point operations with a 
+  Synopsys DesignWare based RTL implementation of the floating point units, 
+  and a C++ model  for the ISS.
+
+- FLX3: Implements a reduced width floating point type with 15 mantissa bits 
+  instead of 23.  For the RTL implementation DesignWare components are used,
+  while for the ISS and for Native execution, an open source tool is used to 
+  convert the reference Verilog code to a bit-exact C++ code.
+
+All floating point arithmetic use round-to-nearest even and support subnormals.
+
+ChessDE projects
+
+ flxN/model.prx: Batch project that comprises following ChessDE projects 
+    lib/libflx.prx               -- processor support library
+    lib/softfloat/softfloat.prx  -- floating point emulation
+    lib/runtime/libc.prx         -- C runtime library
+    lib/runtime/libm.prx         -- C math library
+    lib/libnative.prx            -- Native compilation project
+    iss/flx_ca.prx               -- Cycle accurate ISS
+    fdl/flx_vlog.prx             -- RTL (Verilog) generation project 
+
+The FLX designs are documented in the DLX core processor manual, in the 
+chapter "The FLX Variant".
+

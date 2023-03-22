@@ -1,0 +1,30 @@
+// ptr_difference
+chess_report(int): 0x00000002 // 2
+chess_report(int): 0x00000002 // 2
+// ptr_difference
+chess_report(int): 0xfffffffe // -2
+chess_report(int): 0xfffffffe // -2
+// ptr_difference
+chess_report(int): 0x00000000 // 0
+chess_report(int): 0x00000000 // 0
+// ptr_comparison
+chess_report(int): 0x0000000a // 10
+chess_report(int): 0x00000015 // 21
+chess_report(int): 0x0000001e // 30
+chess_report(int): 0x00000029 // 41
+chess_report(int): 0x00000032 // 50
+chess_report(int): 0x0000003d // 61
+// ptr_comparison
+chess_report(int): 0x0000000b // 11
+chess_report(int): 0x00000014 // 20
+chess_report(int): 0x0000001f // 31
+chess_report(int): 0x00000028 // 40
+chess_report(int): 0x00000032 // 50
+chess_report(int): 0x0000003d // 61
+// ptr_comparison
+chess_report(int): 0x0000000b // 11
+chess_report(int): 0x00000015 // 21
+chess_report(int): 0x0000001e // 30
+chess_report(int): 0x00000028 // 40
+chess_report(int): 0x00000033 // 51
+chess_report(int): 0x0000003c // 60
