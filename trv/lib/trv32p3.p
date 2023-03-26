@@ -80,7 +80,7 @@ void mul_hw(w32 opa, w32 opb, t2u mode, w32 & pl, w32 & ph) {
 }
 
 
-#include "jpeg.p"
+#include "kruskal.p"
 #include "div.p"
 
 #ifndef TRV32P3_NO_IO

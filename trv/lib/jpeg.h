@@ -11,8 +11,6 @@
 
 namespace trv32p3_primitive {
 
-
-
 }
 
 #endif

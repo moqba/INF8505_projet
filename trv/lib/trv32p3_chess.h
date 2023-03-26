@@ -165,7 +165,7 @@ chess_properties {
 
 }
 
-#include "trv32p3_jpeg.h"
+#include "trv32p3_kruskal.h"
 #include "trv32p3_int.h"
 #include "trv32p3_longlong.h"
 #include "trv32p3_setcmp.h"

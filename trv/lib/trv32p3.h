@@ -147,6 +147,6 @@ namespace trv32p3_primitive {
 
 }
 
-#include "jpeg.h"
+#include "kruskal.h"
 
 #endif // INCLUDED_TRV32P3_H_

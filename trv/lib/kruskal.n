@@ -1,0 +1,50 @@
+/*
+-- kruskal.n
+--
+-- Ce fichier est inclus à la fin de trv32p3.n
+--
+-- Description en nML des instructions personnalisées KRUSKAL
+*/
+
+// Il peut être nécessaire de modifier trv32p3.n pour ajouter votre classe d'instructions à CUSTOM3
+
+
+reg RA <w32> alias X[8] read(rar) write(raw);
+reg RB <w32> alias X[9] read(rbr) write(rbw);
+reg RC <w32> alias X[10] read(rcr) write(rcw);
+reg RD <w32> alias X[11] read(rdr) write(rdw);
+reg RE <w32> alias X[12] read(rer) write(rew);
+reg RF <w32> alias X[13] read(rfr) write(rfw);
+
+fu krus;
+trn idxX<w32>;
+
+enum kruskal_hw {
+  swap_hw = 0b100000000001111
+};
+
+opn krus_instr(swap_hw);
+
+opn swap_hw()
+{
+  action {
+  stage EX:
+    rar = RA;
+    rbr = RB;
+    rcr = RC;
+    rdr = RD;
+    rer = RE;
+    rfr = RF;
+    swap_hw(rar, rbr, rcr ,
+            rdr, rer, rfr ,
+            ) @krus;
+    RA = raw;
+    RB = rbw;
+    RC = rcw;
+    RD = rdw;
+    RE = rew;
+    RF = rfw;
+  }
+  syntax : "swap_hw";
+  image : kruskal_hw.swap_hw::"00000"::"00000";
+}

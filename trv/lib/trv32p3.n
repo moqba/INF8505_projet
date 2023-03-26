@@ -214,10 +214,10 @@ opn majJAL     (jal_instr)                                    complete_image;
 opn majJALR    (jalr_instr)                                   complete_image;
 opn majLUI     (alu_lui_instr)                                complete_image;
 opn majAUIPC   (alu_auipc_instr)                              complete_image;
-opn majCUSTOM3 (alu_rriu_ar_instr)                            complete_image;
+opn majCUSTOM3 (alu_rriu_ar_instr | krus_instr)               complete_image;
 
 
-#include "jpeg.n"
+#include "kruskal.n"
 #include "alu.n"
 #include "mpy.n"
 #include "ldst.n"
