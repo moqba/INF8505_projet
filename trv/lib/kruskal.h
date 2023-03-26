@@ -10,7 +10,7 @@
 #define KRUSKAL_H
 
 namespace trv32p3_primitive {
-    void swap_hw(w32& xu, w32& xv, w32& xw, w32& yu, w32& yv, w32& yw);
+    void swap_hw(w32 xr, w32 yr, w32& xw, w32& yw);
 }
 
 #endif

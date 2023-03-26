@@ -31,19 +31,10 @@ opn swap_hw()
   stage EX:
     rar = RA;
     rbr = RB;
-    rcr = RC;
-    rdr = RD;
-    rer = RE;
-    rfr = RF;
-    swap_hw(rar, rbr, rcr ,
-            rdr, rer, rfr ,
-            ) @krus;
+    swap_hw(rar, rbr, raw ,
+            rbw ) @krus;
     RA = raw;
     RB = rbw;
-    RC = rcw;
-    RD = rdw;
-    RE = rew;
-    RF = rfw;
   }
   syntax : "swap_hw";
   image : kruskal_hw.swap_hw::"00000"::"00000";
