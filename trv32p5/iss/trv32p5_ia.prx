@@ -1,0 +1,4 @@
+<simulator name="Simulator" processor="trv32p5" mode="ia" lib="../lib">
+    <option id="checkers.IssName" value="trv32p5_ia"/>
+    <option id="checkers.WorkDir" value="work/trv32p5_ia"/>
+</simulator>

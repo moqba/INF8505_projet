@@ -1,0 +1,8 @@
+<batch name="Batch project" processor="trv32p5" lib="../lib">
+    <prj name="trv32p5_ca" path=""/>
+    <prj name="trv32p5_ca-fst" path=""/>
+    <prj name="trv32p5_ca-jit" path=""/>
+    <prj name="trv32p5_ia" path=""/>
+    <prj name="trv32p5_ia-jit" path=""/>
+    <prj name="trv32p5_ia-blockjit" path=""/>
+</batch>

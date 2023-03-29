@@ -1,0 +1,28 @@
+<project name="Project" processor="trv32p5" lib="../../lib">
+    <configuration name="Release_LLVM_tuned" parent="Release_LLVM"/>
+    <configuration name="Release_LLVM_codesize" parent="Release_LLVM"/>
+    <file type="c" name="core_list_join.c" path=""/>
+    <file type="c" name="core_main.c" path=""/>
+    <file type="c" name="core_matrix.c" path=""/>
+    <file type="c" name="core_state.c" path=""/>
+    <file type="c" name="core_util.c" path=""/>
+    <file type="c" name="core_portme.c" path="trv32p5"/>
+    <option id="backend.amnesia.xargs" value="+Ocfv -Onoprop" inherit="1" cfg="Release_LLVM_tuned"/>
+    <option id="bridge.map.frmt" value="both"/>
+    <option id="cpp.define" value="PERFORMANCE_RUN=1" inherit="1"/>
+    <option id="cpp.include" value="trv32p5 ." inherit="1"/>
+    <option id="llvm.lang" value="c" cfg="Debug_LLVM"/>
+    <option id="llvm.lang" value="c" cfg="Release_LLVM"/>
+    <option id="llvm.lang" value="c" cfg="Release_LLVM_tuned"/>
+    <option id="llvm.mllvm" value="-inline-threshold=1000 -chess-unroll-allow-partial-uncomputable-loop -chess-aainfo2chains-algo=3 -enable-newgvn -chess-enable-jump-tables=0 -chess-loop-sms -enable-loop-flatten" inherit="1" cfg="Release_LLVM_tuned"/>
+    <option id="llvm.optim" value="z" cfg="Release_LLVM_codesize"/>
+    <option id="noodle.cmode" value="on"/>
+    <option id="noodle.xargs" value="+Oinl=100" inherit="1"/>
+    <option id="project.dir" value="PERFORMANCE_RUN_&lt;CONFIG&gt;"/>
+    <option id="project.name" value="coremark"/>
+    <option id="project.type" value="exe"/>
+    <option id="backend.amnesia.mru" value="on" cfg="Release_LLVM_codesize"/>
+    <option id="backend.amnesia.rls" value="on" cfg="Release_LLVM_codesize"/>
+    <option id="backend.mist1.schedp" value="on" cfg="Release_LLVM_codesize"/>
+    <option id="backend.showcolor.balance" value="off" cfg="Release_LLVM_codesize"/>
+</project>

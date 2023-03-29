@@ -1,0 +1,22 @@
+# Copyright (c) 2019-2021 Synopsys, Inc. This Synopsys processor model
+# captures an ASIP Designer Design Technique. The model and all associated
+# documentation are proprietary to Synopsys, Inc. and may only be used
+# pursuant to the terms and conditions of a written license agreement with
+# Synopsys, Inc.  All other use, reproduction, modification, or distribution
+# of the Synopsys processor model or the associated  documentation is
+# strictly prohibited.
+
+include: |
+    #include "adapters/var_latency_mem_ia_tlm2_ft_axi_adapter.h"
+
+declare: |
+    scml2::ft_initiator_socket<[=$mem get data_width=]> p_[=$mem get name=]_ft;
+
+construct: |
+    mdl->m_[=$mem get name=] = new VarLatency_IA_TLM2_FT_AXI_Adapter<[=$mem get data_width=]>("m_[=$mem get name=]", p_[=$mem get name=]_ft, *this);
+
+initialize: |
+    , p_[=$mem get name=]_ft("p_[=$mem get name=]_ft")
+
+end_of_elab: |
+    (*(((VarLatency_IA_TLM2_FT_AXI_Adapter<[=$mem get data_width=]>*)mdl->m_[=$mem get name=])->mSocketAdapter))(scml2::get_scml_clock([=$iss get clock=]));

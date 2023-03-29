@@ -1,0 +1,65 @@
+/*
+-- File : modeX.n
+--
+-- Contents : Mode Rules for Pipelined Register File Access
+--
+-- Copyright (c) 2021 Synopsys, Inc. This Synopsys processor model
+-- captures an ASIP Designer Design Technique. The model and all associated
+-- documentation are proprietary to Synopsys, Inc. and may only be used
+-- pursuant to the terms and conditions of a written license agreement with
+-- Synopsys, Inc.  All other use, reproduction, modification, or distribution
+-- of the Synopsys processor model or the associated  documentation is
+-- strictly prohibited.
+*/
+
+// ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+// ~~~ Mode Rules for X[] Access in Pipeline Stages
+// ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+// ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+// ~~~ Read in EX
+
+mode mX1r_EX (r: mX1r) {
+  read_value  : stage EX: pidX1;
+  read_action {
+    stage ID: pidX1 = r;
+  }
+  syntax : r;
+  image  : r;
+}
+
+mode mX2r_EX (r: mX2r) {
+  read_value  : stage EX: pidX2;
+  read_action {
+    stage ID: pidX2 = r;
+  }
+  syntax : r;
+  image  : r;
+}
+
+// ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+// ~~~ Write in EX
+
+mode mX1w_EX (r: mX1w) {
+  write_value : stage EX: texX1;
+  write_action {
+    stage EX: pexX1 = texX1;
+    stage ME: pmeX1 = tmeX1 = pexX1;
+    stage WB: r = pmeX1;
+  }
+  syntax : r;
+  image  : r;
+}
+
+// ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+// ~~~ Write in ME
+
+mode mX1w_ME (r: mX1w) {
+  write_value : stage ME: tmeX1;
+  write_action {
+    stage ME: pmeX1 = tmeX1;
+    stage WB: r = pmeX1;
+  }
+  syntax : r;
+  image  : r;
+}

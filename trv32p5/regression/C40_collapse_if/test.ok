@@ -1,0 +1,30 @@
+// collapse_1(2, 9)
+chess_report(int): 0x0000006f // 111
+chess_report(int): 0x0000006f // 111
+// collapse_1(11, 9)
+chess_report(int): 0x00000050 // 80
+chess_report(int): 0x00000050 // 80
+// collapse_2(2, 9)
+chess_report(int): 0x0000006f // 111
+chess_report(int): 0x0000006f // 111
+// collapse_2(2, -9)
+chess_report(int): 0x0000006b // 107
+chess_report(int): 0x0000006b // 107
+// collapse_3(2, 9)
+chess_report(int): 0x000004bd // 1213
+chess_report(int): 0x000000cc // 204
+// collapse_3(11, 9)
+chess_report(int): 0x00000424 // 1060
+chess_report(int): 0x00000045 // 69
+// collapse_4(2, 9)
+chess_report(int): 0x000004bd // 1213
+chess_report(int): 0x000000cc // 204
+// collapse_4(11, 9)
+chess_report(int): 0x0000044c // 1100
+chess_report(int): 0x00000064 // 100
+// collapse_5(3, 5)
+chess_report(int): 0x00000175 // 373
+chess_report(int): 0x000000cd // 205
+// collapse_5(5, 3)
+chess_report(int): 0x0000044c // 1100
+chess_report(int): 0x00000064 // 100

@@ -1,0 +1,13 @@
+<simulator name="Simulator" processor="trv32p5" mode="ca" lib="../../../lib">
+    <option id="checkers.IssName" value="trv32p5_sc"/>
+    <option id="checkers.WorkDir" value="work/trv32p5_sc"/>
+    <option id="checkers.active_low_reset" value="on"/>
+    <option id="checkers.GenerateSystemCInterface" value="on"/>
+    <option id="checkers.GenerateSystemCInterfaceWithGUI" value="on"/>
+    <option id="checkers.ISSLinkType" value="lib"/>
+    <option id="checkers.NoMain" value="on"/>
+    <option id="checkers.SystemCCompile" value="off"/>
+    <option id="checkers.TLM2Wrapper" value="1"/>
+    <option id="checkers.VPAIntegration" value="on"/>
+    <option id="checkers.VPASoftwareAnalysis" value="on"/>
+</simulator>

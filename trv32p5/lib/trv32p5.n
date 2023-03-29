@@ -1,0 +1,103 @@
+/*
+-- File : trv32p5.n
+--
+-- Contents : nML model for the trv32p5 processor.
+--
+-- Copyright (c) 2019-2021 Synopsys, Inc. This Synopsys processor model
+-- captures an ASIP Designer Design Technique. The model and all associated
+-- documentation are proprietary to Synopsys, Inc. and may only be used
+-- pursuant to the terms and conditions of a written license agreement with
+-- Synopsys, Inc.  All other use, reproduction, modification, or distribution
+-- of the Synopsys processor model or the associated  documentation is
+-- strictly prohibited.
+*/
+
+#include "trv32p5_define.h"
+
+enum stage_names {
+  PF=-1, // Prefetch
+  IF,    // Instruction Fetch
+  ID,    // Instruction Decode & Operand Fetch
+  EX,    // Instruction Execute                | addr2mem
+  ME,    // Result Forward                     | mem2core
+  WB     // Writeback
+};
+
+// Note: 'PF' in the enum is included for informational purposes only.
+// Also, setting PF=-1 such that IF=0 is entirely cosmetic.
+
+
+// ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+// ~~~ Properties
+// ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+properties {
+  decode_stage                : ID;
+  endianness                  : little;         // record storages
+  program_memory_endianness   : little;         // program memory
+  chess_pc_offset             : words;          // i.e. bytes
+  control_signals             : compact;        // for jump, branch, multicycle etc.
+  darts_slot_separator        : "|";            // for VLIW (dis-)assembly
+  delay_slots                 : instructions;   // delay_slots(N) means N instructions
+}
+
+
+// ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+// ~~~ Instruction-Set Grammar
+// ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+#include "opc.n"
+
+// Top level rule
+start trv32p5;
+
+// 32-bit instruction format
+opn trv32p5 (i32fmt) { image : i32fmt::"11"; }
+
+#ifdef __go__
+opn always (ocd: ocd_if) { action { ocd; } }
+#endif
+
+opn i32fmt (
+    alu_instrs
+  | mpy_instrs
+  | div_instrs
+  | ldst_instrs
+  | ctrl_instrs
+  | swbrk_instr
+//| user_instrs TODO(userext) uncomment if used
+);
+
+// assembly syntax padding
+#define PADMNM _pad_7
+#define PADOP1 _pad_6
+#define PADOP2 _pad_5
+#define PADOP3 _pad_5
+#define PADOP4 _pad_5
+#define PADOP5 _pad_5
+
+// Recommended syntax:
+// "mnemonic" PADMNM " " op1 "," PADOP1 op2 "," PADOP2 op3 [...]
+
+// resources
+#include "mem.n"
+#include "reg.n"
+#include "regX.n"
+#include "reg_ocd.n"
+
+// pipeline registers
+#include "pipeX.n"
+
+// mode rules for resource access
+#include "modeX.n"
+
+#include "alu.n"
+#include "cst.n"
+#include "ctrl.n"
+#include "div.n"
+#include "hzrd.n"
+#include "ldst.n"
+#include "mpy.n"
+#include "ocd.n"
+
+#include "userext.n"

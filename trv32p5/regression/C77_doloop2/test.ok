@@ -1,0 +1,130 @@
+// dlp_do_ss(1000)
+chess_report(int): 0x05c8d5e8 // 97048040
+chess_report(int): 0x462427e8 // 1176774632
+chess_report(int): 0xede842b8 // -303545672
+chess_report(int): 0xe8c1c928 // -389953240
+chess_report(int): 0xcfd5d2e8 // -808070424
+chess_report(int): 0xd7e596a8 // -672819544
+chess_report(int): 0x665e0d38 // 1717439800
+chess_report(int): 0x857aed68 // -2055541400
+// dlp_do_us(1000)
+chess_report(unsigned): 0x05c8d5e8 // 97048040
+chess_report(unsigned): 0x462427e8 // 1176774632
+chess_report(unsigned): 0xede842b8 // 3991421624
+chess_report(unsigned): 0xe8c1c928 // 3905014056
+chess_report(unsigned): 0x4e846a28 // 1317300776
+// dlp_do_ss(110010, 20)
+chess_report(int): 0x03df1e2c // 64953900
+chess_report(int): 0x0a335924 // 171137316
+chess_report(int): 0xddfc30c4 // -570675004
+chess_report(int): 0x5de4dc2c // 1575279660
+chess_report(int): 0xe72338a4 // -417122140
+// dlp_do_ss(12000, 1)
+chess_report(int): 0x00000e10 // 3600
+chess_report(int): 0x00007e90 // 32400
+chess_report(int): 0x00017bb0 // 97200
+chess_report(int): 0x000d5930 // 874800
+chess_report(int): 0x00280b90 // 2624400
+// dlp_do_ss(1400-20, -15)
+chess_report(int): 0x000530e8 // 340200
+chess_report(int): 0x0ec844a8 // 248005800
+chess_report(int): 0x08192b78 // 135867256
+chess_report(int): 0x0facc8b8 // 262981816
+chess_report(int): 0x8d130e78 // -1928130952
+// dlp_do_us(110010, 20)
+chess_report(unsigned): 0x03df1e2c // 64953900
+chess_report(unsigned): 0x0a335924 // 171137316
+chess_report(unsigned): 0xddfc30c4 // 3724292292
+chess_report(unsigned): 0x00000013 // 19
+chess_report(unsigned): 0x00000012 // 18
+chess_report(unsigned): 0x00000011 // 17
+chess_report(unsigned): 0x00000010 // 16
+chess_report(unsigned): 0x0000000f // 15
+chess_report(unsigned): 0x0000000e // 14
+chess_report(unsigned): 0x0000000d // 13
+chess_report(unsigned): 0x0000000c // 12
+chess_report(unsigned): 0x0000000b // 11
+chess_report(unsigned): 0x0000000a // 10
+chess_report(unsigned): 0x1f4c4964 // 525093220
+chess_report(unsigned): 0x4d0bbd8c // 1292615052
+// dlp_do_us(12000, 1)
+chess_report(unsigned): 0x00000e10 // 3600
+chess_report(unsigned): 0x00007e90 // 32400
+chess_report(unsigned): 0x00017bb0 // 97200
+chess_report(unsigned): 0x00000000 // 0
+chess_report(unsigned): 0x00047310 // 291600
+chess_report(unsigned): 0x000d5930 // 874800
+// dlp_while(2000)
+chess_report(int): 0x0b91abd0 // 194096080
+chess_report(int): 0x8c484fd0 // -1941418032
+chess_report(int): 0xdbd08570 // -607091344
+chess_report(int): 0xd1839250 // -779906480
+chess_report(int): 0x9faba5d0 // -1616140848
+chess_report(int): 0xafcb2d50 // -1345639088
+chess_report(int): 0xccbc1a70 // -860087696
+chess_report(int): 0x0af5dad0 // 183884496
+// dlp_while(2100, 10, 20)
+chess_report(int): 0x07642254 // 124002900
+chess_report(int): 0x87d6645c // -2015992740
+chess_report(int): 0x4ab2e8bc // 1253238972
+chess_report(int): 0x279da454 // 664642644
+chess_report(int): 0x2da054dc // 765482204
+// dlp_while(2200, 0, 1)
+chess_report(int): 0x000019c8 // 6600
+chess_report(int): 0x0000e808 // 59400
+chess_report(int): 0x0002b818 // 178200
+chess_report(int): 0x001878d8 // 1603800
+chess_report(int): 0x00496a88 // 4811400
+// dlp_while(2300, 1, 0)
+chess_report(int): 0x000008fc // 2300
+chess_report(int): 0x000008fc // 2300
+chess_report(int): 0x000008fc // 2300
+chess_report(int): 0x000008fc // 2300
+chess_report(int): 0x000008fc // 2300
+// dlp_while(2400, -20, -15)
+chess_report(int): 0x0008e620 // 583200
+chess_report(int): 0x19575120 // 425152800
+chess_report(int): 0x0de20160 // 232915296
+chess_report(int): 0x8895ea60 // -2003441056
+chess_report(int): 0xcd453d60 // -851100320
+// dlp_for(3000)
+chess_report(int): 0x115a81b8 // 291144120
+chess_report(int): 0xd26c77b8 // -764643400
+chess_report(int): 0xc9b8c828 // -910637016
+chess_report(int): 0xba455b78 // -1169859720
+chess_report(int): 0x6f8178b8 // 1870756024
+chess_report(int): 0x87b0c3f8 // -2018458632
+chess_report(int): 0x331a27a8 // 857352104
+chess_report(int): 0x9070c838 // -1871656904
+// dlp_for(3100, 10, 20)
+chess_report(int): 0x0ae9267c // 183051900
+chess_report(int): 0x05796f94 // 91844500
+chess_report(int): 0xb769a0b4 // -1217814348
+chess_report(int): 0xf1566c7c // -245994372
+chess_report(int): 0x741d7114 // 1948086548
+// dlp_for(3200, 0, 1)
+chess_report(int): 0x00002580 // 9600
+chess_report(int): 0x00015180 // 86400
+chess_report(int): 0x0003f480 // 259200
+chess_report(int): 0x00239880 // 2332800
+chess_report(int): 0x006ac980 // 6998400
+// dlp_for(3300, 1, 0)
+chess_report(int): 0x00000ce4 // 3300
+chess_report(int): 0x00000ce4 // 3300
+chess_report(int): 0x00000ce4 // 3300
+chess_report(int): 0x00000ce4 // 3300
+chess_report(int): 0x00000ce4 // 3300
+// dlp_for(3400, -20, -15)
+chess_report(int): 0x000c9b58 // 826200
+chess_report(int): 0x23e65d98 // 602299800
+chess_report(int): 0x13aad748 // 329963336
+chess_report(int): 0x017f0c08 // 25103368
+chess_report(int): 0x0d776c48 // 225930312
+// dlp_nest_2(1000, 0, 1, 0, 1)
+chess_report(int): 0x0005a168 // 369000
+// dlp_nest_2(1000, 4, 6, 10, 20)
+chess_report(int): 0xf2d60028 // -220856280
+// dlp_nest_2(1000, 0, 1, 2, 3, 4, 5)
+chess_report(int): 0x01575e58 // 22503000
+// dlp_nest_2(1000, 0, 2, 4, 6, 8, 10)
+chess_report(int): 0xd814cb68 // -669725848

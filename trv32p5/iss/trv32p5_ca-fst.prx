@@ -1,0 +1,6 @@
+<simulator name="Simulator" processor="trv32p5" mode="ca" lib="../lib">
+    <option id="checkers.IssName" value="trv32p5_ca-fst"/>
+    <option id="checkers.PipelineDepth" value="10"/>
+    <option id="checkers.WorkDir" value="work/trv32p5_ca-fst"/>
+    <option id="cpp.define" value="TRV32P5_NO_IO" inherit="1"/>
+</simulator>

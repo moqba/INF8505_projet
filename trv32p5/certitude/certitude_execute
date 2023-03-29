@@ -1,0 +1,32 @@
+#!/usr/bin/env bash
+
+TESTNAME="$1"
+
+pwd
+
+cd ../regression/$TESTNAME
+pwd
+
+set +e
+make -f ../Makefile.test clean rtldiff
+rc=$?
+
+fail=1
+if [[ $? == 0 ]] ; then
+  file=test.Release.trv32p5_ca.trv32p5_vlog.rtldiff
+  if [[ -f $file ]] ; then
+    tail $file
+    if grep -s "Total number of differences: 0" $file > /dev/null ; then
+      fail=0
+    fi
+  fi
+fi
+
+if [[ $fail == 0 ]] ; then
+  echo "Test $1 passed"
+  $CER_SIMULATION_RESULT -result=Pass
+else
+  echo "Test $1 failed"
+  $CER_SIMULATION_RESULT -result=Fail
+fi
+

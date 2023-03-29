@@ -1,0 +1,3 @@
+iss eval {::p fileoutput chess_report set -file "[dict get [tclutils::list2dict [::p info keys program] {*}[::p program query name]] program].[dict get [tclutils::list2dict [::p info keys iss_option] [::p info issoptions]] iss_name].gdb.mem"}
+continue
+quit

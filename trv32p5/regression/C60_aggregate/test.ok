@@ -1,0 +1,10 @@
+chess_report(char): 0x1e // 30
+chess_report(unsigned char): 0xbe // 190
+chess_report(short): 0x0046 // 70
+chess_report(unsigned short): 0x00be // 190
+chess_report(int): 0x00000037 // 55
+chess_report(unsigned): 0x00007a44 // 31300
+chess_report(long): 0x0000154a // 5450
+chess_report(unsigned long): 0x00007b48 // 31560
+chess_report(long long): 0x000000000000154a // 5450
+chess_report(unsigned long long): 0x0000000000007b48 // 31560

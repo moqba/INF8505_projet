@@ -1,0 +1,7 @@
+<project name="Project" processor="trv32p5" lib="../../lib">
+    <file type="c" name="sha256.c" path=""/>
+    <option id="project.name" value="sha256"/>
+    <option id="project.type" value="exe"/>
+    <option id="noodle.optim.rlt" value="normal"/>
+    <option id="llvm.lang" value="c++"/>
+</project>

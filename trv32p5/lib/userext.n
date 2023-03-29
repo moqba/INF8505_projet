@@ -1,0 +1,105 @@
+/*
+-- File : userext.n
+--
+-- Contents : nML Examples for User Extensions
+--
+-- Copyright (c) 2019-2021 Synopsys, Inc. This Synopsys processor model
+-- captures an ASIP Designer Design Technique. The model and all associated
+-- documentation are proprietary to Synopsys, Inc. and may only be used
+-- pursuant to the terms and conditions of a written license agreement with
+-- Synopsys, Inc.  All other use, reproduction, modification, or distribution
+-- of the Synopsys processor model or the associated  documentation is
+-- strictly prohibited.
+*/
+
+// This files contains some (incomplete) examples on possible extension points
+
+// disabled by default
+#if 0
+
+// ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+// ~~~ Instruction nML Rules
+// ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+// ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+// ~~~ Top-Level Rule for this nML file
+
+// TODO(userext) add to top-level nML rule if used
+opn user_instrs (
+// TODO(userext) add rules that you use, e.g user_rrr_instr
+);
+
+// ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+// ~~~ Single-Stage 3-Register Operations (dst, src1, src)
+
+#if 0 // user_rrr_instr
+
+enum e_user_rrr {
+  // check 'enum majOP_fn10' for unused values (opc.n)
+
+  user1  = 0b1000000001,
+  user2  = 0b1000000010,
+  user3  = 0b1000000011,
+  user4  = 0b1000000100,
+  user5  = 0b1000000101,
+  user6  = 0b1000000110,
+  user7  = 0b1000000111,
+  user8  = 0b1000001000,
+  user9  = 0b1000001001,
+  user10 = 0b1000001010,
+
+  TEN = 0b1111111111
+};
+
+fu user;
+trn userA <w32>;
+trn userB <w32>;
+trn userR <w32>;
+
+opn user_rrr_instr (op: e_user_rrr, rd: mX1w_EX, rs1: mX1r_EX, rs2: mX2r_EX) {
+  action {
+    stage ID..EX:       aluA`EX` = rs1;
+                        aluB`EX` = rs2;
+    // ---
+    stage EX:
+      switch (op) {
+        case user1 :    userR = p_user1 (userA, userB) @user;
+      }
+    // ---
+    stage EX..WB:       rd = userR`EX`;
+  }
+  syntax : op PADMNM " " rd "," PADOP1 rs1 "," PADOP2 rs2;
+  image  : op[9..3] :: rs2 :: rs1 :: op[2..0] :: rd :: opc32.OP;
+}
+
+#endif // user_rrr_instr
+
+// ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+// ~~~ 2-Stage 3-Register Operations (dst, src1, src)
+
+#if 0 // user_p2_rrr_instr
+
+fu user;
+trn userA <w32>;
+trn userB <w32>;
+trn userR <w32>;
+
+opn user_p2_rrr_instr (op: e_user_rrr, rd: mX1w_ME, rs1: mX1r_EX, rs2: mX2r_EX) {
+  action {
+    stage ID..EX:       aluA`EX` = rs1;
+                        aluB`EX` = rs2;
+    // ---
+    stage EX..ME:
+      switch (op) {
+        case user1 :    userR`ME` = p_user1 (userA`EX`, userB`EX`) @user;
+      }
+    // ---
+    stage EX..WB:       rd = userR`EX`;
+  }
+  syntax : op PADMNM " " rd "," PADOP1 rs1 "," PADOP2 rs2;
+  image  : op[9..3] :: rs2 :: rs1 :: op[2..0] :: rd :: opc32.OP;
+}
+
+#endif // user_p2_rrr_instr
+
+#endif // userext.n

@@ -1,0 +1,321 @@
+/*
+-- File : opc.n
+--
+-- Contents : nML model for the trv32p5 processor -- OP code enums.
+--
+-- Copyright (c) 2019-2021 Synopsys, Inc. This Synopsys processor model
+-- captures an ASIP Designer Design Technique. The model and all associated
+-- documentation are proprietary to Synopsys, Inc. and may only be used
+-- pursuant to the terms and conditions of a written license agreement with
+-- Synopsys, Inc.  All other use, reproduction, modification, or distribution
+-- of the Synopsys processor model or the associated  documentation is
+-- strictly prohibited.
+*/
+
+// 5-bit prefix: major opcodes
+enum opc32 {
+  LOAD        =  0b00000,
+  LOAD_FP     =  0b00001,
+  CUSTOM0     =  0b00010, // close to LOAD
+  MISC_MEM    =  0b00011,
+  OP_IMM      =  0b00100,
+  AUIPC       =  0b00101,
+  OP_IMM_32   =  0b00110,
+  I48_1       =  0b00111,
+  STORE       =  0b01000,
+  STORE_FP    =  0b01001,
+  CUSTOM1     =  0b01010, // close to STORE
+  AMO         =  0b01011,
+  OP          =  0b01100,
+  LUI         =  0b01101,
+  OP_32       =  0b01110,
+  I64         =  0b01111,
+  MADD        =  0b10000,
+  MSUB        =  0b10001,
+  NMSUB       =  0b10010,
+  NMADD       =  0b10011,
+  OP_FP       =  0b10100,
+  reserved1   =  0b10101,
+  CUSTOM2     =  0b10110,
+  I48_2       =  0b10111,
+  BRANCH      =  0b11000,
+  JALR        =  0b11001,
+  reserved2   =  0b11010,
+  JAL         =  0b11011,
+  SYSTEM      =  0b11100,
+  reserved3   =  0b11101,
+  CUSTOM3     =  0b11110, 
+  IGT80       =  0b11111
+};
+
+enum majOP_fn10 {
+  add    = 0b0000000000,
+  sub    = 0b0100000000,
+  sll    = 0b0000000001,
+  slt    = 0b0000000010,
+  sltu   = 0b0000000011,
+  xor    = 0b0000000100,
+  srl    = 0b0000000101,
+  sra    = 0b0100000101,
+  or     = 0b0000000110,
+  and    = 0b0000000111,
+
+  mul    = 0b0000001000,
+  mulh   = 0b0000001001,
+  mulhsu = 0b0000001010,
+  mulhu  = 0b0000001011,
+
+  div    = 0b0000001100,
+  divu   = 0b0000001101,
+  rem    = 0b0000001110,
+  remu   = 0b0000001111,
+
+  // custom (p3x p5x)
+  mv     = 0b1000000000,
+
+  TEN    = 0b1111111111
+};
+
+enum majOP32_fn10 {
+  addw  = 0b0000000000,
+  subw  = 0b0100000000,
+  sllw  = 0b0000000001,
+  srlw  = 0b0000000101,
+  sraw  = 0b0100000101,
+  rorw  = 0b0000100101,
+
+  mulw  = 0b0000001000,
+
+  divw  = 0b0000001100,
+  divuw = 0b0000001101,
+  remw  = 0b0000001110,
+  remuw = 0b0000001111,
+
+  TEN   = 0b1111111111
+};
+
+enum majOP_IMM_fn3 {
+  addi  = 0b000,
+  slti  = 0b010,
+  sltiu = 0b011,
+  xori  = 0b100,
+  ori   = 0b110,
+  andi  = 0b111
+};
+
+enum majOP_IMM_32_fn3 {
+  addiw = 0b000,
+
+  THREE = 0b111
+};
+
+enum majOP_IMM_fn10 {
+  slli = 0b0000000001,
+  srli = 0b0000000101,
+  srai = 0b0100000101,
+
+  TEN  = 0b1111111111
+};
+
+enum majOP_IMM_32_fn10 {
+  slliw = 0b0000000001,
+  srliw = 0b0000000101,
+  sraiw = 0b0100000101,
+  roriw = 0b0000100101,
+
+  TEN   = 0b1111111111
+};
+
+enum majLOAD_fn3 {
+  lb  = 0b000,
+  lh  = 0b001,
+  lw  = 0b010,
+  ld  = 0b011,
+  lbu = 0b100,
+  lhu = 0b101,
+  lwu = 0b110
+};
+
+enum majSTORE_fn3 {
+  sb = 0b000,
+  sh = 0b001,
+  sw = 0b010,
+  sd = 0b011,
+
+  THREE = 0b111
+};
+
+enum majBRANCH_fn3 {
+  beq  = 0b000,
+  bne  = 0b001,
+  blt  = 0b100,
+  bge  = 0b101,
+  bltu = 0b110,
+  bgeu = 0b111
+};
+
+enum majLOAD_FP_fn3 {
+  flh    "flh" = 0b001,
+  flw    "flw" = 0b010,
+  fld    "fld" = 0b011,
+
+  // custom (p3x, p5x)
+  flh_pm "flh" = 0b101,
+  flw_pm "flw" = 0b110,
+  fld_pm "fld" = 0b111
+};
+
+enum majSTORE_FP_fn3 {
+  fsh    "fsh" = 0b001,
+  fsw    "fsw" = 0b010,
+  fsd    "fsd" = 0b011,
+
+  // custom (p3x, p5x)
+  fsh_pm "fsh" = 0b101,
+  fsw_pm "fsw" = 0b110,
+  fsd_pm "fsd" = 0b111
+};
+
+// fn5::fmt::rm
+enum majOP_FP_fn10 {
+  fsgnj_s   "fsgnj.s"   = 0b0010000000,
+  fsgnjn_s  "fsgnjn.s"  = 0b0010000001,
+  fsgnjx_s  "fsgnjx.s"  = 0b0010000010,
+  fmin_s    "fmin.s"    = 0b0010100000,
+  fmax_s    "fmax.s"    = 0b0010100001,
+  fle_s     "fle.s"     = 0b1010000000,
+  flt_s     "flt.s"     = 0b1010000001,
+  feq_s     "feq.s"     = 0b1010000010,
+
+  fsgnj_d   "fsgnj.d"   = 0b0010001000,
+  fsgnjn_d  "fsgnjn.d"  = 0b0010001001,
+  fsgnjx_d  "fsgnjx.d"  = 0b0010001010,
+  fmin_d    "fmin.d"    = 0b0010101000,
+  fmax_d    "fmax.d"    = 0b0010101001,
+  fle_d     "fle.d"     = 0b1010001000,
+  flt_d     "flt.d"     = 0b1010001001,
+  feq_d     "feq.d"     = 0b1010001010,
+
+  fsgnj_h   "fsgnj.h"   = 0b0010010000,
+  fsgnjn_h  "fsgnjn.h"  = 0b0010010001,
+  fsgnjx_h  "fsgnjx.h"  = 0b0010010010,
+  fmin_h    "fmin.h"    = 0b0010110000,
+  fmax_h    "fmax.h"    = 0b0010110001,
+  fle_h     "fle.h"     = 0b1010010000,
+  flt_h     "flt.h"     = 0b1010010001,
+  feq_h     "feq.h"     = 0b1010010010,
+
+  ALL                   = 0b1111111111
+};
+
+// fn5::fmt::fn5::rm
+enum majOP_FP_fn15 {
+  fmv_x_w   "fmv.x.w"   = 0b111000000000000,
+  fclass_s  "fclass.s"  = 0b111000000000001,
+  fmv_w_x   "fmv.w.x"   = 0b111100000000000,
+
+  fmv_x_d   "fmv.x.d"   = 0b111000100000000,
+  fclass_d  "fclass.d"  = 0b111000100000001,
+  fmv_d_x   "fmv.d.x"   = 0b111100100000000,
+
+  fmv_x_h   "fmv.x.h"   = 0b111001000000000,
+  fclass_h  "fclass.h"  = 0b111001000000001,
+  fmv_h_x   "fmv.h.x"   = 0b111101000000000,
+
+  ALL                   = 0b111111111111111
+};
+
+// fn5::fmt::fn5
+enum majOP_FP_fn12 {
+  fsqrt_s   "fsqrt.s"   = 0b010110000000,
+  fcvt_w_s  "fcvt.w.s"  = 0b110000000000,
+  fcvt_wu_s "fcvt.wu.s" = 0b110000000001,
+  fcvt_l_s  "fcvt.l.s"  = 0b110000000010,
+  fcvt_lu_s "fcvt.lu.s" = 0b110000000011,
+  fcvt_s_w  "fcvt.s.w"  = 0b110100000000,
+  fcvt_s_wu "fcvt.s.wu" = 0b110100000001,
+  fcvt_s_l  "fcvt.s.l"  = 0b110100000010,
+  fcvt_s_lu "fcvt.s.lu" = 0b110100000011,
+
+  fsqrt_d   "fsqrt.d"   = 0b010110100000,
+  fcvt_w_d  "fcvt.w.d"  = 0b110000100000,
+  fcvt_wu_d "fcvt.wu.d" = 0b110000100001,
+  fcvt_l_d  "fcvt.l.d"  = 0b110000100010,
+  fcvt_lu_d "fcvt.lu.d" = 0b110000100011,
+  fcvt_d_w  "fcvt.d.w"  = 0b110100100000,
+  fcvt_d_wu "fcvt.d.wu" = 0b110100100001,
+  fcvt_d_l  "fcvt.d.l"  = 0b110100100010,
+  fcvt_d_lu "fcvt.d.lu" = 0b110100100011,
+  fcvt_s_d  "fcvt.s.d"  = 0b010000000001,
+  fcvt_d_s  "fcvt.d.s"  = 0b010000100000,
+
+  fsqrt_h   "fsqrt.h"   = 0b010111000000,
+  fcvt_w_h  "fcvt.w.h"  = 0b110001000000,
+  fcvt_wu_h "fcvt.wu.h" = 0b110001000001,
+  fcvt_l_h  "fcvt.l.h"  = 0b110001000010,
+  fcvt_lu_h "fcvt.lu.h" = 0b110001000011,
+  fcvt_h_w  "fcvt.h.w"  = 0b110101000000,
+  fcvt_h_wu "fcvt.h.wu" = 0b110101000001,
+  fcvt_h_l  "fcvt.h.l"  = 0b110101000010,
+  fcvt_h_lu "fcvt.h.lu" = 0b110101000011,
+  fcvt_s_h  "fcvt.s.h"  = 0b010000000010,
+  fcvt_d_h  "fcvt.d.h"  = 0b010000100010,
+  fcvt_h_s  "fcvt.h.s"  = 0b010001000000,
+  fcvt_h_d  "fcvt.h.d"  = 0b010001000001,
+
+  ALL                   = 0b111111111111
+};
+
+// fn2 :: opc32.xxxx
+enum eSMA {
+  // opc32.MADD
+  fmadd_s  "fmadd.s"  = 0b0010000,
+  fmadd_d  "fmadd.d"  = 0b0110000,
+  fmadd_h  "fmadd.h"  = 0b1010000,
+  // opc32.MSUB
+  fmsub_s  "fmsub.s"  = 0b0010001,
+  fmsub_d  "fmsub.d"  = 0b0110001,
+  fmsub_h  "fmsub.h"  = 0b1010001,
+  // opc32.NMSUB
+  fnmsub_s "fnmsub.s" = 0b0010010,
+  fnmsub_d "fnmsub.d" = 0b0110010,
+  fnmsub_h "fnmsub.h" = 0b1010010,
+  // opc32.NMADD
+  fnmadd_s "fnmadd.s" = 0b0010011,
+  fnmadd_d "fnmadd.d" = 0b0110011,
+  fnmadd_h "fnmadd.h" = 0b1010011,
+
+  SEVEN = 0b1111111
+};
+
+
+// fn5::fmt
+enum majOP_FP_fn7 {
+  fadd_s "fadd.s" = 0b0000000,
+  fsub_s "fsub.s" = 0b0000100,
+  fmul_s "fmul.s" = 0b0001000,
+  fdiv_s "fdiv.s" = 0b0001100,
+
+  fadd_d "fadd.d" = 0b0000001,
+  fsub_d "fsub.d" = 0b0000101,
+  fmul_d "fmul.d" = 0b0001001,
+  fdiv_d "fdiv.d" = 0b0001101,
+
+  fadd_h "fadd.h" = 0b0000010,
+  fsub_h "fsub.h" = 0b0000110,
+  fmul_h "fmul.h" = 0b0001010,
+  fdiv_h "fdiv.h" = 0b0001110,
+
+  ALL             = 0b1111111
+};
+
+enum majSYSTEM_fn3 {
+  PRIV   = 0b000,       // ecall, ebreak
+
+  csrrw  = 0b001,
+  csrrs  = 0b010,
+  csrrc  = 0b011,
+  csrrwi = 0b101,
+  csrrsi = 0b110,
+  csrrci = 0b111
+};

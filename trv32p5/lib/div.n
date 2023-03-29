@@ -1,0 +1,81 @@
+/*
+-- File : div.n
+--
+-- Contents : nML model for the trv32p5 processor -- Division instructions.
+--
+-- Copyright (c) 2019-2021 Synopsys, Inc. This Synopsys processor model
+-- captures an ASIP Designer Design Technique. The model and all associated
+-- documentation are proprietary to Synopsys, Inc. and may only be used
+-- pursuant to the terms and conditions of a written license agreement with
+-- Synopsys, Inc.  All other use, reproduction, modification, or distribution
+-- of the Synopsys processor model or the associated  documentation is
+-- strictly prohibited.
+*/
+
+// ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+// ~~~ Units & Transitories
+// ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+fu div;
+trn divA <w32>;
+trn divB <w32>;
+trn divR <w32>;
+
+trn X_x_w1_div_main_pdg_w_a <t5unz>;
+// trick to tell Go that the div MCFU does not write to X[0]
+
+// Hazard transitories
+
+trn div_bsy <t1u>;    hw_init div_bsy = 0;
+trn div_w3c <t1u>;    hw_init div_w3c = 0; // writes in 3 cycles
+trn div_adr <t5unz>;
+
+trn div_wad <t5u>;
+property dead_end : div_wad; // read in div.p
+
+
+// ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+// ~~~ Instruction nML Rules
+// ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+// ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+// ~~~ Top-Level Rule for this nML file
+
+opn div_instrs (
+    div_instr
+);
+
+// ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+// ~~~ Division and Remainder
+//
+// div  rd, rs1, rs2
+// rem  rd, rs1, rs2
+// divu rd, rs1, rs2
+// remu rd, rs1, rs2
+
+opn div_instr (op: majOP_fn10, rd: mX1w_EX, rs1: mX1r_EX, rs2: mX2r_EX, _rd: eX) {
+  action {
+    stage ID..EX:       divA`EX` = rs1;
+                        divB`EX` = rs2;
+    stage EX:           div_wad = _rd;
+    // ---
+    stage EX:
+      switch (op) {
+        case divu :     divR = divu (divA,divB) @div;
+        case remu :     divR = remu (divA,divB) @div;
+        case div  :     divR = divs (divA,divB) @div;
+        case rem  :     divR = rems (divA,divB) @div;
+      }
+    // ---
+    // NOTE: property(multicycle) removes output path(s) starting at divR.
+    // The actual writeback is implemented in div.p. This is a dummy path
+    // to tell the compiler about the connection.
+    stage EX..WB:       rd = divR`EX`;
+  }
+  syntax : op PADMNM " " rd "," PADOP1 rs1 "," PADOP2 rs2;
+  image  : op[9..3] :: rs2 :: rs1 :: op[2..0] :: rd :: opc32.OP
+           :: _rd<alias rd>
+           cycles(2),
+           class(div)
+    ;
+}

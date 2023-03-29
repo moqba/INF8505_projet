@@ -1,0 +1,9 @@
+#qualify -verilog -file=../hdl/trv32p5_vlog/trv32p5/prim/alu.v
+
+qualify -verilog -dir=../hdl/trv32p5_vlog/trv32p5/
+qualify -verilog -dir=../hdl/trv32p5_vlog/trv32p5/controller/
+qualify -verilog -dir=../hdl/trv32p5_vlog/trv32p5/mem/
+qualify -verilog -dir=../hdl/trv32p5_vlog/trv32p5/mux/
+qualify -verilog -dir=../hdl/trv32p5_vlog/trv32p5/prim/
+qualify -verilog -dir=../hdl/trv32p5_vlog/trv32p5/reg/
+qualify -verilog -dir=../hdl/trv32p5_vlog/trv32p5/pipe/

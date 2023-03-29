@@ -1,0 +1,6 @@
+<simulator name="Simulator" processor="trv32p5" mode="ca" lib="../lib">
+    <option id="checkers.IssName" value="trv32p5_ca"/>
+    <option id="checkers.PipelineDepth" value="10"/>
+    <option id="checkers.TestbenchInputDump" value="on"/>
+    <option id="checkers.WorkDir" value="work/trv32p5_ca"/>
+</simulator>

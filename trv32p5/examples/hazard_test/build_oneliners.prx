@@ -1,0 +1,8 @@
+<project name="Project" processor="trv32p5" lib="../../lib">
+    <import path="../../lib/oneliners" name="oneliners.prx"/>
+    <option id="project.dasobj" value="on"/>
+    <option id="project.name" value="oneliners"/>
+    <option id="project.type" value="none"/>
+    <option id="project.dir" value="oneliners/&lt;CONFIG&gt;"/>
+    <option id="darts.dis.xargs" value="-H10" inherit="1"/>
+</project>

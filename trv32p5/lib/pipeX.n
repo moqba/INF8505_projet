@@ -1,0 +1,37 @@
+/*
+-- File : pipeX.n
+--
+-- Contents : Pipeline registers
+--
+-- Copyright (c) 2021 Synopsys, Inc. This Synopsys processor model
+-- captures an ASIP Designer Design Technique. The model and all associated
+-- documentation are proprietary to Synopsys, Inc. and may only be used
+-- pursuant to the terms and conditions of a written license agreement with
+-- Synopsys, Inc.  All other use, reproduction, modification, or distribution
+-- of the Synopsys processor model or the associated  documentation is
+-- strictly prohibited.
+*/
+
+// ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+// ~~~ Pipeline Registers
+// ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+// [pt]{stage}X{n}
+//   - p or t: for pipe or trn
+//   - stage: written in this stage
+//   - n: operand index
+
+// ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+// ~~~ Integer Data Path
+
+// ID to EX
+pipe pidX1 <w32>;
+pipe pidX2 <w32>;
+
+// EX to ME
+pipe pexX1 <w32>;
+trn  texX1 <w32>;
+
+// ME to WB
+pipe pmeX1 <w32>;
+trn  tmeX1 <w32>;

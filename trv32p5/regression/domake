@@ -1,0 +1,174 @@
+#!/usr/bin/env csh
+
+# -- File : domake
+# --
+# -- Copyright (c) 2014-2021 Synopsys, Inc. This Synopsys processor model
+# -- captures an ASIP Designer Design Technique. The model and all associated
+# -- documentation are proprietary to Synopsys, Inc. and may only be used
+# -- pursuant to the terms and conditions of a written license agreement with
+# -- Synopsys, Inc.  All other use, reproduction, modification, or distribution
+# -- of the Synopsys processor model or the associated  documentation is
+# -- strictly prohibited.
+
+if ($#argv < 1) then
+    echo "usage: domake   <make target> [directories]"
+    echo "   or: domake \"<make target> [ISS=trv32p5_ca] [HDL=trv32p5_vlog] [CFG=Release|Debug]\" [directories]"
+    exit(1)
+endif
+
+set options = "$1"
+shift argv
+
+if ($#argv == 0) then
+    set directories = `glob "[A-Z][0-9][0-9]_*"`
+else
+    set directories = "$argv"
+endif
+
+set cfg=`echo $options | grep -oP '(?<=CFG=)[[:graph:]]+' || echo Release`
+set iss=`echo $options | grep -oP '(?<=ISS=)[[:graph:]]+' || echo trv32p5_ca`
+set hdl=`echo $options | grep -oP '(?<=HDL=)[[:graph:]]+' || echo trv32p5_vlog`
+set vp_iss=`echo $options | grep -oP '(?<=VP=)[[:graph:]]+' || echo ca_tlm2_lt`
+set osci_accuracy=`echo $options | grep -oP '(?<=ACCURACY=)[[:graph:]]+' || echo ca_tlm2_lt`
+set osci_iss=`echo $options | grep -oP '(?<=ISS=)[[:graph:]]+' || echo trv32p5_sc`
+set osci_iss_cpp=`echo $options | grep -oP '(?<=ISS=)[[:graph:]]+' || echo trv32p5_sc_no_gui`
+set messagefile=`echo $options | grep -oP '(?<=MFILE=)[[:graph:]]+' || echo .message`
+
+set IGNORE_OCD_TIMEOUT=`echo $options | grep -oP '(?<=IGNORE_OCD_TIMEOUT=)[[:graph:]]+' || echo 0`
+
+set skipped=""
+if ( -f "skip_$iss.lst" ) then
+    echo "Filtering tests for $iss"
+    set filtdirs=""
+    foreach x ($directories)
+        echo "$x" | grep -Pxq -f skip_$iss.lst
+        if ( $? == 0 ) then
+            echo "Skipping $x"
+            set skipped="$skipped $x"
+        else
+            set filtdirs="$filtdirs $x"
+        endif
+    end
+    set directories = "$filtdirs"
+endif
+
+if ( "$options" =~ virgin ) then
+    # virgin cannot use make.all as it removes the .message file
+    foreach x ($directories)
+        echo "$x make $options"
+        make -C $x -f ../Makefile.test --no-print-directory virgin
+    end
+    set make_status = 0
+else
+   if ($?NCORES_HOST == 0) set NCORES_HOST = 1
+   make -k -f make.all -j $NCORES_HOST MODE="$options" MFILE="$messagefile" $directories
+   set make_status = "$?"
+endif
+
+set split = ($options)
+if ( $#split > 1 && ( "$split[1]" == clean || "$split[1]" == virgin ) ) then
+    # domake 'clean diff ....'
+    set target = "$split[2]"
+else
+    # domake 'diff ...'
+    set target = "$split[1]"
+endif
+
+
+# report failed tests when using a "diff" target
+if ( "$target" =~ "*diff*" ) then
+    switch ($target)
+    case rtldiff:
+        set file = "test.$cfg.$iss.$hdl.rtldiff"
+        set prof = "dummy"
+        breaksw
+    case diff:
+        set file = "test.$cfg.$iss.diff"
+        set prof = "$cfg/test.$iss.prf"
+        breaksw
+    case gdbdiff:
+        set file = "test.$cfg.$iss.gdbdiff"
+        set prof = "dummy"
+        breaksw
+    case ocddiff:
+        set file = "test.$cfg.$hdl.ocddiff"
+        set prof = "dummy"
+        breaksw
+    case gdbocddiff:
+        set file = "test.$cfg.$hdl.gdbocddiff"
+        set prof = "dummy"
+        breaksw
+    case oscidiff:
+        set file = "test.$cfg.$osci_accuracy.$osci_iss.oscidiff"
+        set prof = "dummy"
+        breaksw
+    case gdboscidiff:
+        set file = "test.$cfg.$osci_accuracy.$osci_iss.gdboscidiff"
+        set prof = "dummy"
+        breaksw
+    case oscicppdiff:
+        set file = "test.$cfg.$osci_accuracy.$osci_iss_cpp.oscicppdiff"
+        set prof = "dummy"
+        breaksw
+    case vpdiff:
+        set file = "test.$cfg.$vp_iss.vpdiff"
+        set prof = "dummy"
+        breaksw
+    default:
+        echo "ERROR: Unknown *diff* target '$target'"
+        breaksw
+    endsw
+
+    echo
+    echo "overview failing test results:"
+    set errors = 0
+    set timeouts = 0
+    echo "summary of test results" > summary
+    echo "-----------------------" >> summary
+    foreach x ($directories)
+        if ( -d $x ) then
+            grep -q "WARNING: OCD_VCS timeout" $x/$messagefile
+            if ($? == 0) then
+                echo "TIMEOUT in : $x"
+                if ( "$IGNORE_OCD_TIMEOUT" == 0 ) then
+                    set errors = 1;
+                endif
+                @ timeouts = $timeouts + 1
+                continue
+            endif
+            if ( -f $x/$file ) then
+                grep -s "Total number of differences: 0" $x/$file > /dev/null
+                if ($? != 0) then
+                    echo "ERROR in : $x"
+                    set errors = 1;
+                endif
+            else
+               echo "ERROR in : $x, $file not found"
+               set errors = 1;
+            endif
+            if ( -f $x/$prof ) then
+                echo $x >> summary
+                grep -s "Total cycle count" $x/$prof >> summary
+                grep -s "Total size in program memory" $x/$prof >> summary
+            endif
+        endif
+    end
+    foreach x ($skipped)
+        echo "SKIP : $x"
+    end
+
+    if ($errors == 0 ) then
+        if ($timeouts == 0) then
+            echo "all tests OK"
+        else
+            echo "all tests OK, but ignored $timeouts timeouts"
+        endif
+    else
+        exit(1)
+    endif
+endif
+
+if ( $make_status != 0 ) then
+    echo "ERROR: make.all failed with exit code $make_status"
+    exit $make_status
+endif

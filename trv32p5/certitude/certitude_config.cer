@@ -1,0 +1,4 @@
+setconfig -Simulator=native
+setconfig -TopName=TRV32P5_LIB.trv32p5
+setconfig -MaxJobsInParallel=5
+setconfig -DetectionAutoStop=false

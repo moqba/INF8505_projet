@@ -1,0 +1,7 @@
+<batch name="Batch project" processor="trv32p5" lib="../lib">
+    <prj name="trv32p5_vlog.prx" path=""/>
+    <prj name="trv32p5_vhdl.prx" path=""/>
+    <prj name="trv32p5_vlog-isacov.prx" path=""/>
+    <prj name="trv32p5_vlog-hwswdbg.prx" path=""/>
+    <prj name="trv32p5_vlog-c1.prx" path=""/>
+</batch>

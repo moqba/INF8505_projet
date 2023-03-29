@@ -1,0 +1,20 @@
+// cordic 0 ---------
+// angle (843314856)
+chess_report(int): 0x2d413cd0 // 759250128
+chess_report(int): 0x2d413cc9 // 759250121
+// angle (421657428)
+chess_report(int): 0x187de2a6 // 410903206
+chess_report(int): 0x3b20d7a1 // 992008097
+// angle (1264972284)
+chess_report(int): 0x3b20d7a1 // 992008097
+chess_report(int): 0x187de2a6 // 410903206
+// cordic 1 ---------
+// angle (843314856)
+chess_report(int): 0x2d413cd0 // 759250128
+chess_report(int): 0x2d413cc9 // 759250121
+// angle (421657428)
+chess_report(int): 0x187de2a6 // 410903206
+chess_report(int): 0x3b20d7a1 // 992008097
+// angle (1264972284)
+chess_report(int): 0x3b20d7a1 // 992008097
+chess_report(int): 0x187de2a6 // 410903206

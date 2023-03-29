@@ -1,0 +1,4 @@
+chess_report(int): 0x00001320 // 4896
+chess_report(int): 0x00002640 // 9792
+chess_report(int): 0x00003960 // 14688
+chess_report(int): 0x00004c80 // 19584

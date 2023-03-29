@@ -1,0 +1,128 @@
+// test_arith(6.5, 4.25)
+chess_report(double): 0x4025800000000000 // 1.0750000000000000e+01
+chess_report(double): 0x4002000000000000 // 2.2500000000000000e+00
+chess_report(double): 0xc002000000000000 // -2.2500000000000000e+00
+chess_report(double): 0x403ba00000000000 // 2.7625000000000000e+01
+chess_report(double): 0x3ff8787878787878 // 1.5294117647058822e+00
+chess_report(double): 0x3fe4ec4ec4ec4ec5 // 6.5384615384615385e-01
+// test_compare(6.5, 4.25)
+chess_report(bool): 0x0 // 0
+chess_report(bool): 0x0 // 0
+chess_report(bool): 0x1 // 1
+chess_report(bool): 0x1 // 1
+chess_report(bool): 0x0 // 0
+chess_report(bool): 0x1 // 1
+// test_arith(0, 1)
+chess_report(double): 0x3ff0000000000000 // 1.0000000000000000e+00
+chess_report(double): 0xbff0000000000000 // -1.0000000000000000e+00
+chess_report(double): 0x3ff0000000000000 // 1.0000000000000000e+00
+chess_report(double): 0x0000000000000000 // 0.0000000000000000e+00
+chess_report(double): 0x0000000000000000 // 0.0000000000000000e+00
+// test_compare(0, 1)
+chess_report(bool): 0x1 // 1
+chess_report(bool): 0x1 // 1
+chess_report(bool): 0x0 // 0
+chess_report(bool): 0x0 // 0
+chess_report(bool): 0x0 // 0
+chess_report(bool): 0x1 // 1
+// test_arith(3.14, 1e-10)
+chess_report(double): 0x40091eb851eef4bb // 3.1400000001000001e+00
+chess_report(double): 0x40091eb851e81583 // 3.1399999999000001e+00
+chess_report(double): 0xc0091eb851e81583 // -3.1399999999000001e+00
+chess_report(double): 0x3df593f248725119 // 3.1400000000000000e-10
+chess_report(double): 0x421d3e57e8000000 // 3.1400000000000000e+10
+chess_report(double): 0x3dc18215eaf50856 // 3.1847133757961781e-11
+// test_compare(3.14, 1e-10)
+chess_report(bool): 0x0 // 0
+chess_report(bool): 0x0 // 0
+chess_report(bool): 0x1 // 1
+chess_report(bool): 0x1 // 1
+chess_report(bool): 0x0 // 0
+chess_report(bool): 0x1 // 1
+// test_arith(3.4e+28, 3.4e+22)
+chess_report(double): 0x45db770ad0179e87 // 3.4000034000000000e+28
+chess_report(double): 0x45db7707368539fd // 3.3999966000000000e+28
+chess_report(double): 0xc5db7707368539fd // -3.3999966000000000e+28
+chess_report(double): 0x4a88b7bd0656a349 // 1.1559999999999999e+51
+chess_report(double): 0x412e848000000000 // 1.0000000000000000e+06
+chess_report(double): 0x3eb0c6f7a0b5ed8d // 9.9999999999999995e-07
+// test_compare(3.4e+28, 3.4e+22)
+chess_report(bool): 0x0 // 0
+chess_report(bool): 0x0 // 0
+chess_report(bool): 0x1 // 1
+chess_report(bool): 0x1 // 1
+chess_report(bool): 0x0 // 0
+chess_report(bool): 0x1 // 1
+// test_arith(1.9e+101, -6.7e-11)
+chess_report(double): 0x54f5b77d9ca0a824 // 1.8999999999999999e+101
+chess_report(double): 0x54f5b77d9ca0a824 // 1.8999999999999999e+101
+chess_report(double): 0xd4f5b77d9ca0a824 // -1.8999999999999999e+101
+chess_report(double): 0xd2d8ff4233eddc12 // -1.2730000000000000e+91
+chess_report(double): 0xd712ddecb23bec27 // -2.8358208955223877e+111
+chess_report(double): 0xa8cb233221df8b39 // -3.5263157894736844e-112
+// test_compare(1.9e+101, -6.7e-11)
+chess_report(bool): 0x0 // 0
+chess_report(bool): 0x0 // 0
+chess_report(bool): 0x1 // 1
+chess_report(bool): 0x1 // 1
+chess_report(bool): 0x0 // 0
+chess_report(bool): 0x1 // 1
+// test_arith(2.0078125, 2.00830078125)
+chess_report(double): 0x4010108000000000 // 4.0161132812500000e+00
+chess_report(double): 0xbf40000000000000 // -4.8828125000000000e-04
+chess_report(double): 0x3f40000000000000 // 4.8828125000000000e-04
+chess_report(double): 0x4010211100000000 // 4.0322914123535156e+00
+chess_report(double): 0x3feffe021dc06396 // 9.9975686846584000e-01
+chess_report(double): 0x3ff000ff00ff00ff // 1.0002431906614786e+00
+// test_compare(2.0078125, 2.00830078125)
+chess_report(bool): 0x1 // 1
+chess_report(bool): 0x1 // 1
+chess_report(bool): 0x0 // 0
+chess_report(bool): 0x0 // 0
+chess_report(bool): 0x0 // 0
+chess_report(bool): 0x1 // 1
+// test_compare(3.395190027635819e-313, 6.5)
+chess_report(bool): 0x1 // 1
+chess_report(bool): 0x1 // 1
+chess_report(bool): 0x0 // 0
+chess_report(bool): 0x0 // 0
+chess_report(bool): 0x0 // 0
+chess_report(bool): 0x1 // 1
+// test_compare(24400, 3.395190027635819e-313)
+chess_report(bool): 0x0 // 0
+chess_report(bool): 0x0 // 0
+chess_report(bool): 0x1 // 1
+chess_report(bool): 0x1 // 1
+chess_report(bool): 0x0 // 0
+chess_report(bool): 0x1 // 1
+// test_compare(3.395190027635819e-313, 3.395190027635819e-313)
+chess_report(bool): 0x0 // 0
+chess_report(bool): 0x1 // 1
+chess_report(bool): 0x0 // 0
+chess_report(bool): 0x1 // 1
+chess_report(bool): 0x1 // 1
+chess_report(bool): 0x0 // 0
+// test_f2i(6.5)
+chess_report(int): 0x00000006 // 6
+// test_f2i(24400)
+chess_report(int): 0x00005f50 // 24400
+// test_f2i(-155.77)
+chess_report(int): 0xffffff65 // -155
+// test_i2f(155)
+chess_report(double): 0x4063600000000000 // 1.5500000000000000e+02
+// test_i2f(-155)
+chess_report(double): 0xc063600000000000 // -1.5500000000000000e+02
+// test_f2u()
+chess_report(unsigned): 0x0000000a // 10
+// test_f2u()
+chess_report(unsigned): 0x00005f50 // 24400
+// test_f2u()
+chess_report(unsigned): 0x0e8b2500 // 244000000
+// test_f2u()
+chess_report(unsigned): 0x916f7200 // 2440000000
+// test_u2f()
+chess_report(double): 0x4024000000000000 // 1.0000000000000000e+01
+// test_u2f()
+chess_report(double): 0x41e0000000000000 // 2.1474836480000000e+09
+// test_u2f()
+chess_report(double): 0x41ec000000000000 // 3.7580963840000000e+09

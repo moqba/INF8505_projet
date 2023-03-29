@@ -1,0 +1,12 @@
+<project name="Project" processor="trv32p5" lib=".">
+    <configuration remove="1" parent="Native"/>
+    <file type="a" name="trv32p5_init.s" path=""/>
+    <file type="c" name="trv32p5_basic.c" path="">
+        <option id="llvm.lang" value="c++"/>
+    </file>
+    <file type="c" name="trv32p5_c_div.c" path="">
+        <option id="llvm.lang" value="c++"/>
+    </file>
+    <option id="project.name" value="libtrv32p5.a"/>
+    <option id="project.type" value="arch"/>
+</project>

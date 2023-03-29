@@ -1,0 +1,12 @@
+// test_jal
+chess_report(int): 0x00000069 // 105
+chess_report(int): 0x0000006e // 110
+ // test_jalr
+chess_report(int): 0x000000d4 // 212
+chess_report(int): 0x000000dd // 221
+ // test_jal_stall
+chess_report(int): 0x00000069 // 105
+chess_report(int): 0x0000006e // 110
+ // test_jalr_stall
+chess_report(int): 0x000000d4 // 212
+chess_report(int): 0x000000dd // 221

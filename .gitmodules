@@ -1,0 +1,3 @@
+[submodule "trv/examples/kruskal-mst"]
+	path = trv/examples/kruskal-mst
+	url = https://github.com/KevinClapperton/kruskal-mst

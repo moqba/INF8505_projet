@@ -1,0 +1,478 @@
+# -- File : Makefile.test
+# -- Contents : driver for regression tests.
+# -- Copyright (c) 2014-2021 Synopsys, Inc. This Synopsys processor model
+# -- captures an ASIP Designer Design Technique. The model and all associated
+# -- documentation are proprietary to Synopsys, Inc. and may only be used
+# -- pursuant to the terms and conditions of a written license agreement with
+# -- Synopsys, Inc.  All other use, reproduction, modification, or distribution
+# -- of the Synopsys processor model or the associated  documentation is
+# -- strictly prohibited.
+
+# Path to root
+THISDIR := $(dir $(lastword $(MAKEFILE_LIST)))
+PROJDIR := $(THISDIR)/..
+
+# processor name
+P = trv32p5
+
+# configuration: Release, Debug, Release_LLVM, Debug_LLVM
+CFG  = Release
+NCFG = Native
+
+# ISS executable: trv32p5_ca, trv32p5_ia
+ISS = $(P)_ca
+
+
+# HDL project name: trv32p5_vlog, trv32p5_vhdl
+HDL = $(P)_vlog
+
+# HDL executable
+SIMV_DIR = $(PROJDIR)/hdl/$(HDL)
+SIMV = $(SIMV_DIR)/simv
+
+# Virtualizer model
+VP = ca_tlm2_lt
+ifneq ($(filter vpdiff vprun,$(MAKECMDGOALS)),)
+  ISS = $(P)_sc
+endif
+
+# OSCI
+ACCURACY = ca_tlm2_lt
+OSCI_EXTRA_ARGS=
+ifneq ($(filter oscidiff oscirun gdboscidiff gdboscirun,$(MAKECMDGOALS)),)
+  ISS = $(P)_sc
+endif
+ifneq ($(filter oscicppdiff oscicpprun,$(MAKECMDGOALS)),)
+  ISS = $(P)_sc_no_gui
+endif
+
+# force rerunning simulations
+ifdef FORCE_RUN
+RUN_DEP := .FORCE
+else
+RUN_DEP :=
+endif
+
+# extra chessmk options for ISS simulate targets (chessmk -S)
+CHESSMK_SIM_ARGS=
+
+# extra chessmk options for HDL simulate targets (chessmk -H)
+CHESSMK_HDL_ARGS = +c
+
+# Simulate: do not check dependencies
+ifdef IGNORE_DEPS
+CHESSMK_SIM_ARGS+= -d
+CHESSMK_HDL_ARGS+= -d
+endif
+
+# Tcl script executed by ISS
+SIM_SCRIPT = $(PROJDIR)/bin/iss/driver.tcl
+SIM_SCRIPT_ARGS=
+
+# defaults for 'run' & 'issrun' target
+iss_run.%.log: SIM_SCRIPT_ARGS+= -NOrcd
+
+# Debug client
+# V = -u verbose -u jts_verbose
+V =
+DBG_CLIENT = $(PROJDIR)/debug_client/$(P)_client $(V)
+export LD_LIBRARY_PATH := $(SIMV_DIR):$(LD_LIBRARY_PATH)
+
+# Connection to the Jtalk server
+J=
+ifeq ($(SIMV),NONE)
+JTS_PORT_NUMBER = 41001
+J = -u port=$(JTS_PORT_NUMBER)
+endif
+
+# Additional arguments for OCD run
+ifneq ($(filter ocdrun ocddiff gdbocdrun gdbocddiff,$(MAKECMDGOALS)),)
+SIM_SCRIPT_ARGS+= -simv \"$(SIMV)\"
+ifdef STEP
+SIM_SCRIPT_ARGS+= -step $(STEP)
+endif
+ifdef TMO
+SIM_SCRIPT_ARGS+= -tmo \"$(TMO)\"
+endif
+ifdef OCD_RCD
+SIM_SCRIPT_ARGS+= -rcd
+endif
+IGNORE_OCD_TIMEOUT=0
+endif
+
+# for coverage (ISA or RTL), set suffix for test name
+export CM_SUFFIX=.$@
+
+ocdrun : SIMV+= -cm line+cond+branch -cm_name $(notdir $(CURDIR))$(CM_SUFFIX) -cm_log cm$(CM_SUFFIX).log
+
+help:
+	@ echo ""
+	@ echo "    Run make as follows in one of the test directories"
+	@ echo ""
+	@ echo "         cd A00_report"
+	@ echo "         make -f ../Makefile.test <target>"
+	@ echo ""
+	@ echo "    where <target> is one of the following"
+	@ echo ""
+	@ echo "         ok        - native execution and saving of the reference results"
+	@ echo "         native    - native execution"
+	@ echo "         chess     - compilation with Chess"
+	@ echo "         run       - simulation of test program in ISS"
+	@ echo "         diff      - check native versus ISS"
+	@ echo "         rtlrun    - RTL simulation of test program"
+	@ echo "         rtldiff   - check ISS versus RTL"
+	@ echo "         rtlgui    - start RTL simulation of test program with GUI"
+	@ echo "         rtlfree   - free running RTL simulation, no program loaded"
+	@ echo "         clean     - remove intermediate files"
+	@ echo "         virgin    - remove test reports"
+	@ echo ""
+	@ echo "    Hint: define following alias"
+	@ echo "         alias mmt 'make -f ../Makefile.test  \!^ '"
+	@ echo "    and execute the tests as follows"
+	@ echo ""
+	@ echo "         cd A00_report"
+	@ echo "         mmt <target>"
+	@ echo ""
+
+# Build and run native
+native: test.gcc
+
+# Copy test.gcc to test.ok
+ok: test.ok
+
+# Compile application
+chess: $(CFG)/test
+
+# Run on ISS
+run: iss_run.$(CFG).$(ISS).log
+issrun: iss_run.$(CFG).$(ISS).log
+issrcdrun: iss_rcd_run.$(CFG).$(ISS).log
+
+# Run on HDL simulator for N cycles (N = from ISS), generate Register Change Dump (RCD)
+rtlrun: $(CFG)/test.$(HDL).rcd
+
+# Run with asip2gdb
+gdbrun: gdb_run.$(CFG).$(ISS).log
+
+# Run with OCD
+ocdrun: ocd_vcs_run.$(CFG).$(HDL).log
+
+# Run with OCD via asip2gdb
+gdbocdrun: gdb_ocd_vcs_run.$(CFG).$(HDL).log
+
+# Run Tcl script driven OSCI SystemC simulation
+oscirun: osci_run.$(CFG).$(ACCURACY).$(ISS).log
+
+# Run asip2gdb driven OSCI SystemC simulation
+gdboscirun: gdb_osci_run.$(CFG).$(ACCURACY).$(ISS).log
+
+# Run C++ application driven OSCI SystemC simulation
+oscicpprun: osci_cpp_run.$(CFG).$(ACCURACY).$(ISS).log
+
+# Run Virtualizer simulation
+vprun: vprun.$(CFG).$(VP).log
+
+# Compare ISS vs Native vs OK
+diff: test.$(CFG).$(ISS).diff
+
+# Compare ISS vs HDL, RCD traces
+rtldiff: test.$(CFG).$(ISS).$(HDL).rtldiff
+
+# Compare asip2gdb based ISS run vs Native vs OK
+gdbdiff: test.$(CFG).$(ISS).gdbdiff
+
+# Compare OCD based RTL sim vs Native vs OK
+ocddiff: test.$(CFG).$(HDL).ocddiff
+
+# Compare asip2gdb OCD based RTL sim vs Native vs OK
+gdbocddiff: test.$(CFG).$(HDL).gdbocddiff
+
+# Compare Tcl script driven OSCI SystemC simulation run vs Native vs OK
+oscidiff: test.$(CFG).$(ACCURACY).$(ISS).oscidiff
+
+# Compare asip2gdb driven OSCI SystemC simulation run vs Native vs OK
+gdboscidiff: test.$(CFG).$(ACCURACY).$(ISS).gdboscidiff
+
+# Compare C++ application driven OSCI SystemC simulation run vs Native vs OK
+oscicppdiff: test.$(CFG).$(ACCURACY).$(ISS).oscicppdiff
+
+# Compare SystemC simulation run vs Native vs OK
+vpdiff: test.$(CFG).$(VP).vpdiff
+
+# Run on HDL simulator
+rtlsim: rtl_sim.$(HDL).log
+
+# Run on HDL simulator, generate SAIF file
+saifrun: saif_run.$(HDL).log
+
+# Generate HDL testbench memory init files
+hex: $(CFG)/test.PMb
+
+# Generate exit file
+exitfile: $(CFG)/test.exit
+
+# native
+test.gcc: test.prx test.c
+	@ echo "   Compiling and running on host ($(NCFG))"
+	@ chessmk -C $(NCFG) test.prx    &> gcc.log
+	@ chessmk -C $(NCFG) test.prx -S &> test.gcc
+
+# update ok file (use native output)
+test.ok: test.gcc
+	@ echo "   Updating test.ok"
+	@ sed "1,3 d" $< > $@
+# remove first 3 lines: file path, compile config, run debug config
+
+# chess: compile test
+$(CFG)/test: test.prx test.c
+	@ echo "   Compiling on target ($(CFG))"
+	@ chessmk -C $(CFG) test.prx &> chess.$(CFG).log
+
+# run or issrun
+$(CFG)/test.$(ISS).mem: iss_run.$(CFG).$(ISS).log
+iss_run.$(CFG).$(ISS).log: $(CFG)/test $(RUN_DEP)
+	@ echo "   Simulating on target ($(CFG)) ($(ISS)) - RCD disabled"
+	@ chessmk -C $(CFG) test.prx -S +D $(ISS) -sim-script '$(SIM_SCRIPT) $(SIM_SCRIPT_ARGS)' $(CHESSMK_SIM_ARGS) &> $(@:%.log=%.err)
+	@ echo "   (`cat $(CFG)/test.$(ISS).cycle_count` cycles)"
+	@ mv $(@:%.log=%.err) $@ # on success only
+	
+# issrcdrun
+$(CFG)/test.$(ISS).rcd $(CFG)/test.$(ISS).cycle_count: iss_rcd_run.$(CFG).$(ISS).log
+iss_rcd_run.$(CFG).$(ISS).log: $(CFG)/test $(RUN_DEP)
+	@ echo "   Simulating on target ($(CFG)) ($(ISS)) - RCD enabled"
+	@ chessmk -C $(CFG) test.prx -S +D $(ISS) -sim-script '$(SIM_SCRIPT) $(SIM_SCRIPT_ARGS)' $(CHESSMK_SIM_ARGS) &> $(@:%.log=%.err)
+	@ echo "   (`cat $(CFG)/test.$(ISS).cycle_count` cycles)"
+	@ mv $(@:%.log=%.err) $@ # on success only
+
+# diff
+test.$(CFG).$(ISS).diff: test.gcc $(CFG)/test.$(ISS).mem $(RUN_DEP)
+	@ echo "   Checking diffs Native versus CHESS ($(CFG)) ($(ISS))"
+	@ regression_compare --v2 test.ok $(wordlist 1,2,$^) > $@
+	@ tail -1 $@
+
+# rtlrun - Generate register change dump (RCD)
+$(CFG)/test.$(HDL).rcd: rtl_run.$(CFG).$(HDL).log
+rtl_run.$(CFG).$(HDL).log: $(CFG)/test.$(ISS).cycle_count $(RUN_DEP)
+	@ echo "   Simulating $(HDL) ($(CFG)) (`cat $(CFG)/test.$(ISS).cycle_count` cycles)"
+	@ cp -f $(CFG)/test.$(ISS).cycle_count $(CFG)/test.cycle_count
+	@ chessmk test.prx -H -C $(CFG) +C rcd +E $(HDL) +D $(ISS) $(CHESSMK_HDL_ARGS) &> $(@:%.log=%.err)
+	@ if grep -q "PDG_ASSERT" $(@:%.log=%.err); then echo "   Failed PDG assertion!"; false; fi
+	@ mv $(@:%.log=%.err) $@ # on success only
+
+# rtldiff
+test.$(CFG).$(ISS).$(HDL).rtldiff: $(CFG)/test.$(ISS).rcd $(CFG)/test.$(HDL).rcd $(RUN_DEP)
+	@ echo "   Checking diffs $(ISS) versus $(HDL) ($(CFG))"
+	@ rcd_compare $(wordlist 1,2,$^) > $@
+	@ tail -1 $@
+
+# ocdvcsrun
+$(CFG)/test.$(HDL).ocd.mem: ocd_vcs_run.$(CFG).$(HDL).log
+ocd_vcs_run.$(CFG).$(HDL).log: $(CFG)/test $(RUN_DEP)
+	@ echo "   Simulating on target ($(CFG)) ($(HDL)) (OCD)"
+	@ $(DBG_CLIENT) -P $(PROJDIR)/lib -p $< $(J) -t "$(PROJDIR)/bin/ocd_vcs.tcl $(SIM_SCRIPT_ARGS)" &> $(@:%.log=%.err) ; exitcode=$$? ; \
+	  timeout=$$(grep -s "OCD_VCS: Timeout" $(@:%.log=%.err)) ; \
+	  [[ "$$timeout" != "" ]] && echo "   WARNING: OCD_VCS timeout" ; \
+	  if [[ "$(IGNORE_OCD_TIMEOUT)" != 0 && "$$timeout" != "" ]] ; then \
+	    exit 0 ; \
+	  else \
+	    exit $$exitcode ; \
+	  fi
+	@ mv $(@:%.log=%.err) $@ # on success only
+
+# ocddiff
+test.$(CFG).$(HDL).ocddiff: test.gcc $(CFG)/test.$(HDL).ocd.mem $(RUN_DEP)
+	@ if [[ "$(IGNORE_OCD_TIMEOUT)" == 0 ]] || ! grep -q "OCD_VCS: Timeout" ocd_vcs_run.$(CFG).$(HDL).log ; then \
+	    echo "   Checking diffs Native versus CHESS ($(CFG)) ($(HDL)) (OCD)" ; \
+	    regression_compare --v2 test.ok $(wordlist 1,2,$^) > $@ ; \
+	    tail -1 $@ ; \
+	  fi
+
+# gdbocdrun
+$(CFG)/test.$(HDL).gdb.ocd.mem: gdb_ocd_vcs_run.$(CFG).$(HDL).log
+gdb_ocd_vcs_run.$(CFG).$(HDL).log: $(CFG)/test $(RUN_DEP)
+	@ echo "   Simulating on target ($(CFG)) ($(HDL)) (OCD) (asip2gdb)"
+	@ ( $(PROJDIR)/bin/run.sh -tmo 20m -msg "OCD_VCS: Timeout" \
+        $(PROJDIR)/bin/ocd/run_gdb.sh $< $(SIM_SCRIPT_ARGS) ) &> $(@:%.log=%.err) ; exitcode=$$? ; \
+	  timeout=$$(grep -s "OCD_VCS: Timeout" $(@:%.log=%.err)) ; \
+	  [[ "$$timeout" != "" ]] && echo "   WARNING: OCD_VCS timeout" ; \
+	  if [[ "$(IGNORE_OCD_TIMEOUT)" != 0 && "$$timeout" != "" ]] ; then \
+	    exit 0 ; \
+	  else \
+	    exit $$exitcode ; \
+	  fi
+	@ mv $(@:%.log=%.err) $@ # on success only
+
+# gdbocddiff
+test.$(CFG).$(HDL).gdbocddiff: test.gcc $(CFG)/test.$(HDL).gdb.ocd.mem $(RUN_DEP)
+	@ if [[ "$(IGNORE_OCD_TIMEOUT)" == 0 ]] || ! grep -Eq "^OCD_VCS: Timeout" gdb_ocd_vcs_run.$(CFG).$(HDL).log ; then \
+	    echo "   Checking diffs Native versus CHESS ($(CFG)) ($(HDL)) (OCD) (asip2gdb)" ; \
+	    regression_compare --v2 test.ok $(wordlist 1,2,$^) > $@ ; \
+	    tail -1 $@ ; \
+	  fi
+
+# gdbrun
+$(CFG)/test.$(ISS).gdb.mem: gdb_run.$(CFG).$(ISS).log
+gdb_run.$(CFG).$(ISS).log: $(CFG)/test $(RUN_DEP)
+	@ echo "   Simulating on target ($(CFG)) ($(ISS)) (asip2gdb)"
+	@ asip2gdb -l $(PROJDIR)/iss/$(ISS) -proc-lib $(PROJDIR)/lib -e $< --command=$(PROJDIR)/bin/gdbscript.txt &> $(@:%.log=%.err)
+	@ mv $(@:%.log=%.err) $@ # on success only
+
+# gdbdiff
+test.$(CFG).$(ISS).gdbdiff: test.gcc $(CFG)/test.$(ISS).gdb.mem $(RUN_DEP)
+	@ echo "   Checking diffs Native versus CHESS ($(CFG)) ($(ISS)) (asip2gdb)"
+	@ regression_compare --v2 test.ok $(wordlist 1,2,$^) > $@
+	@ tail -1 $@
+
+# oscirun
+$(CFG)/test.$(ACCURACY).$(ISS).osci.mem: osci_run.$(CFG).$(ACCURACY).$(ISS).log
+osci_run.$(CFG).$(ACCURACY).$(ISS).log: $(CFG)/test $(RUN_DEP)
+	@ echo "   Simulating on target ($(CFG)) ($(ACCURACY).$(ISS))"
+	@ $(PROJDIR)/systemc/osci/run.tcl $(ACCURACY)/$(ISS) --args "$(OSCI_EXTRA_ARGS)" $< &> $(@:%.log=%.err)
+	@ mv $(@:%.log=%.err) $@ # on success only
+
+# oscidiff
+test.$(CFG).$(ACCURACY).$(ISS).oscidiff: test.gcc $(CFG)/test.$(ACCURACY).$(ISS).osci.mem $(RUN_DEP)
+	@ echo "   Checking diffs Native versus CHESS ($(CFG)) ($(ACCURACY).$(ISS))"
+	@ regression_compare --v2 test.ok $(wordlist 1,2,$^) > $@
+	@ tail -1 $@
+
+# gdboscirun
+$(CFG)/test.$(ACCURACY).$(ISS).gdb.osci.mem: gdb_osci_run.$(CFG).$(ACCURACY).$(ISS).log
+gdb_osci_run.$(CFG).$(ACCURACY).$(ISS).log: $(CFG)/test $(RUN_DEP)
+	@ echo "   Simulating on target ($(CFG)) ($(ACCURACY).$(ISS)) (asip2gdb)"
+	@ $(PROJDIR)/systemc/osci/run.tcl --gdb $(ACCURACY)/$(ISS) $< &> $(@:%.log=%.err)
+	@ mv $(@:%.log=%.err) $@ # on success only
+
+# gdboscidiff
+test.$(CFG).$(ACCURACY).$(ISS).gdboscidiff: test.gcc $(CFG)/test.$(ACCURACY).$(ISS).gdb.osci.mem $(RUN_DEP)
+	@ echo "   Checking diffs Native versus CHESS ($(CFG)) ($(ACCURACY).$(ISS)) (asip2gdb)"
+	@ regression_compare --v2 test.ok $(wordlist 1,2,$^) > $@
+	@ tail -1 $@
+
+# oscicpprun
+$(CFG)/test.$(ACCURACY).$(ISS).cpp.osci.mem: osci_cpp_run.$(CFG).$(ACCURACY).$(ISS).log
+osci_cpp_run.$(CFG).$(ACCURACY).$(ISS).log: $(CFG)/test $(RUN_DEP)
+	@ echo "   Simulating on target ($(CFG)) ($(ACCURACY).$(ISS)) (C++ driven)"
+	@ $(PROJDIR)/systemc/osci/$(ACCURACY)/$(ISS) $< $(CFG)/test.$(ACCURACY).$(ISS).cpp.osci.mem &> $(@:%.log=%.err)
+	@ mv $(@:%.log=%.err) $@ # on success only
+
+# oscicppdiff
+test.$(CFG).$(ACCURACY).$(ISS).oscicppdiff: test.gcc $(CFG)/test.$(ACCURACY).$(ISS).cpp.osci.mem $(RUN_DEP)
+	@ echo "   Checking diffs Native versus CHESS ($(CFG)) ($(ACCURACY).$(ISS)) (C++ driven)"
+	@ regression_compare --v2 test.ok $(wordlist 1,2,$^) > $@
+	@ tail -1 $@
+
+# vprun
+$(CFG)/test.$(VP).vzer.mem: vprun.$(CFG).$(VP).log
+vprun.$(CFG).$(VP).log: $(CFG)/test $(CFG)/test.exit $(RUN_DEP)
+	@ echo "   Simulating on target ($(CFG)) ($(VP))"
+	@ $(PROJDIR)/systemc/virtualizer/run.tcl $(VP) $< &> $(@:%.log=%.err)
+	@ mv $(@:%.log=%.err) $@ # on success only
+
+# vpdiff
+test.$(CFG).$(VP).vpdiff: test.gcc $(CFG)/test.$(VP).vzer.mem $(RUN_DEP)
+	@ echo "   Checking diffs Native versus CHESS ($(CFG)) ($(VP))"
+	@ regression_compare --v2 test.ok $(wordlist 1,2,$^) > $@
+	@ tail -1 $@
+
+
+# saifrun
+saif_run.$(HDL).log: $(CFG)/test $(RUN_DEP)
+	@ echo "   Simulating $(HDL) ($(CFG)) (SAIF)"
+	@ chessmk test.prx -H -C $(CFG) -hdl-target saif +E $(HDL) +D $(P)_ca $(CHESSMK_HDL_ARGS) &> $(@:%.log=%.err)
+	@ mv $(@:%.log=%.err) $@ # on success only
+
+# rtlsim - Run RTL sim with stop condition {PC == exit address}
+rtl_sim.$(HDL).log: $(CFG)/test $(RUN_DEP)
+	@ echo "   Simulating $(HDL) ($(CFG))"
+	@ chessmk test.prx -H -C $(CFG) -hdl-target rtlsim +E $(HDL) +D $(P)_ca $(CHESSMK_HDL_ARGS) &> $(@:%.log=%.err)
+	@ mv $(@:%.log=%.err) $@
+	
+
+# hex (also generates exitfile)
+$(CFG)/test.PMb: hex.$(CFG).log
+hex.$(CFG).log: $(CFG)/test
+	@ echo "   Creating memory hex files for simulator ($(CFG))"
+	@ chessmk -C $(CFG) +H test.prx $(CHESSMK_HDL_ARGS) &> $(@:%.log=%.err)
+	@ mv $(@:%.log=%.err) $@
+	
+# exitfile (via read_elf)
+$(CFG)/test.exit: exitfile.$(CFG).log
+exitfile.$(CFG).log: $(CFG)/test
+	@ echo "   Creating exit file for simulator ($(CFG))"
+	@ read_elf -e +x -G $(CFG)/test &> $(@:%.log=%.err)
+	@ mv $(@:%.log=%.err) $@
+
+
+# To debug a test in VCS/Verdi
+rtlgui: $(CFG)/test.PMb
+	@ echo "   Running simv with DVE"
+	@ chessmk test.prx -H -C $(CFG) -hdl-target verdi +E $(HDL) +D $(P)_ca $(CHESSMK_HDL_ARGS)
+
+# start VCS/DVE free-running (no register log, no program load)
+rtlfree:
+	@ echo /dev/null > rcdname.cfg
+	@ echo "   Running simv"
+	@ $(MAKE) -f $(SIMV_DIR)/Makefile run
+	@ rm -f rcdname.cfg
+
+
+ifeq (n,$(findstring n,$(firstword -$(MAKEFLAGS))))
+# not run with -n / --dry-run
+define shell_or_print
+  $(info $(1))
+endef
+else
+# run with -n / --dry-run
+define shell_or_print
+  $(shell $(1))
+endef
+endif
+
+## targets 'clean' & 'virgin' - special handling
+# We ensure that clean/virgin are always executed before any other target
+# This enables proper execution of e.g. 'make clean diff'
+
+# clean: removes most generated files
+ifneq ($(filter clean virgin,$(MAKECMDGOALS)),)
+  # diffs, logfiles
+  $(call shell_or_print,rm -f *.diff *.gdbdiff *.rtldiff *.ocddiff *.gdbocddiff *.oscidiff *.gdboscidiff *.oscicppdiff *.vpdiff *.log *.err)
+  # chess_report files
+  $(call shell_or_print,rm -f  *.mem *.gcc)
+  # HDL simulation related files
+  $(call shell_or_print,rm -f ucli.key appname.cfg rcdname.cfg rtlsim.cycle_count *.saif)
+  # compilation results
+  $(call shell_or_print,rm -rf Release/ Native/ Debug/ Release_LLVM*/ Debug_LLVM*/)
+  # VCS related files
+  $(call shell_or_print,rm -rf INCA_libs ucli.key DVEfiles inter.vpd data.bin novas.conf verdiLog inter.fsdb)
+  # Virtualizer related files
+  $(call shell_or_print,rm -rf analysis_results/ T32/ work.*/)
+  # files containing port numbers of running simulations
+  $(call shell_or_print,rm -f ISS_RPC_SERVER_PORT* JTS_PORT_NUMBER* .PID)
+  # temp files for asip2gdb based targets
+  $(call shell_or_print,rm -f gdbcmds.txt)
+endif
+
+# virgin: removes even more
+ifneq ($(filter virgin,$(MAKECMDGOALS)),)
+  # per-app GUI preferences
+  $(call shell_or_print,rm -f *.prxui)
+  # make.all message files
+  $(call shell_or_print,rm -f .message*)
+endif
+
+clean:
+	@ echo -n ""
+
+virgin:
+	@ echo -n ""
+
+reset:
+	chessmk -r -C $(CFG) test.prx
+
+.PHONY: help native ok chess clean virgin reset 
+.PHONY: run issrun issrcdrun rtlrun saifrun ocdrun gdbrun gdbocdrun saifrun vprun oscirun gdboscirun oscicpprun
+.PHONY: diff rtldiff ocddiff gdbdiff gdbocddiff vpdiff oscidiff gdboscidiff oscicppdiff
+.PHONY: hex rtlgui rtlfree exitfile
+
+.FORCE: ;

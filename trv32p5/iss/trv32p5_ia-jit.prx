@@ -1,0 +1,6 @@
+<simulator name="Simulator" processor="trv32p5" mode="ia" lib="../lib">
+    <option id="checkers.DynamicPcHotCount" value="0"/>
+    <option id="checkers.GenerateDynamicCode" value="on"/>
+    <option id="checkers.IssName" value="trv32p5_ia-jit"/>
+    <option id="checkers.WorkDir" value="work/trv32p5_ia-jit"/>
+</simulator>

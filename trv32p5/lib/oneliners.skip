@@ -1,0 +1,6 @@
+intrc_void_char_memory_copy___P__cchar___P__cchar___uint
+intrc_void_short_memory_copy___P__sshort___P__sshort___uint
+intrc_void_int_memory_copy___P__sint___P__sint___uint
+
+intrc___sint_sdiv_by_ct1___sint___sint Only for compile-time constants
+intrc___uint_udiv_by_ct1___uint___uint Only for compile-time constants

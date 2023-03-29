@@ -1,0 +1,11 @@
+<project name="Project" processor="trv32p5" lib="..">
+    <import path="../../../../libs/libcxx-9.0.0" name="libcxx.prx"/>
+    <option id="project.name" value="libc++.a"/>
+    <option id="project.type" value="arch"/>
+    <configuration remove="1" parent="Release"/>
+    <configuration remove="1" parent="Debug"/>
+    <configuration remove="1" parent="Native"/>
+    <configuration remove="1" parent="Release_LLVM"/>
+    <configuration remove="1" parent="Debug_LLVM"/>
+    <option id="llvm.optim" value="s"/>
+</project>

@@ -1,0 +1,278 @@
+/*
+-- File : alu.n
+--
+-- Contents : nML model for the trv32p5 processor -- ALU instructions.
+--
+-- Copyright (c) 2019-2021 Synopsys, Inc. This Synopsys processor model
+-- captures an ASIP Designer Design Technique. The model and all associated
+-- documentation are proprietary to Synopsys, Inc. and may only be used
+-- pursuant to the terms and conditions of a written license agreement with
+-- Synopsys, Inc.  All other use, reproduction, modification, or distribution
+-- of the Synopsys processor model or the associated  documentation is
+-- strictly prohibited.
+*/
+
+// ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+// ~~~ Units & Transitories
+// ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+fu alu;
+trn aluA <w32>;         // opA
+trn aluB <w32>;         // opB
+trn aluR <w32>;         // alu result
+
+trn luiU <w32>;         // for load-upper-immediate instr
+
+
+// ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+// ~~~ Instruction nML Rules
+// ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+// ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+// ~~~ Top-Level Rule for this nML file
+
+opn alu_instrs (
+    alu_rrr_ar_instr
+  | alu_rris_ar_instr
+  | alu_rri_sh_instr
+  | alu_auipc_instr
+  | lui_instr
+);
+
+// ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+// ~~~ ALU
+//
+// add  rd, rs1, rs2
+// sub  rd, rs1, rs2
+// xor  rd, rs1, rs2
+// or   rd, rs1, rs2
+// and  rd, rs1, rs2
+// slt  rd, rs1, rs2
+// sltu rd, rs1, rs2
+// sll  rd, rs1, rs2
+// srl  rd, rs1, rs2
+// sra  rd, rs1, rs2
+//
+// pseudo:
+//   neg  rd, rs2
+//   snez rd, rs2
+//   sltz rd, rs1
+//   sgtz rd, rs2
+
+opn alu_rrr_ar_instr (op: majOP_fn10, rd: mX1w_EX, rs1: mX1r_EX, rs2: mX2r_EX) {
+  action {
+    stage ID..EX:       aluA`EX` = rs1;
+                        aluB`EX` = rs2;
+    // ---
+    stage EX:
+      switch (op) {
+        case add  :     aluR = add  (aluA,aluB) @alu;
+        case sub  :     aluR = sub  (aluA,aluB) @alu;
+        case slt  :     aluR = slt  (aluA,aluB) @alu;
+        case sltu :     aluR = sltu (aluA,aluB) @alu;
+        case xor  :     aluR = bxor (aluA,aluB) @alu;
+        case or   :     aluR = bor  (aluA,aluB) @alu;
+        case and  :     aluR = band (aluA,aluB) @alu;
+        case sll  :     aluR = sll  (aluA,aluB) @alu;
+        case srl  :     aluR = srl  (aluA,aluB) @alu;
+        case sra  :     aluR = sra  (aluA,aluB) @alu;
+      }
+    // ---
+    stage EX..WB:       rd = aluR`EX`;
+  }
+  syntax :
+           "neg"  PADMNM " " rd "," PADOP1 rs2                  op<<sub>>  rs1<<eX.x0>> // sub  rd, x0,  rs2
+         | "snez" PADMNM " " rd "," PADOP1 rs2                  op<<sltu>> rs1<<eX.x0>> // sltu rd, x0,  rs2
+         | "sltz" PADMNM " " rd "," PADOP1 rs1                  op<<slt>>  rs2<<eX.x0>> // slt  rd, rs1, x0
+         | "sgtz" PADMNM " " rd "," PADOP1 rs2                  op<<slt>>  rs1<<eX.x0>> // slt  rd, x0,  rs2
+         | "nop"                                                op<<add>>  rd<<eX.x0>> rs1<<eX.x0>> rs2<<eX.x0>> // add x0,x0,x0
+         | op     PADMNM " " rd "," PADOP1 rs1 "," PADOP2 rs2;
+  image  : op[9..3] :: rs2 :: rs1 :: op[2..0] :: rd :: opc32.OP
+           class(alu_rrr);
+}
+
+// ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+// ~~~ ALU with signed 12b immediate operand
+//
+// addi  rd, rs1, imm
+// xori  rd, rs1, imm
+// ori   rd, rs1, imm
+// andi  rd, rs1, imm
+// slti  rd, rs1, imm
+// sltiu rd, rs1, imm
+//
+// pseudo:
+//   nop
+//   li     rd, i
+//   not    rd, rs1
+//   mv     rd, rs1
+//   seqz   rd, rs1
+//   zext.b rd, rs1
+
+opn alu_rris_ar_instr (op: majOP_IMM_fn3, rd: mX1w_EX, rs1: mX1r_EX, i: c12s) {
+  action {
+    stage ID..EX:       aluA`EX` = rs1;
+    stage EX:           aluB     = i;
+    // ---
+    stage EX:
+      switch (op) {
+        case addi  :    aluR = add  (aluA,aluB) @alu;
+        case slti  :    aluR = slt  (aluA,aluB) @alu;
+        case sltiu :    aluR = sltu (aluA,aluB) @alu;
+        case xori  :    aluR = bxor (aluA,aluB) @alu;
+        case andi  :    aluR = band (aluA,aluB) @alu;
+        case ori   :    aluR = bor  (aluA,aluB) @alu;
+      }
+    // ---
+    stage EX..WB:       rd = aluR`EX`;
+  }
+  syntax :
+           "nop"                                                op<<addi>>  rd<<eX.x0>> rs1<<eX.x0>> i<<0>>     // addi  x0, x0,  0
+         | "li"     PADMNM " " rd "," PADOP1 i                  op<<addi>>  rs1<<eX.x0>>                        // addi  rd, x0,  i
+         | "not"    PADMNM " " rd "," PADOP1 rs1                op<<xori>>  i<<-1>>                             // xori  rd, rs1, -1
+         | "mv"     PADMNM " " rd "," PADOP1 rs1                op<<addi>>  i<<0>>                              // addi  rd, rs1, 0
+         | "seqz"   PADMNM " " rd "," PADOP1 rs1                op<<sltiu>> i<<1>>                              // sltiu rd, rs1, 1
+         | "zext.b" PADMNM " " rd "," PADOP1 rs1                op<<andi>>  i<<255>>                            // andi  rd, rs1, 255
+         | op       PADMNM " " rd "," PADOP1 rs1 "," PADOP2 i;
+  image  : i :: rs1 :: op :: rd :: opc32.OP_IMM
+           class(alu_rri);
+}
+
+// ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+// ~~~ ALU with unsigned 5b immediate operand
+//
+// slli rd, rs1, imm
+// srli rd, rs1, imm
+// srai rd, rs1, imm
+
+opn alu_rri_sh_instr (op: majOP_IMM_fn10, rd: mX1w_EX, rs1: mX1r_EX, i: c5u) {
+  action {
+    stage ID..EX:       aluA`EX` = rs1;
+    stage EX:           aluB     = i;
+    // ---
+    stage EX:
+      switch (op) {
+        case slli :     aluR = sll (aluA,aluB) @alu;
+        case srli :     aluR = srl (aluA,aluB) @alu;
+        case srai :     aluR = sra (aluA,aluB) @alu;
+      }
+    // ---
+    stage EX..WB:       rd = aluR`EX`;
+  }
+  syntax : op PADMNM " " rd "," PADOP1 rs1 "," PADOP2 i;
+  image  : op[9..3] :: i :: rs1 :: op[2..0] :: rd :: opc32.OP_IMM
+           class(alu_rri);
+}
+
+// ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+// ~~~ Load Upper Immediate
+//
+// lui rd, imm
+
+opn lui_instr (rd: mX1w_EX, i: c20s_rp12) {
+  action {
+    stage EX:           luiU = i;
+    // ---
+    stage EX..WB:       rd = luiU`EX`;
+  }
+  syntax : "lui" PADMNM " " rd "," PADOP1 i;
+  image  : i :: rd :: opc32.LUI
+           class(lui);
+}
+
+// ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+// ~~~ ALU add upper immediate to PC
+//
+// auipc rd, imm
+//
+// NOTE: currently not selected by Chess compiler, only for handwritten assembly
+
+opn alu_auipc_instr (rd: mX1w_EX, i: c20s_rp12) {
+  action {
+    stage ID:           PC_EX = PC_EX_w = PC_ID_r = PC_ID;
+    stage EX:           aluA = PC_EX_r = PC_EX;
+                        aluB = i;
+    // ---
+    stage EX:           aluR = add (aluA,aluB) @alu;
+    // ---
+    stage EX..WB:       rd = aluR`EX`;
+  }
+  syntax : "auipc" PADMNM " " rd "," PADOP1 i;
+  image  : i :: rd :: opc32.AUIPC
+           class(auipc);
+}
+
+
+// ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+// ~~~ Chess Views for ALU Operations
+// ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+// ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+// ~~~ Register Move
+//
+// addi rd, rs1, 0
+
+chess_view () {
+  aluR = add (aluA, aluB = 0); class(alu_rri);
+} -> {
+  aluR = aluA;
+}
+
+// The RISC-V ISA has no 'move' instructions, hence we must use the ALU. We
+// explain to Chess how to use an 'add' to do a 'move' using the above
+// chess_view rule. Chess does not look into PDG code. The 'add' is opaque.
+
+// ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+// ~~~ Pass c12s constant
+//
+// addi rd, x0, imm
+
+chess_view (i: c12s) {
+  aluR = add (aluA = zero, aluB = i);
+} -> {
+  aluR = i;
+}
+
+// ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+// ~~~ set equal zero
+//
+// sltiu rd, rs, 1
+
+chess_view () {
+  aluR = sltu (aluA, aluB = 1);
+} -> {
+  aluR = seq0 (aluA);
+}
+
+// ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+// ~~~ set not equal zero
+//
+// sltu rd, x0, rs
+
+chess_view () {
+  aluR = sltu (aluA = zero, aluB);
+} -> {
+  aluR = sne0 (aluB);
+}
+
+// ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+// ~~~ Zero-extend 8-bit value
+//
+// andi rd, rs1, 0xff
+
+chess_view () {
+  aluR = band (aluA, aluB = 0xff);
+} -> {
+  aluR = zext_08 (aluA);
+}
+
+// ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+// ~~~ nop
+//
+// addi x0, x0, 0
+
+chess_view () {
+  x_w1_dead = add (aluA = zero, aluB = 0); class(alu_rri);
+} -> {
+  nop();
+}

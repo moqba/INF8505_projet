@@ -1,0 +1,19 @@
+<simulator name="Simulator" processor="trv32p5" mode="ia" lib="../../../lib">
+    <option id="checkers.WorkDir" value="work/trv32p5_sc_no_gui"/>
+    <option id="checkers.IssName" value="trv32p5_sc_no_gui"/>
+    <option id="checkers.active_low_reset" value="on"/>
+    <option id="checkers.ExtraDefines" value="NOGUI CHECKERS_NO_GUI_SC_STOP_ON_BREAKPOINT" inherit="1"/>
+    <option id="checkers.ExtraCFiles" value="scmain.cpp" inherit="1"/>
+    <option id="checkers.ExtraIncDirs" value="{$(OSCI_DIR)/include}" inherit="1"/>
+    <option id="checkers.ExtraLibDirs" value="{$(OSCI_DIR)/lib-linux64}" inherit="1"/>
+    <option id="checkers.ExtraLibraries" value="scml2 scml2_logging scml_clock systemc" inherit="1"/>
+    <option id="checkers.GenerateSystemCInterface" value="on"/>
+    <option id="checkers.GenerateSystemCInterfaceWithGUI" value="off"/>
+    <option id="checkers.ISSLinkType" value="exe"/>
+    <option id="checkers.NoMain" value="on"/>
+    <option id="checkers.TLM2Wrapper" value="1"/>
+    <option id="checkers.DisableTemporalDecoupling" value="1"/>
+    <option id="checkers.NoTclTuiLibs" value="on"/>
+    <option id="checkers.nMLMemoryInterfaceSelectedStorages" value="DMb" inherit="1"/>
+    <option id="checkers.nMLMemoryInterfaceSelectStorages" value="selected"/>
+</simulator>

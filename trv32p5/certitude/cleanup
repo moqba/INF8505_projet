@@ -1,0 +1,4 @@
+#!/usr/bin/env bash
+
+rm -rf certitudeD* certitudeT* certitudeR* certitudeW* tmpHDLFiles *.log
+rm -rf verdiLog

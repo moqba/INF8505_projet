@@ -1,0 +1,15 @@
+<simulator name="Simulator" processor="trv32p5" mode="ca" lib="../../../lib">
+    <option id="checkers.WorkDir" value="work/trv32p5_sc"/>
+    <option id="checkers.IssName" value="trv32p5_sc"/>
+    <option id="checkers.active_low_reset" value="on"/>
+    <option id="checkers.ExtraCFiles" value="scmain.cpp {$(CHESSDIR)/checkersdir/include/checkers_osci_debug_control.cpp}" inherit="1"/>
+    <option id="checkers.ExtraIncDirs" value="{$(OSCI_DIR)/include}" inherit="1"/>
+    <option id="checkers.ExtraLibDirs" value="{$(OSCI_DIR)/lib-linux64}" inherit="1"/>
+    <option id="checkers.ExtraLibraries" value="scml2 scml2_logging scml_clock systemc" inherit="1"/>
+    <option id="checkers.GenerateSystemCInterface" value="on"/>
+    <option id="checkers.GenerateSystemCInterfaceWithGUI" value="on"/>
+    <option id="checkers.ISSLinkType" value="exe"/>
+    <option id="checkers.NoMain" value="on"/>
+    <option id="checkers.TLM2Wrapper" value="1"/>
+    <option id="checkers.DisableTemporalDecoupling" value="1"/>
+</simulator>

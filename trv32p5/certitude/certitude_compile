@@ -1,0 +1,9 @@
+#!/usr/bin/env bash
+
+set -e
+
+cd ../hdl/trv32p5_vlog
+
+make clean
+make elab
+

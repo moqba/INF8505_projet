@@ -1,0 +1,126 @@
+/*
+-- File : regX.n
+--
+-- Contents : Integer Register FIle
+--
+-- Copyright (c) 2021 Synopsys, Inc. This Synopsys processor model
+-- captures an ASIP Designer Design Technique. The model and all associated
+-- documentation are proprietary to Synopsys, Inc. and may only be used
+-- pursuant to the terms and conditions of a written license agreement with
+-- Synopsys, Inc.  All other use, reproduction, modification, or distribution
+-- of the Synopsys processor model or the associated  documentation is
+-- strictly prohibited.
+*/
+
+// ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+// ~~~ Integer Register File
+// ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+enum eX {
+  // nML label "default assembly syntax" | "alternative assembly syntax"
+  x0  "x0"  | "zero",
+  x1  "x1"  | "ra",
+  x2  "x2"  | "sp",
+  x3  "x3"  | "gp",
+  x4  "x4"  | "tp",
+
+  x5  "x5"  | "t0",  x6  "x6"  | "t1",  x7  "x7"  | "t2",
+
+  x8  "x8"  | "s0",  x9  "x9"  | "s1",
+
+  x10 "x10" | "a0",  x11 "x11" | "a1",  x12 "x12" | "a2", x13 "x13" | "a3",
+  x14 "x14" | "a4",  x15 "x15" | "a5",  x16 "x16" | "a6", x17 "x17" | "a7",
+
+  x18 "x18" | "s2",  x19 "x19" | "s3",  x20 "x20" | "s4", x21 "x21" | "s5",
+  x22 "x22" | "s6",  x23 "x23" | "s7",  x24 "x24" | "s8", x25 "x25" | "s9",
+  x26 "x26" | "s10", x27 "x27" | "s11",
+
+  x28 "x28" | "t3",  x29 "x29" | "t4",  x30 "x30" | "t5", x31 "x31" | "t6"
+};
+
+reg X[32] <w32,t5u> syntax ("x")
+    read (
+      x_r1 x_r2
+    )
+    write (
+      x_w1
+    );
+hw_init X = others => 0;
+
+// dead-end transitories for writes to X[0] field
+
+trn x_w1_dead <w32>;
+property dead_end: x_w1_dead;
+
+// ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+// ~~~ Named Aliases of X[] Fields
+
+// 'Dead' register field X[0], hard-wired to 0
+reg zero <w32> alias X[0] read() write();
+
+// Link register
+reg LR   <w32> alias X[1] read() write();
+
+// Stack pointer
+reg SP   <w32> alias X[2] read() write();
+
+// These register aliases are only used in compiler properties. They are not
+// connected in nML.
+property unconnected : LR, SP;
+
+// ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+// ~~~ Mode Rules for X[] Access
+
+mode mX1r (r: eX) {
+  read_value : X[r] read (x_r1);
+  syntax     : r;
+  image      : r
+               class(mX1r);
+}
+
+mode mX2r (r: eX) {
+  read_value : X[r] read (x_r2);
+  syntax     : r;
+  image      : r
+               class(mX2r);
+}
+
+mode mX1w (r: eX) {
+  write_value : x_w1;
+  write_action {
+    if (r: x0) x_w1_dead = x_w1;
+    else       X[r] = x_w1;
+  }
+  syntax : r;
+  image  : r
+           class(mX1w);
+}
+
+// There are two modeling approaches to X[0] alias zero, which is supposed to
+// be a 'dead' field, i.e., writes are discarded and reads return zero.
+//  * SW: mark it as reserved. The field X[0] exists in HW, is initialized to
+//    zero and never written by Chess. This allows to quickly 'revive' the field
+//    when extending the Trv32p5 core. Note that manually written assembly can
+//    still write to X[0], since we only tell the C compiler to never write to
+//    it.
+//  * HW: all writes to X[0] are discarded - use a 'dead_end' sink to avoid
+//    warnings about incomplete register transfers. In combination with the Go
+//    option 'register_write_per_field', Go removes the write access to X[0] and
+//    gate-level synthesis then completely removes the field. Writes to X[0]
+//    are truly ignored, even in case of manually written assembly.
+
+
+// ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+// ~~~ Chess View: Reading X[0] alias zero returns '0'
+// ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+component read_zero (trn rp) {
+  chess_view() {
+    rp = zero;
+  } -> {
+    rp = 0;
+  }
+}
+
+instantiate read_zero (x_r1);
+instantiate read_zero (x_r2);

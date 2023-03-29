@@ -1,0 +1,11 @@
+<project name="Project" processor="trv32p5" lib="../../lib">
+    <configuration name="Release_LLVM_tuned" parent="Release_LLVM"/>
+    <file type="c" name="dhry_1.c" path=""/>
+    <file type="c" name="dhry_2.c" path=""/>
+    <option id="project.name" value="dhry"/>
+    <option id="project.type" value="exe"/>
+    <option id="llvm.xargs" value="-fno-inline" inherit="1"/>
+    <option id="llvm.mllvm" value="-inline-threshold=1000 -chess-unroll-allow-partial-uncomputable-loop -chess-aainfo2chains-algo=3 -enable-newgvn -chess-enable-jump-tables=0" inherit="1" cfg="Release_LLVM_tuned"/>
+    <option id="cpp.define" value="TRV32P5_CHESSMEM_THRESHOLD=32" inherit="1" cfg="Release_LLVM_tuned"/>
+    <option id="backend.amnesia.xargs" value="+Ocfv -Onoprop" inherit="1" cfg="Release_LLVM_tuned"/>
+</project>

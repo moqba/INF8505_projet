@@ -1,0 +1,13 @@
+<batch name="Batch project" processor="trv32p5" lib="lib">
+    <prj name="libtrv32p5" path="lib" configuration="Release_LLVM_full"/>
+    <prj name="libcompiler_rt" path="lib/compiler-rt" configuration="Release_LLVM_full"/>
+    <prj name="libc++" path="lib/libcxx" configuration="Release_LLVM_full"/>
+    <prj name="libc++abi" path="lib/libcxxabi" configuration="Release_LLVM_full"/>
+    <prj name="libgloss" path="lib/libgloss" configuration="Release_LLVM_full"/>
+    <prj name="libc" path="lib/newlib" configuration="Release_LLVM_full"/>
+    <prj name="libm" path="lib/newlib" configuration="Release_LLVM_full"/>
+    <prj name="trv32p5_ca" path="iss"/>
+    <prj name="trv32p5_ca-fst" path="iss"/>
+    <prj name="trv32p5_vlog" path="hdl"/>
+    <prj name="libnative" path="lib" configuration="Native"/>
+</batch>

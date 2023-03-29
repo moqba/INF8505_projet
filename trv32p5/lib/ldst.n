@@ -1,0 +1,130 @@
+/*
+-- File : ldst.n
+--
+-- Contents : nML model for the trv32p5 processor -- load/store instructions.
+--
+-- Copyright (c) 2019-2021 Synopsys, Inc. This Synopsys processor model
+-- captures an ASIP Designer Design Technique. The model and all associated
+-- documentation are proprietary to Synopsys, Inc. and may only be used
+-- pursuant to the terms and conditions of a written license agreement with
+-- Synopsys, Inc.  All other use, reproduction, modification, or distribution
+-- of the Synopsys processor model or the associated  documentation is
+-- strictly prohibited.
+*/
+
+// ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+// ~~~ Units & Transitories
+// ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+// Load-Extension Unit (zero-/sign extension)
+fu lx;
+trn lxB <w08>;
+trn lxH <w16>;
+trn lxR <w32>;
+
+// Address Generation Unit
+fu agu;
+trn aguA <w32>;       // opA
+trn aguB <w32>;       // opB
+trn aguR <w32>;       // agu result
+
+// ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+// ~~~ Instruction nML Rules
+// ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+// ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+// ~~~ Top-Level Rule for this nML file
+
+opn ldst_instrs (
+    load_instr
+  | store_instr
+);
+
+// ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+// ~~~ X[] Load Operations
+//
+// lb  rd, imm(rs1)
+// lbu rd, imm(rs1)
+// lh  rd, imm(rs1)
+// lhu rd, imm(rs1)
+// lw  rd, imm(rs1)
+
+opn load_instr (op: majLOAD_fn3, rd: mX1w_ME, rs1: mX1r_EX, i: c12s) {
+  action {
+    stage ID..EX:       aguA`EX` = rs1;
+    stage EX:           aguB     = i;
+    // ---
+    stage EX:           aguR = add (aguA,aguB) @agu;
+                        dm_addr = aguR;
+    // ---
+    stage EX..ME:
+      switch (op) {
+        case lb|lbu :   dmb_rd`ME` = DMb[dm_addr`EX`]`ME`;
+        case lh|lhu :   dmh_rd`ME` = DMh[dm_addr`EX`]`ME`;
+        case lw     :   dmw_rd`ME` = DMw[dm_addr`EX`]`ME`;
+      }
+    stage ME:
+      switch (op) {
+        case lb  :      lxR = sext (lxB=dmb_rd) @lx;
+        case lbu :      lxR = zext (lxB=dmb_rd) @lx;
+        case lh  :      lxR = sext (lxH=dmh_rd) @lx;
+        case lhu :      lxR = zext (lxH=dmh_rd) @lx;
+        case lw  :      lxR =           dmw_rd  @lx;
+      }
+    // ---
+    stage ME..WB:       rd = lxR`ME`;
+  }
+  syntax : op PADMNM " " rd "," PADOP1 i "(" rs1 ")";
+  image  : i :: rs1 :: op :: rd :: opc32.LOAD
+           class(load), class(ldst);
+}
+
+// ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+// ~~~ X[] Store operations
+//
+// sb rs1, imm(rs1)
+// sh rs1, imm(rs1)
+// sw rs1, imm(rs1)
+
+opn store_instr (op: majSTORE_fn3, rs1: mX1r_EX, rs2: mX2r_EX, i: c12s) {
+  action {
+    stage ID..EX:       aguA`EX` = rs1;
+    stage EX:           aguB     = i;
+    // ---
+    stage EX:           aguR = add (aguA,aguB) @agu;
+                        dm_addr = aguR;
+    // ---
+    stage ID..EX:
+      switch (op) {
+        case sb :       DMb[dm_addr`EX`]`EX` = dmb_wr`EX` = rs2;
+        case sh :       DMh[dm_addr`EX`]`EX` = dmh_wr`EX` = rs2;
+        case sw :       DMw[dm_addr`EX`]`EX` = dmw_wr`EX` = rs2;
+      }
+  }
+  syntax : op PADMNM " " rs2 "," PADOP1 i "(" rs1 ")";
+  image  : i[11..5] :: rs2 :: rs1 :: op :: i[4..0] :: opc32.STORE
+           class(store), class(ldst);
+}
+
+
+// ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+// ~~~ Chess Views for AGU Operations
+// ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+// ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+// ~~~ Indirect Addressing
+
+chess_view () {
+  aguR = add (aguA, aguB = 0);
+} -> {
+  aguR = aguA;
+}
+
+// ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+// ~~~ Direct Addressing
+
+chess_view () {
+  aguR = add (aguA = zero, aguB);
+} -> {
+  aguR = aguB;
+}

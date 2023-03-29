@@ -1,0 +1,8 @@
+<batch name="Batch project" processor="trv32p5" lib="../../lib">
+    <prj name="trv32p5_sc" path="ca_pin"/>
+    <prj name="trv32p5_sc" path="ca_tlm2_lt"/>
+    <prj name="trv32p5_sc" path="ia_tlm2_lt"/>
+    <prj name="trv32p5_sc_no_gui" path="ca_pin"/>
+    <prj name="trv32p5_sc_no_gui" path="ca_tlm2_lt"/>
+    <prj name="trv32p5_sc_no_gui" path="ia_tlm2_lt"/>
+</batch>

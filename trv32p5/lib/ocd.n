@@ -1,0 +1,114 @@
+/*
+-- File : ocd.n
+--
+-- Contents : nML model for the trv32p5 processor -- On Chip Debugging interface.
+--
+-- Copyright (c) 2019-2021 Synopsys, Inc. This Synopsys processor model
+-- captures an ASIP Designer Design Technique. The model and all associated
+-- documentation are proprietary to Synopsys, Inc. and may only be used
+-- pursuant to the terms and conditions of a written license agreement with
+-- Synopsys, Inc.  All other use, reproduction, modification, or distribution
+-- of the Synopsys processor model or the associated  documentation is
+-- strictly prohibited.
+*/
+
+// ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+// ~~~ OCD Memory Access Transitories
+// ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+trn ocd_ld_DMb <bool>; hw_init ocd_ld_DMb = 0;
+trn ocd_st_DMb <bool>; hw_init ocd_st_DMb = 0;
+
+trn ocd_ld_PMb <bool>; hw_init ocd_ld_PMb = 0;
+trn ocd_st_PMb <bool>; hw_init ocd_st_PMb = 0;
+
+
+// ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+// ~~~ Units & Transitories
+// ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+fu ocd_addr_incr;
+
+trn ocd_swbreak <t1u>;  hw_init ocd_swbreak = 0;
+
+trn ocd_req  <t1u>;  hw_init ocd_req  = 0;
+trn ocd_exe  <t1u>;  hw_init ocd_exe  = 0;
+trn ocd_mode <t1u>;  hw_init ocd_mode = 0;
+
+
+// ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+// ~~~ nML Properties
+// ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+properties {
+  ocd_address_register        : ocd_addr;
+  ocd_data_register           : ocd_data;
+  ocd_instruction_register    : ocd_instr;
+  ocd_request                 : ocd_req;
+  ocd_execute_instruction     : ocd_exe;
+  ocd_swbreak                 : ocd_swbreak;
+  ocd_mode                    : ocd_mode;
+}
+
+
+// ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+// ~~~ nML Rules
+// ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+#ifdef __go__
+
+opn ocd_if () {
+  action {
+    // unguarded default register reads
+    ocd_addr_r = ocd_addr;
+    ocd_data_r = ocd_data;
+    ocd_instr_r = ocd_instr;
+
+    // DM debug moves
+    stage 1..3:
+      guard (ocd_ld_DMb`1`){
+        stage 2:
+          ocd_addr = ocd_addr_w = incr1(ocd_addr_r) @ocd_addr_incr;
+        stage 2..3:
+          ocd_data`3` = ocd_data_w = dmb_rd = DMb[dm_addr`2`=ocd_addr_r`2`]`3`;
+      }
+    stage 1..2:
+      guard (ocd_st_DMb`1`){
+        stage 2:
+          ocd_addr = ocd_addr_w = incr1(ocd_addr_r) @ocd_addr_incr;
+          DMb[dm_addr=ocd_addr_r] = dmb_wr = ocd_data_r;
+      }
+
+    // PM debug moves
+    stage 1..3:
+      guard (ocd_ld_PMb`1`){
+        stage 2:
+          ocd_addr = ocd_addr_w = incr4(ocd_addr_r) @ocd_addr_incr;
+        stage 2..3:
+          ocd_instr `3` = ocd_instr_w`3` = pm_rd`3` = PM[pm_addr`2`=ocd_addr_r`2`]`3`;
+      }
+    stage 1..2:
+      guard (ocd_st_PMb`1`){
+        stage 2:
+          ocd_addr = ocd_addr_w = incr4(ocd_addr_r) @ocd_addr_incr;
+          PM[pm_addr=ocd_addr_r] = pm_wr = ocd_instr_r;
+      }
+  }
+}
+
+#endif
+
+// ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+// ~~~ Software break instruction
+//
+// Note:
+// 1) triggers in EX -> got past a cycles(3|1) branch (not removed in ID)
+//    adds a cycle at breakpoint entering, but also eases timing
+// 2) cycles(2) -> hold off next instruction issue (1 bubble)
+
+opn swbrk_instr () {
+  action { stage EX: ocd_swbreak = 1; }
+  syntax : "swbrk";
+  image  : "000000000001" :: "00000" :: "010" :: "00000" :: opc32.CUSTOM3
+           cycles(2);
+}

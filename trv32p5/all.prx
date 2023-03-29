@@ -1,0 +1,51 @@
+<batch name="Batch project" processor="trv32p5" lib="lib">
+
+    <!-- Release -->
+    <prj name="libtrv32p5" path="lib" configuration="Release"/>
+    <prj name="libsoftfloat3e" path="lib/softfloat" configuration="Release"/>
+    <prj name="libc" path="lib/runtime" configuration="Release"/>
+    <prj name="libm" path="lib/runtime" configuration="Release"/>
+
+    <!-- Debug -->
+    <prj name="libtrv32p5" path="lib" configuration="Debug"/>
+    <prj name="libsoftfloat3e" path="lib/softfloat" configuration="Debug"/>
+    <prj name="libc" path="lib/runtime" configuration="Debug"/>
+    <prj name="libm" path="lib/runtime" configuration="Debug"/>
+
+    <!-- Release_LLVM -->
+    <prj name="libtrv32p5" path="lib" configuration="Release_LLVM"/>
+    <prj name="libcompiler_rt" path="lib/compiler-rt" configuration="Release_LLVM"/>
+    <prj name="libc++lite" path="lib/libcxx-lite" configuration="Release_LLVM"/>
+    <prj name="libc" path="lib/runtime" configuration="Release_LLVM"/>
+    <prj name="libm" path="lib/runtime" configuration="Release_LLVM"/>
+
+    <!-- Debug_LLVM -->
+    <prj name="libtrv32p5" path="lib" configuration="Debug_LLVM"/>
+    <prj name="libcompiler_rt" path="lib/compiler-rt" configuration="Debug_LLVM"/>
+    <prj name="libc++lite" path="lib/libcxx-lite" configuration="Debug_LLVM"/>
+    <prj name="libc" path="lib/runtime" configuration="Debug_LLVM"/>
+    <prj name="libm" path="lib/runtime" configuration="Debug_LLVM"/>
+
+    <!-- Release_LLVM_full -->
+    <prj name="libtrv32p5" path="lib" configuration="Release_LLVM_full"/>
+    <prj name="libcompiler_rt" path="lib/compiler-rt" configuration="Release_LLVM_full"/>
+    <prj name="libc++" path="lib/libcxx" configuration="Release_LLVM_full"/>
+    <prj name="libc++abi" path="lib/libcxxabi" configuration="Release_LLVM_full"/>
+    <prj name="libgloss" path="lib/libgloss" configuration="Release_LLVM_full"/>
+    <prj name="libc" path="lib/newlib" configuration="Release_LLVM_full"/>
+    <prj name="libm" path="lib/newlib" configuration="Release_LLVM_full"/>
+
+    <prj name="trv32p5_ca" path="iss"/>
+    <prj name="trv32p5_ca-fst" path="iss"/>
+    <prj name="trv32p5_ca-jit" path="iss"/>
+    <prj name="trv32p5_ia" path="iss"/>
+    <prj name="trv32p5_ia-jit" path="iss"/>
+    <prj name="trv32p5_ia-blockjit" path="iss"/>
+    <prj name="trv32p5_vlog" path="hdl"/>
+    <prj name="trv32p5_vhdl.prx" path="hdl"/>
+    <prj name="trv32p5_vlog-isacov.prx" path="hdl"/>
+    <prj name="trv32p5_vlog-hwswdbg.prx" path="hdl"/>
+    <prj name="trv32p5_vlog-c1.prx" path="hdl"/>
+
+    <prj name="libnative" path="lib" configuration="Native"/>
+</batch>

@@ -1,0 +1,21 @@
+<project name="Project" processor="trv32p5" lib="..">
+    <file type="c" name="ctype.c" path="src"/>
+    <file type="c" name="errno.c" path="src"/>
+    <file type="c" name="stdio.c" path="src"/>
+    <file type="c" name="string.c" path="src"/>
+    <file type="c" name="strtol.c" path="src"/>
+    <file type="c" name="strtoul.c" path="src"/>
+    <file type="c" name="rand.c" path="src"/>
+    <file type="c" name="qsort.c" path="src"/>
+    <file type="c" name="malloc.c" path="src"/>
+    <file type="c" name="clib_inline.c" path="src"/>
+    <file type="c" name="crt0.c" path="src"/>
+    <file type="c" name="atexit.c" path="src"/>
+    <option id="project.name" value="libc.a"/>
+    <option id="project.type" value="arch"/>
+    <configuration remove="1" parent="Native"/>
+    <configuration remove="1" parent="Release_LLVM_full"/>
+    <option id="cpp.define" value="NDEBUG" inherit="1" cfg="Release"/>
+    <option id="cpp.define" value="NDEBUG" inherit="1" cfg="Release_LLVM"/>
+    <option id="llvm.optim" value="s"/>
+</project>

@@ -1,0 +1,48 @@
+// test_chess_nounroll(0)
+chess_report(int): 0x00000000 // 0
+// test_chess_unroll(0)
+chess_report(int): 0x00000000 // 0
+// test_chess_unroll_2(0)
+chess_report(int): 0x00000000 // 0
+// test_chess_flatten(0)
+chess_report(int): 0x00000000 // 0
+// test_chess_nounroll(1)
+chess_report(int): 0x00000037 // 55
+// test_chess_unroll(1)
+chess_report(int): 0x00000037 // 55
+// test_chess_unroll_2(2)
+chess_report(int): 0x00000001 // 1
+// test_chess_flatten(1)
+chess_report(int): 0x0000000a // 10
+// test_chess_nounroll(2)
+chess_report(int): 0x0000006e // 110
+// test_chess_unroll(2)
+chess_report(int): 0x0000006e // 110
+// test_chess_unroll_2(4)
+chess_report(int): 0x00000006 // 6
+// test_chess_flatten(2)
+chess_report(int): 0x00000014 // 20
+// test_chess_nounroll(3)
+chess_report(int): 0x000000a5 // 165
+// test_chess_unroll(3)
+chess_report(int): 0x000000a5 // 165
+// test_chess_unroll_2(6)
+chess_report(int): 0x0000000f // 15
+// test_chess_flatten(3)
+chess_report(int): 0x0000001e // 30
+// test_chess_nounroll(4)
+chess_report(int): 0x000000dc // 220
+// test_chess_unroll(4)
+chess_report(int): 0x000000dc // 220
+// test_chess_unroll_2(8)
+chess_report(int): 0x0000001c // 28
+// test_chess_flatten(4)
+chess_report(int): 0x00000028 // 40
+// test_chess_nounroll(5)
+chess_report(int): 0x00000113 // 275
+// test_chess_unroll(5)
+chess_report(int): 0x00000113 // 275
+// test_chess_unroll_2(10)
+chess_report(int): 0x0000002d // 45
+// test_chess_flatten(5)
+chess_report(int): 0x00000032 // 50

@@ -1,0 +1,25 @@
+<project name="Project" processor="trv32p5" lib="../../../lib">
+    <execute name="Project">
+        <execonfig name="vcs" parent="default"/>
+        <execonfig name="iss" parent="default"/>
+        <execonfig name="ext" parent="default"/>
+        <execonfig remove="1" parent="default"/>
+        <execonfig remove="1" parent="rcd"/>
+        <option id="simrun.hdlprx" value="" inherit="0"/>
+        <option id="simrun.issia" value="" inherit="0"/>
+        <option id="simrun.issca" value="" inherit="0" cfg="ext"/>
+        <option id="simrun.issca" value="" inherit="0" cfg="vcs"/>
+        <option id="simrun.issdb" value="" inherit="0" cfg="iss"/>
+        <option id="simrun.jtstart" value="off"/>
+        <option id="simrun.simscript" value="test.tcl"/>
+        <option id="simrun.simscriptargs" value="-mode iss" inherit="1" cfg="iss"/>
+        <option id="simrun.simscriptargs" value="-mode ext" inherit="1" cfg="ext"/>
+        <option id="simrun.simscriptargs" value="-mode vcs -simv ../../../hdl/trv32p5_vlog/simv" inherit="1" cfg="vcs"/>
+    </execute>
+    <file type="a" name="test.s" path=""/>
+    <option id="project.dasobj" value="off"/>
+    <option id="project.dastgt" value="on"/>
+    <option id="project.name" value="test"/>
+    <option id="project.type" value="asm"/>
+</project>
+

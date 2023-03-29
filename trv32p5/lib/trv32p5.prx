@@ -1,0 +1,176 @@
+<processor name="Processor">
+    <compilation name="Compilation">
+        <configurations name="Configurations">
+            <configuration name="Release"/>
+            <configuration name="Release_LLVM"/>
+            <configuration name="Release_LLVM_full"/>
+            <configuration name="Debug"/>
+            <configuration name="Debug_LLVM"/>
+            <configuration name="Native"/>
+            <option id="bridge.libpath" value="&lt;PROCDIR&gt;/runtime/&lt;PCONFIG&gt; &lt;PROCDIR&gt;/softfloat/&lt;PCONFIG&gt;" inherit="1" cfg="Release"/>
+            <option id="bridge.libpath" value="&lt;PROCDIR&gt;/runtime/&lt;PCONFIG&gt; &lt;PROCDIR&gt;/softfloat/&lt;PCONFIG&gt;" inherit="1" cfg="Debug"/>
+            <option id="bridge.libpath" value="&lt;PROCDIR&gt;/runtime/&lt;PCONFIG&gt; &lt;PROCDIR&gt;/compiler-rt/&lt;PCONFIG&gt; &lt;PROCDIR&gt;/libcxx-lite/&lt;PCONFIG&gt;" inherit="1" cfg="Release_LLVM"/>
+            <option id="bridge.libpath" value="&lt;PROCDIR&gt;/runtime/&lt;PCONFIG&gt; &lt;PROCDIR&gt;/compiler-rt/&lt;PCONFIG&gt; &lt;PROCDIR&gt;/libcxx-lite/&lt;PCONFIG&gt;" inherit="1" cfg="Debug_LLVM"/>
+            <option id="bridge.libpath" value="&lt;PROCDIR&gt;/compiler-rt/&lt;PCONFIG&gt; &lt;PROCDIR&gt;/libgloss/&lt;PCONFIG&gt; &lt;PROCDIR&gt;/newlib/&lt;PCONFIG&gt; &lt;PROCDIR&gt;/libcxxabi/&lt;PCONFIG&gt; &lt;PROCDIR&gt;/libcxx/&lt;PCONFIG&gt;" inherit="1" cfg="Release_LLVM_full"/>
+            <option id="bridge.libpath" value="&lt;PROCDIR&gt;/&lt;CONFIG&gt;" inherit="0" cfg="Native"/>
+            <option id="bridge.llibs" value="softfloat3e" inherit="1" cfg="Release"/>
+            <option id="bridge.llibs" value="softfloat3e" inherit="1" cfg="Debug"/>
+            <option id="bridge.llibs" value="compiler_rt gloss c++abi c++" inherit="1" cfg="Release_LLVM_full"/>
+            <option id="bridge.llibs" value="compiler_rt c++lite" inherit="1" cfg="Release_LLVM"/>
+            <option id="bridge.llibs" value="compiler_rt c++lite" inherit="1" cfg="Debug_LLVM"/>
+            <option id="bridge.llibs" value="native" inherit="0" cfg="Native"/>
+            <option id="cpp.define" value="_GNU_SOURCE=" inherit="1" cfg="Release_LLVM_full"/>
+            <option id="cpp.include" value="&lt;PROCDIR&gt;/../../../libs/libcxxabi-9.0.0/include &lt;PROCDIR&gt;/../../../libs/libcxx-9.0.0/include &lt;PROCDIR&gt;/newlib/include &lt;PROCDIR&gt;/../../../libs/newlib-4.0.0/newlib/libc/include" inherit="1" cfg="Release_LLVM_full"/>
+            <option id="cpp.include" value="&lt;PROCDIR&gt;/libcxx-lite/include &lt;PROCDIR&gt;/../../../libs/libcxx-9.0.0/include-lite &lt;PROCDIR&gt;/runtime/include " inherit="1" cfg="Release_LLVM"/>
+            <option id="cpp.include" value="&lt;PROCDIR&gt;/libcxx-lite/include &lt;PROCDIR&gt;/../../../libs/libcxx-9.0.0/include-lite &lt;PROCDIR&gt;/runtime/include " inherit="1" cfg="Debug_LLVM"/>
+            <option id="cpp.include" value="&lt;PROCDIR&gt;/runtime/include" inherit="1" cfg="Release"/>
+            <option id="cpp.include" value="&lt;PROCDIR&gt;/runtime/include" inherit="1" cfg="Debug"/>
+            <option id="level.lvl" value="0" cfg="Debug"/>
+            <option id="level.lvl" value="0" cfg="Debug_LLVM"/>
+            <option id="level.lvl" value="1" cfg="Release"/>
+            <option id="level.lvl" value="1" cfg="Release_LLVM_full"/>
+            <option id="level.lvl" value="1" cfg="Release_LLVM"/>
+            <option id="level.lvl" value="1" cfg="Native"/>
+            <option id="llvm.clang" value="on" cfg="Debug_LLVM"/>
+            <option id="llvm.clang" value="on" cfg="Release_LLVM_full"/>
+            <option id="llvm.clang" value="on" cfg="Release_LLVM"/>
+            <option id="native.native" value="on" cfg="Native"/>
+            <option id="noodle.alwinc" value="trv32p5_native.h" inherit="0" cfg="Native"/>
+        </configurations>
+        <level name="Level 0" lvl="0">
+            <option id="backend.mist2.debug" value="on"/>
+            <option id="llvm.optim" value="0"/>
+            <option id="noodle.debug.osps" value="on"/>
+            <option id="noodle.debug.sa" value="sal"/>
+            <option id="noodle.debug.sca" value="on"/>
+            <option id="noodle.debug.wflla" value="on"/>
+            <option id="noodle.optim.noifv" value="on"/>
+            <option id="noodle.optim.nolsw" value="on"/>
+            <option id="noodle.optim.norle" value="on"/>
+            <option id="noodle.optim.notcr" value="on"/>
+        </level>
+        <level name="Level 1" lvl="1">
+            <option id="backend.ipo" value="on"/>
+            <option id="llvm.optim" value="3"/>
+            <option id="native.lnxcomp" value="-O3" inherit="1"/>
+        </level>
+        <library name="Processor model">
+            <option id="cpp.define" value="" inherit="0"/>
+            <option id="cpp.wundef" value="off"/>
+            <option id="noodle.alwinc" value="" inherit="0"/>
+            <option id="noodle.warnlevel" value="high"/>
+            <view in="1" type="c" name="Compilation"/>
+            <view in="1" type="a" name="Linking and (dis)assembling"/>
+            <view in="1" type="s" name="Simulation"/>
+            <view in="1" type="h" name="HDL generation"/>
+        </library>
+        <option id="backend.cosel.fse" value="all"/>
+        <option id="backend.cosel.move" value="on"/>
+        <option id="backend.mist2.nops" value="on"/>
+        <option id="bridge.cfg" value="&lt;PROCDIR&gt;/trv32p5.bcf"/>
+        <option id="bridge.libpath" value="&lt;PROCDIR&gt;/&lt;PCONFIG&gt;" inherit="1"/>
+        <option id="bridge.llibs" value="trv32p5 c m" inherit="1"/>
+        <option id="bridge.map.call" value="on"/>
+        <option id="bridge.map.calltree" value="on"/>
+        <option id="bridge.map.file" value="on"/>
+        <option id="bridge.map.radix" value="hex"/>
+        <option id="bridge.map.ref" value="on"/>
+        <option id="bridge.map.sdr" value="on"/>
+        <option id="bridge.symtab" value="on"/>
+        <option id="cpp.define" value="CHESS_CXX_ATTRIBUTES" inherit="1"/>
+        <option id="darts.dis.format" value="lst"/>
+        <option id="darts.dis.iradix" value="hex"/>
+        <option id="ear.mur" value="on"/>
+        <option id="ear.smur" value="on"/>
+        <option id="llvm.alwinc" value="&lt;PROCESSOR&gt;_llvm.h" inherit="1"/>
+        <option id="native.lnxcomp" value="-m32 -msse2 -mfpmath=sse" inherit="1"/>
+        <option id="native.lnxlink" value="-m32 -lm" inherit="1"/>
+        <option id="noodle.alwinc" value="&lt;PROCESSOR&gt;_chess.h" inherit="1"/>
+        <option id="noodle.optim.rlt" value="no"/>
+        <option id="project.dasobj" value="on"/>
+        <option id="project.dastgt" value="on"/>
+        <option id="project.dwarf" value="on"/>
+    </compilation>
+    <execution name="Run / debug">
+        <execonfig name="default"/>
+        <execonfig name="rcd" parent="default"/>
+        <option id="simrun.hdlprx" value="&lt;PROCDIR&gt;/../hdl/trv32p5_vlog.prx &lt;PROCDIR&gt;/../hdl/trv32p5_vhdl.prx &lt;PROCDIR&gt;/../hdl/trv32p5_vlog-isacov.prx &lt;PROCDIR&gt;/../hdl/trv32p5_vlog-hwswdbg.prx &lt;PROCDIR&gt;/../hdl/trv32p5_vlog-c1.prx" inherit="1"/>
+        <option id="simrun.issca" value="&lt;PROCDIR&gt;/../iss/trv32p5_ca &lt;PROCDIR&gt;/../iss/trv32p5_ca-fst &lt;PROCDIR&gt;/../iss/trv32p5_ca-jit" inherit="1"/>
+        <option id="simrun.issia" value="&lt;PROCDIR&gt;/../iss/trv32p5_ia &lt;PROCDIR&gt;/../iss/trv32p5_ia-jit &lt;PROCDIR&gt;/../iss/trv32p5_ia-blockjit" inherit="1"/>
+        <option id="simrun.issdb" value="&lt;PROCDIR&gt;/../debug_client/trv32p5_client" inherit="1"/>
+        <option id="simrun.loadpc" value="off"/>
+        <option id="simrun.loadsp" value="off"/>
+        <option id="simrun.simscript" value="&lt;PROCDIR&gt;/../bin/iss/driver.tcl" cfg="rcd"/>
+    </execution>
+    <hdlgeneration name="HDL generation">
+        <option id="hdl.usepcu" value="on"/>
+        <option id="hdl.usepdg" value="on"/>
+    </hdlgeneration>
+    <option id="animal.printhaz" value="on"/>
+    <option id="nmlview.bitalign" value="on"/>
+    <reglayout>&lt;clabel&gt;  Registers {
+{PC#PC(IF) PC_ID#PC(ID) PC_EX#PC(EX)}
+{SP LR}
+{
+__mcs____pidX1_r__1_delayed#pidX1
+__mcs____pidX2_r__1_delayed#pidX2
+__mcs____pidX3_r__1_delayed#pidX3
+__mcs____pexX1_r__2_delayed#pexX1
+__mcs____pmeX1_r__3_delayed#pmeX1
+}
+}
+
+&lt;clabel&gt;  X.dec {
+{x0 x1 x2 x3 x4 x5 x6 x7}
+{x8 x9 x10 x11 x12 x13 x14 x15}
+{x16 x17 x18 x19 x20 x21 x22 x23}
+{x24 x25 x26 x27 x28 x29 x30 x31}
+}
+
+&lt;clabel&gt;  X.hex {
+{x0.hex x1.hex x2.hex x3.hex x4.hex x5.hex x6.hex x7.hex}
+{x8.hex x9.hex x10.hex x11.hex x12.hex x13.hex x14.hex x15.hex}
+{x16.hex x17.hex x18.hex x19.hex x20.hex x21.hex x22.hex x23.hex}
+{x24.hex x25.hex x26.hex x27.hex x28.hex x29.hex x30.hex x31.hex}
+}
+&lt;clabel&gt;  controller { {
+controller__r_booting#r_booting
+} }
+
+&lt;clabel&gt;  div { {
+div__B#B div__cnt#cnt
+div__is_div#is_div
+div__is_neg#is_neg
+div__PA#PA.32/32.hex
+div__Q_addr_reg#Q_addr_reg
+}
+{ div_bsy div_adr div_w3c }
+}
+</reglayout>
+    <simulation name="Simulator generation" mode="top">
+        <option id="checkers.UsePCU" value="on"/>
+        <option id="checkers.UsePDG" value="on"/>
+        <option id="checkers.xargs" inherit="1">DefaultDMem=DMb
+DefaultPMem=PMb</option>
+        <sim name="Cycle accurate" mode="ca">
+            <option id="checkers.ArgcArgv" value="on"/>
+            <option id="checkers.BreakpointType" value="all"/>
+            <option id="checkers.HostedClib" value="on"/>
+        </sim>
+        <sim name="Instruction accurate" mode="ia">
+            <option id="checkers.ArgcArgv" value="on"/>
+            <option id="checkers.BreakpointType" value="all"/>
+            <option id="checkers.HostedClib" value="on"/>
+            <option id="checkers.ControllerHeader" value="&lt;PROCDIR&gt;/trv32p5_iapcu.h"/>
+            <option id="checkers.InstructionAccurateNextInstructionPCStorages" value="lnk_id lnk_ex" inherit="1"/>
+            <option id="checkers.UsePDG" value="on"/>
+            <option id="cpp.define" value="IAISS" inherit="1"/>
+        </sim>
+        <sim name="Debug client" mode="db">
+            <option id="checkers.SoftwareBreakpoints" value="on"/>
+            <option id="checkers.UsePDG" value="on"/>
+            <option id="checkers.BreakpointType" value="all"/>
+            <option id="checkers.HostedClib" value="on"/>
+        </sim>
+    </simulation>
+</processor>

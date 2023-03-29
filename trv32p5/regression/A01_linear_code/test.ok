@@ -1,0 +1,9 @@
+ // test_1
+chess_report(int): 0x00000046 // 70
+chess_report(int): 0xffffffce // -50
+ // test_2
+chess_report(int): 0x00000046 // 70
+chess_report(int): 0xffffffce // -50
+ // test_3
+chess_report(int): 0x00000046 // 70
+chess_report(int): 0xffffffce // -50

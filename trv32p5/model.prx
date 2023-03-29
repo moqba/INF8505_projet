@@ -1,0 +1,10 @@
+<batch name="Batch project" processor="trv32p5" lib="lib">
+    <prj name="libtrv32p5" path="lib" configuration="Release"/>
+    <prj name="libsoftfloat3e" path="lib/softfloat" configuration="Release"/>
+    <prj name="libc" path="lib/runtime" configuration="Release"/>
+    <prj name="libm" path="lib/runtime" configuration="Release"/>
+    <prj name="trv32p5_ca" path="iss"/>
+    <prj name="trv32p5_ca-fst" path="iss"/>
+    <prj name="trv32p5_vlog" path="hdl"/>
+    <prj name="libnative" path="lib" configuration="Native"/>
+</batch>

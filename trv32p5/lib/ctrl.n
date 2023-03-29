@@ -1,0 +1,240 @@
+/*
+-- File : ctrl.n
+--
+-- Contents : nML model for the trv32p5 processor -- control instructions.
+--
+-- Copyright (c) 2019-2021 Synopsys, Inc. This Synopsys processor model
+-- captures an ASIP Designer Design Technique. The model and all associated
+-- documentation are proprietary to Synopsys, Inc. and may only be used
+-- pursuant to the terms and conditions of a written license agreement with
+-- Synopsys, Inc.  All other use, reproduction, modification, or distribution
+-- of the Synopsys processor model or the associated  documentation is
+-- strictly prohibited.
+*/
+
+// ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+// ~~~ Units & Transitories
+// ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+// PC Adder
+fu pca;
+trn pcaA <w32>;
+trn pcaB <w32>;
+trn pcaR <w32>;
+
+// Comparator
+fu cmp;
+trn cmpA <w32>;
+trn cmpB <w32>;
+trn cmpF <bool>;
+
+// to PCU
+trn cnd     <bool>;
+trn of21    <t21s_s2>;
+trn of13_cd <t13s_s2>;
+trn trgt    <w32>;
+
+// from PCU
+trn lnk_id  <w32>;
+trn lnk_ex  <w32>;
+
+// to PCU
+trn jmp_tgt_ID <w32>;
+trn jmp_tgt_EX <w32>;
+property dead_end : jmp_tgt_ID;
+property dead_end : jmp_tgt_EX;
+
+// intermediate trn - force LSB to '0'
+trn jmp_tgt_algn2 <t31s_rp1>;
+
+// Forward control address to EX (jump target, link address)
+pipe pidTGT <w32>;
+
+
+// ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+// ~~~ Instruction nML Rules
+// ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+// ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+// ~~~ Top-Level Rule for this nML file
+
+opn ctrl_instrs (
+    br_instr
+  | jal_instr
+  | jalr_instr
+);
+
+// ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+// ~~~ Conditional Branches (cjmp)
+//
+// beq rs1, rs2, imm
+// bne rs1, rs2, imm
+// blt rs1, rs2, imm
+// bltu rs1, rs2, imm
+// bge rs1, rs2, imm
+// bgeu rs1, rs2, imm
+//
+// pseudo:
+//   beqz rs[12], imm
+//   bnez rs[12], imm
+//   bltz rs1,    imm
+//   bgtz rs2,    imm
+//   blez rs2,    imm
+//   bgez rs1,    imm
+//
+// 1 cycle if branch is not taken (fallthrough).
+// 3 cycles if branch is taken.
+// The PCU speculatively fetches and issues the  next instruction after the
+// branch, but removes that instruction if the branch is taken.
+//
+// NOTE there are sw_stall rules (hzrd.n) forbidding breakpoints on the 2 delay
+// slots of branch instructions during on-chip debugging (OCD).
+
+opn br_instr (op: majBRANCH_fn3, i: c13s_s2, rs1: mX1r_EX, rs2: mX2r_EX) {
+  action {
+    stage ID..EX:       cmpA`EX` = rs1;
+                        cmpB`EX` = rs2;
+    // ---
+    stage EX:
+      switch (op) {
+        case beq  :     cmpF = eq  (cmpA,cmpB) @cmp;
+        case bne  :     cmpF = ne  (cmpA,cmpB) @cmp;
+        case blt  :     cmpF = lt  (cmpA,cmpB) @cmp;
+        case bltu :     cmpF = ltu (cmpA,cmpB) @cmp;
+        case bge  :     cmpF = ge  (cmpA,cmpB) @cmp;
+        case bgeu :     cmpF = geu (cmpA,cmpB) @cmp;
+      }
+    stage EX:           br (cnd=cmpF,of13_cd=i);
+    // ---
+#ifndef __programmers_view__
+    stage ID:           pcaA = PC_ID_r = PC_ID;
+                        pcaB = i;
+    // ---
+    stage ID:           pcaR = add (pcaA,pcaB) @pca;
+    // ---
+    stage ID:           pidTGT = pcaR;
+    stage EX:           jmp_tgt_EX = pidTGT;
+#endif
+  }
+  syntax :
+           "beqz" PADMNM " " rs1 "," PADOP1 i                   op<<beq>>  rs2<<eX.x0>> // beq  rs1, x0
+         | "beqz" PADMNM " " rs2 "," PADOP1 i                   op<<beq>>  rs1<<eX.x0>> // beq  x0, rs2
+         | "beqz" PADMNM " " rs2 "," PADOP1 i                   op<<bgeu>> rs1<<eX.x0>> // bgeu x0, rs2
+         | "bnez" PADMNM " " rs1 "," PADOP1 i                   op<<bne>>  rs2<<eX.x0>> // bne  rs1, x0
+         | "bnez" PADMNM " " rs2 "," PADOP1 i                   op<<bne>>  rs1<<eX.x0>> // bne  x0, rs2
+         | "bnez" PADMNM " " rs2 "," PADOP1 i                   op<<bltu>> rs1<<eX.x0>> // bltu x0, rs2
+         | "bltz" PADMNM " " rs1 "," PADOP1 i                   op<<blt>>  rs2<<eX.x0>> // blt  rs1, x0
+         | "bgtz" PADMNM " " rs2 "," PADOP1 i                   op<<blt>>  rs1<<eX.x0>> // blt  x0, rs2
+         | "blez" PADMNM " " rs2 "," PADOP1 i                   op<<bge>>  rs1<<eX.x0>> // bge  x0, rs2
+         | "bgez" PADMNM " " rs1 "," PADOP1 i                   op<<bge>>  rs2<<eX.x0>> // bge  rs1, x0
+         | op     PADMNM " " rs1 "," PADOP1 rs2 "," PADOP2 i;
+  image  : i[12] :: i[10..5] :: rs2 :: rs1 :: op :: i[4..1 zero] :: i[11] :: opc32.BRANCH
+           cycles(3|1),
+           class(ctrl), class(branch);
+}
+
+// ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+// ~~~ Direct Jump and Link (ujmp)
+//
+// jal rd, imm
+//
+// pseudo:
+//   call imm
+//   j    imm
+
+opn jal_instr (rd: mX1w_EX, i: c21s_s2) {
+  action {
+    stage ID:           lnk_id = jal (of21=i);
+                        pidTGT = lnk_id;
+    // ---
+    stage EX..WB:       rd = pidTGT`EX`;
+    // ---
+#ifndef __programmers_view__
+    stage ID:           pcaA = PC_ID_r = PC_ID;
+                        pcaB = of21 = i;
+    // ---
+    stage ID:           pcaR = add (pcaA,pcaB) @pca;
+    // ---
+    stage ID:           jmp_tgt_ID = pcaR;
+#endif
+  }
+  syntax :
+           "call" PADMNM " " i                          rd<<eX.x1>> // jal x1, i
+         | "j"    PADMNM " " i                          rd<<eX.x0>> // jal x0, i
+         | "jal"  PADMNM " " rd "," PADOP1 dec i;
+  image  : i[20] :: i[10..1 zero] :: i[11] :: i[19..12] :: rd :: opc32.JAL
+           cycles(2),
+           class(ctrl), class(jal);
+}
+
+// ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+// ~~~ Indirect Jump and Link (ujmp)
+//
+// jalr rd, rs1, imm
+//
+// pseudo:
+//   ret
+//   call rs1
+//   jr   rs1
+
+opn jalr_instr (rd: mX1w_EX, rs1: mX1r_EX, i: c12s) {
+  action {
+    stage ID..EX:       pcaA`EX` = rs1;
+    stage EX:           pcaB     = i;
+    // ---
+    stage EX:           pcaR = add (pcaA,pcaB) @pca;
+                        lnk_ex = jalr (trgt=pcaR);
+    // ---
+    stage EX..WB:       rd = lnk_ex`EX`;
+    // ---
+#ifndef __programmers_view__
+    // NOTE: for indirect jmp, force LSB to zero, accord. to RISC-V ISA spec.
+    stage EX:           jmp_tgt_algn2 = trgt;
+                        jmp_tgt_EX = jmp_tgt_algn2;
+#endif
+  }
+  syntax :
+           "ret"                                                rd<<eX.x0>> i<<0>> rs1<<eX.x1>> // jalr x0, x1,  0
+         | "call" PADMNM " " rs1                                rd<<eX.x1>> i<<0>>              // jalr x1, rs1, 0
+         | "jr"   PADMNM " " rs1                                rd<<eX.x0>> i<<0>>              // jalr x0, rs1, 0
+         | "jalr" PADMNM " " rd "," PADOP1 rs1 "," PADOP2 dec i;
+  image  : i :: rs1 :: "000" :: rd :: opc32.JALR
+           cycles(3),
+           class(ctrl), class(jalr);
+}
+
+
+// ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+// ~~~ Chess Views for Control Operations
+// ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+// ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+// ~~~ Direct Jump
+//
+//    jal x0, imm
+// => j imm
+
+chess_view () {
+  x_w1_dead = jal (of21);
+} -> {
+  j (of21);
+}
+
+// ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+// ~~~ Indirect Jump
+//
+//    jalr x0, rs1, 0
+// => jr rs1
+
+chess_view () {
+  x_w1_dead = jalr (trgt);
+} -> {
+  jr (trgt);
+}
+
+// Explain the pass-through in front of jalr
+chess_view () {
+  pcaR = add (pcaA, pcaB = 0);
+} -> {
+  pcaR = pcaA;
+}

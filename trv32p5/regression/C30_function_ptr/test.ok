@@ -1,0 +1,28 @@
+// testFptr foo
+chess_report(int): 0x00000000 // 0
+chess_report(int): 0x00000008 // 8
+chess_report(int): 0x00000010 // 16
+chess_report(int): 0x00000018 // 24
+chess_report(int): 0x00000020 // 32
+chess_report(int): 0x00000028 // 40
+chess_report(int): 0x00000030 // 48
+// testGptr foo
+chess_report(int): 0x00000000 // 0
+chess_report(int): 0x00000004 // 4
+chess_report(int): 0x00000008 // 8
+chess_report(int): 0x0000000c // 12
+chess_report(int): 0x00000010 // 16
+chess_report(int): 0x00000014 // 20
+chess_report(int): 0x00000018 // 24
+// testGptr bar
+chess_report(int): 0x0000000d // 13
+chess_report(int): 0x0000000e // 14
+chess_report(int): 0x0000000f // 15
+chess_report(int): 0x00000010 // 16
+chess_report(int): 0x00000011 // 17
+chess_report(int): 0x00000012 // 18
+chess_report(int): 0x00000013 // 19
+// testFbigptr big
+chess_report(int): 0x00000024 // 36
+// testFptr2 big
+chess_report(int): 0x00000050 // 80

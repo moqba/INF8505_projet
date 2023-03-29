@@ -1,0 +1,6 @@
+<simulator name="Simulator" processor="trv32p5" mode="db" lib="../lib">
+    <option id="checkers.DebugController" value="trv32p5_pdc_interface"/>
+    <option id="checkers.DebugControllerHeader" value="trv32p5_pdc_interface.h"/>
+    <option id="checkers.ExtraCFiles" value="pdc_commands.c checkers_pdc_interface.c trv32p5_pdc_interface.c" inherit="1"/>
+    <option id="checkers.IssName" value="trv32p5_client"/>
+</simulator>
