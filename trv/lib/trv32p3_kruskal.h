@@ -11,5 +11,6 @@
 
 promotion void swap_hw(signed x, signed y, signed& xw, signed& yw)
         = void swap_hw(w32 x, w32 y, w32& xw, w32& yw);
-
+promotion void swapf_hw(signed uxr, signed vxr, signed wxr, signed uyr, signed vyr, signed wyr, signed& uxw, signed& vxw, signed& wxw, signed& uyw, signed& vyw, signed& wyw)
+        = void swapf_hw(w32 uxr, w32 vxr, w32 wxr, w32 uyr, w32 vyr, w32 wyr, w32& uxw, w32& vxw, w32& wxw, w32& uyw, w32& vyw, w32& wyw);
 #endif

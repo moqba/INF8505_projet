@@ -20,10 +20,11 @@ fu krus;
 trn idxX<w32>;
 
 enum kruskal_hw {
-  swap_hw = 0b100000000001111
+  swap_hw = 0b100000000001111,
+  swapf_hw = 0b100000000011111
 };
 
-opn krus_instr(swap_hw);
+opn krus_instr(swap_hw | swapf_hw);
 
 opn swap_hw()
 {
@@ -38,4 +39,27 @@ opn swap_hw()
   }
   syntax : "swap_hw";
   image : kruskal_hw.swap_hw::"00000"::"00000";
+}
+
+opn swapf_hw()
+{
+  action {
+  stage EX:
+    rar = RA;
+    rbr = RB;
+    rcr = RC;
+    rdr = RD;
+    rer = RE;
+    rfr = RF;
+    swapf_hw(rar, rbr, rcr , rdr, rer, rfr,
+            raw, rbw, rcw, rdw, rew, rfw) @krus;
+    RA = raw;
+    RB = rbw;
+    RC = rcw;
+    RD = rdw;
+    RE = rew;
+    RF = rfw;
+  }
+  syntax : "swapf_hw";
+  image : kruskal_hw.swapf_hw::"00000"::"00000";
 }
