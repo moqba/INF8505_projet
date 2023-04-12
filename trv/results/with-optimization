@@ -1,0 +1,44 @@
+ISS command     = <PROCDIR>/../iss/trv32p3_ca_dbg
+ISS mode        = Cycle accurate
+Core name       = ::iss
+
+Cycle count       = 1341045
+Instruction count = 1059416
+
+PC =         24
+
+SP =      65536
+Stack area: DMb [     32768 ..      65536] growing down
+Minimum stack pointer value =      63484
+
+Instruction history:
+
+  Stg PC         Instruction Assembly
+  IF          24 -- -- -- -- 
+
+  ID          20 00 00 00 6f j       0
+  EX          16 00 00 00 13 nop
+  S3  ---------- -- -- -- -- 
+  S4  ---------- -- -- -- -- 
+  S5        1056 00 00 80 67 ret
+  S6        1052 00 00 00 13 nop
+  S7        1048 00 41 01 13 addi    x2,  x2,  4
+  S8        1044 00 01 20 83 lw      x1,  0(x2)
+  S9  ---------- -- -- -- -- 
+  S10 ---------- -- -- -- -- 
+
+-------------------------------------------------------------------------------------------
+Console: 
+Starting debugger "trv32p3_ca_dbg"
+../../lib/../iss/trv32p3_ca_dbg -s localhost:46588
+Stack range [32768..65536] has been loaded from elf executable for stack memory DMb and stack pointer SP
+Simulation exited with exit code 0
+stepping halted after 1341045 steps
+User time    = 1.659999966621399
+Elapsed time = 1.7000000476837158
+Cycle count  = 1341045
+#Cycles/(User+Sys) = 807858.449979027
+#Cycles/(Elapsed)  = 788849.977873354
+
+
+
